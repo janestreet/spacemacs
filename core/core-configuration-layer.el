@@ -75,6 +75,10 @@ the .lock file at the root of the repository.")
   "Sub-directory name where to install ELPA packages. Should be defined in
 the lock file.")
 
+(defvar configuration-layer-install-use-quelpa t
+  "Use quelpa to fetch packages with recipes, set to nil to force use of package
+   repository instead, for use with a pinned package repo.")
+
 (defconst configuration-layer-stable-elpa-directory
   (expand-file-name
    (concat spacemacs-cache-directory "stable-elpa/" emacs-version "/"))
@@ -420,6 +424,12 @@ installation of initialization.")
   "List of strings corresponding to category names. A category is a
 directory with a name starting with `+'.")
 
+(defvar configuration-layer-pre-init-hook nil
+  "Runs before any other setup")
+
+(defvar configuration-layer-post-package-init-hook nil
+  "Runs after package-initialize")
+
 (defvar update-packages-alist '()
   "Used to collect information about rollback packages in the
 cache folder.")
@@ -434,6 +444,9 @@ cache folder.")
     (configuration-layer//stable-elpa-disable-repository))
   (setq configuration-layer--refresh-package-timeout dotspacemacs-elpa-timeout)
   (unless package--initialized
+    (let ((load-pre-init-path (getenv "SPACEMACS_LOAD_PRE_INIT_PATH")))
+      (when load-pre-init-path (load load-pre-init-path)))
+    (run-hooks 'configuration-layer-pre-init-hook)
     (setq configuration-layer-rollback-directory
           (configuration-layer/elpa-directory
            configuration-layer--rollback-root-directory))
@@ -444,7 +457,8 @@ cache folder.")
                             configuration-layer-elpa-archives))
     ;; optimization, no need to activate all the packages so early
     (setq package-enable-at-startup nil)
-    (package-initialize 'noactivate)))
+    (package-initialize 'noactivate)
+    (run-hooks 'configuration-layer-post-package-init-hook)))
 
 (defun configuration-layer//configure-quelpa ()
   "Configure `quelpa' package."
@@ -1743,7 +1757,8 @@ RNAME is the name symbol of another existing layer."
     (unless (package-installed-p pkg-name min-version)
       (condition-case-unless-debug err
           (cond
-           ((or (null pkg) (eq 'elpa location))
+           ((or (null pkg) (eq 'elpa location)
+            (not configuration-layer-install-use-quelpa))
             (configuration-layer//install-from-elpa pkg-name)
             (when pkg (oset pkg :lazy-install nil)))
            ((and (listp location) (eq 'recipe (car location)))
@@ -2582,21 +2597,25 @@ The URL of the descriptor is patched to be the passed URL")
   "Download FILENAME from distant ELPA repository to OUTPUT-DIR.
 
 Original code from dochang at https://github.com/dochang/elpa-clone"
-  (let ((source (concat archive-url filename))
-        (target (expand-file-name filename output-dir)))
+  (let* ((http (string-match "\\`https?:" archive-url))
+         (copy-fn (if http #'url-copy-file #'copy-file))
+         (exists-fn (if http #'url-http-file-exists-p #'file-exists-p))
+         (join-fn (if http #'concat (lambda (a b) (expand-file-name b a))))
+         (source (funcall join-fn archive-url filename))
+         (target (expand-file-name filename output-dir)))
     (unless (file-exists-p target)
       (let* ((readme-filename (format "%S-readme.txt" pkg-name))
-             (source-readme (concat archive-url readme-filename)))
-        (when (and readmep (url-http-file-exists-p source-readme))
-          (url-copy-file source-readme
+             (source-readme (funcall join-fn archive-url readme-filename)))
+        (when (and readmep (funcall exists-fn source-readme))
+          (funcall copy-fn source-readme
                          (expand-file-name readme-filename output-dir)
                          'ok-if-already-exists)))
       (when signaturep
-        (let* ((sig-filename (concat filename ".sig"))
-               (source-sig (concat archive-url sig-filename))
+        (let* ((sig-filename (funcall join-fn filename ".sig"))
+               (source-sig (funcall join-fn archive-url sig-filename))
                (target-sig (expand-file-name sig-filename output-dir)))
-          (url-copy-file source-sig target-sig 'ok-if-already-exists)))
-      (url-copy-file source target))))
+          (funcall copy-fn source-sig target-sig 'ok-if-already-exists)))
+      (funcall copy-fn source target))))
 
 (defun configuration-layer//sync-elpa-packages-files (packages output-dir)
   "Synchronize PACKAGES files from remote ELPA directory to OUTPUT-DIR"
@@ -2627,13 +2646,14 @@ Original code from dochang at https://github.com/dochang/elpa-clone"
         (configuration-layer/message "Remove outdated %s..." ofilename)
         (delete-file (concat output-dir ofilename))))))
 
-(defun configuration-layer/create-elpa-repository (name output-dir)
+(defun configuration-layer/create-elpa-repository (name output-dir &optional extra-sources)
   "Create an ELPA repository containing all packages supported by Spacemacs."
   (configuration-layer/make-all-packages 'no-discover)
-  (let (package-archive-contents
-        (package-archives '(("melpa" . "https://melpa.org/packages/")
-                            ("gnu"   . "https://elpa.gnu.org/packages/")
-                            ("nongnu" . "https://elpa.nongnu.org/nongnu/"))))
+  (let* (package-archive-contents
+         (base-sources '(("melpa" . "https://melpa.org/packages/")
+                         ("gnu"   . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+         (package-archives (append extra-sources base-sources)))
     (package-refresh-contents)
     (package-read-all-archive-contents)
     (let* ((packages (configuration-layer//get-indexed-elpa-package-names))
