@@ -75,8 +75,8 @@ Additionally changes to working directory when the value of
 `shell-pop-autocd-to-working-dir' is non-nil (default)."
   (interactive)
   (let ((shell (cl-case shell-default-shell
-                 ('multi-term 'multiterm)
-                 ('shell 'inferior-shell)
+                 (multi-term 'multiterm)
+                 (shell 'inferior-shell)
                  (t shell-default-shell))))
     (call-interactively (intern (format "spacemacs/shell-pop-%S" shell)))))
 
