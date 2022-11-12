@@ -27,7 +27,6 @@
         evil-args
         evil-collection
         evil-cleverparens
-        evil-ediff
         evil-escape
         evil-exchange
         evil-goggles
