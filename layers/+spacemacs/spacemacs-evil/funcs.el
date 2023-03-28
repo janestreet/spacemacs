@@ -104,4 +104,5 @@ merged.")
 
 (defun spacemacs//load-evil-lisp-state ()
   "Load evil-lisp-state lazily"
-  (require 'evil-lisp-state))
+  (require 'evil-lisp-state)
+  (remove-hook 'prog-mode-hook #'spacemacs//load-evil-lisp-state))
