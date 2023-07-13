@@ -70,10 +70,7 @@
 
 (defun git/pre-init-evil-collection ()
   (when (spacemacs//support-evilified-buffer-p)
-    (add-to-list 'spacemacs-evil-collection-allowed-list 'magit)
-    ;; See `git-packages' form in this file.
-    (unless (spacemacs/system-is-mswindows)
-      (add-to-list 'spacemacs-evil-collection-allowed-list 'forge))))
+    (add-to-list 'spacemacs-evil-collection-allowed-list 'magit)))
 
 (defun git/post-init-fill-column-indicator ()
   (add-hook 'git-commit-mode-hook 'fci-mode))
