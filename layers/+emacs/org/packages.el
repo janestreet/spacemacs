@@ -1049,14 +1049,7 @@ Headline^^            Visit entry^^               Filter^^                    Da
       (add-hook 'org-mode-hook 'org-appear-mode)
       (setq org-appear-autolinks t
             org-appear-autoemphasis t
-            org-appear-autosubmarkers t))
-    :config
-    (when (and (eq org-appear-trigger 'manual)
-               (memq dotspacemacs-editing-style '(vim hybrid)))
-      (add-hook 'org-mode-hook
-                (lambda ()
-                  (add-hook 'evil-insert-state-entry-hook #'org-appear-manual-start nil t)
-                  (add-hook 'evil-insert-state-exit-hook #'org-appear-manual-stop nil t))))))
+            org-appear-autosubmarkers t))))
 
 (defun org/init-ox-asciidoc ()
   (use-package ox-asciidoc
