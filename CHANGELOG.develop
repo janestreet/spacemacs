@@ -2930,11 +2930,8 @@ files (thanks to Daniel Nicolai)
 **** Org
 - Add ~SPC m [~ for =org-agenda-file-to-front= and ~SPC m ]~ for =org-remove-file=
   (thanks to Keith Pinson).
-- When =org-appear= is set to be triggered manually and Spacemacs' editing mode is
-  Vim or hybrid, register relevant =org-appear= commands in Evil hooks for Org
-  buffers (thanks to Keith Pinson).
 - Provide some sane default strategies for enforcing =TODO= dependencies via
-  =org-todo-dependencies-strategy= (thanks to Keith Pinson).
+  =org-todo-dependencies-strategy=. (thanks to Keith Pinson)
 - Load org-mode email integration (mu4e/notmuch) when org is loaded
   (thanks to Steven Allen)
 - Packages:
