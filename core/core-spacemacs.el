@@ -157,9 +157,8 @@ the final step of executing code in `emacs-startup-hook'.")
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
   ;; Load environment variables from user config or default env.
-  (if (fboundp 'dotspacemacs/user-env)
-      (dotspacemacs/call-user-env)
-    (spacemacs/load-spacemacs-env))
+  (when (fboundp 'dotspacemacs/user-env)
+    (dotspacemacs/call-user-env))
   ;; Install the dotfile if required.
   (dotspacemacs/maybe-install-dotfile))
 
