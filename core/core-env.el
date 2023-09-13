@@ -139,13 +139,21 @@ current contents of the file will be overwritten."
     (dotspacemacs/go-to-user-env)))
 
 (defun spacemacs/load-spacemacs-env (&optional force)
-  "Load the environment variables from the `.spacemacs.env' file.
-If FORCE is non-nil then force the loading of environment variables from env.
-file."
+  "This function is disabled at Jane Street.
+
+Please set environment variables explicitly in your dotspacemacs
+or .bash_profile, if required, and remove this function from your
+config."
   (interactive "P")
+  (warn "Do not use `spacemacs/load-spacemacs-env' at Jane Street.  It may cause environment-related bugs.  Please remove any calls from your config file: %S"
+        dotspacemacs-filepath)
   (setq spacemacs--spacemacs-env-loaded t)
   (when (or force (display-graphic-p))
     (spacemacs//init-spacemacs-env force)
     (load-env-vars spacemacs-env-vars-file)))
+
+(make-obsolete 'spacemacs/load-spacemacs-env
+               "this function should not be used at Jane Street."
+               "2023-09")
 
 (provide 'core-env)
