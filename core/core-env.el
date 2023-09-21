@@ -145,14 +145,16 @@ config."
   (interactive "P")
   (warn "Do not use `spacemacs/load-spacemacs-env' at Jane Street.  It may cause environment-related bugs.  Please remove any calls from your config file: %S"
         dotspacemacs-filepath)
-  (let ((old-krb5ccname (getenv "KRB5CCNAME")))
+  (let ((old-krb5ccname (getenv "KRB5CCNAME"))
+        (old-krb5ccname-static (getenv "KRB5CCNAME_STATIC")))
     (unwind-protect
         (progn
           (setq spacemacs--spacemacs-env-loaded t)
           (when (or force (display-graphic-p))
             (spacemacs//init-spacemacs-env force)
             (load-env-vars spacemacs-env-vars-file)))
-      (setenv "KRB5CCNAME" old-krb5ccname))))
+      (setenv "KRB5CCNAME" old-krb5ccname)
+      (setenv "KRB5CCNAME_STATIC" old-krb5ccname-static))))
 
 (make-obsolete 'spacemacs/load-spacemacs-env
                "this function should not be used at Jane Street."
