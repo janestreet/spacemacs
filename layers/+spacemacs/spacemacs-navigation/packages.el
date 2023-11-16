@@ -435,7 +435,7 @@
     :config
     (progn
       (setq winum-auto-assign-0-to-minibuffer nil
-            winum-auto-setup-mode-line nil
+            winum-auto-setup-mode-line (eq dotspacemacs-mode-line-theme 'vanilla)
             winum-ignored-buffers '(" *LV*" " *which-key*"))
       (spacemacs/set-leader-keys
         "`" 'winum-select-window-by-number
