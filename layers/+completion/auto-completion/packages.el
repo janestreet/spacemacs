@@ -284,6 +284,7 @@
     (progn
       ;; We don't want undefined variable errors
       (defvar yas-global-mode nil)
+      (defvar yas-snippet-dirs nil)
       (setq yas-triggers-in-field t
             yas-wrap-around-region t
             helm-yas-display-key-on-candidate t)
@@ -311,7 +312,6 @@
                                     dotspacemacs-directory)))
                   (when (file-accessible-directory-p snippet-dir)
                     snippet-dir)))))
-        (setq yas-snippet-dirs nil)
         ;; ~/.emacs.d/layers/auto-completion/snippets
         (add-to-list 'yas-snippet-dirs spacemacs-layer-snippets-dir)
         ;; ~/.emacs.d/private/snippets
