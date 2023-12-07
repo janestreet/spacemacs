@@ -54,8 +54,7 @@
     :config
     (progn
       (spacemacs|hide-lighter anzu-mode)
-      (setq anzu-search-threshold 1000
-            anzu-cons-mode-line-p nil)
+      (setq anzu-search-threshold 1000)
       ;; powerline integration
       (when (configuration-layer/package-used-p 'spaceline)
         (defun spacemacs/anzu-update-mode-line (here total)
@@ -68,9 +67,10 @@
                                      total (if anzu--overflow-p "+" "")))
                      (replace-query (format "(%d replace)" total))
                      (replace (format "(%d/%d)" here total)))))
-              status)))
-        (setq anzu-mode-line-update-function
-              'spacemacs/anzu-update-mode-line)))))
+              status))))
+      (when (eq (spacemacs/get-mode-line-theme-name) 'spaceline)
+        (setq anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line
+              anzu-cons-mode-line-p nil)))))
 
 (defun spacemacs-evil/post-init-eldoc ()
   (eldoc-add-command #'evil-cp-insert)
