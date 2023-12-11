@@ -27,7 +27,9 @@
 (defconst spacemacs-editing-visual-packages
   '(
     column-enforce-mode
-    (hide-comnt :location (recipe :fetcher github :repo "emacsmirror/hide-comnt"))
+    ;; CR-soon azeng for azeng: Undo this local package once hide-comnt is
+    ;; available in our pinned archive.
+    (hide-comnt :location local)
     highlight-indentation
     highlight-numbers
     highlight-parentheses
