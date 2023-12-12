@@ -209,6 +209,13 @@ Needed to bypass keymaps set as text properties."
   (define-key evil-evilified-state-map (kbd "C-i") 'evil-jump-forward)))
 (define-key evil-evilified-state-map (kbd "C-z") 'evil-emacs-state)
 (define-key evil-evilified-state-map (kbd "C-w") 'evil-window-map)
+
+;; JS-only: azeng: As described in
+;; https://github.com/emacs-evil/evil/issues/1780, we disable translating
+;; <escape> to ESC for evil-mode users.  To avoid the escape key raising a
+;; distracting user error in evilified buffers, just ignore it.
+(define-key evil-evilified-state-map (kbd "<escape>") 'ignore)
+
 (setq evil-evilified-state-map-original (copy-keymap evil-evilified-state-map))
 
 ;;;###autoload
