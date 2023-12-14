@@ -41,7 +41,7 @@
         evil-surround
         evil-textobj-line
         evil-tutor
-        (evil-unimpaired :location (recipe :fetcher local))
+        (evil-unimpaired :location local)
         evil-visual-mark-mode
         evil-visualstar
         (hs-minor-mode :location built-in)
