@@ -519,10 +519,7 @@
       (spacemacs|add-toggle whitespace-globally
         :mode global-whitespace-mode
         :documentation "Display whitespace globally."
-        :evil-leader "t C-w")
-
-      (add-hook 'diff-mode-hook 'whitespace-mode)
-      (add-hook 'diff-mode-hook 'spacemacs//set-whitespace-style-for-diff))
+        :evil-leader "t C-w"))
     :config
     (progn
       (set-face-attribute 'whitespace-space nil
