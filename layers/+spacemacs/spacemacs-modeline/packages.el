@@ -30,7 +30,7 @@
         (spaceline-all-the-icons :toggle (eq (spacemacs/get-mode-line-theme-name) 'all-the-icons))
         symon
         (powerline :toggle (eq (spacemacs/get-mode-line-theme-name) 'vim-powerline))
-        (vim-powerline :location (recipe :fetcher local)
+        (vim-powerline :location local
                        :toggle (eq (spacemacs/get-mode-line-theme-name) 'vim-powerline))))
 
 (defun spacemacs-modeline/init-doom-modeline ()
