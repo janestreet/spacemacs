@@ -48,7 +48,7 @@
     py-isort
     pyenv-mode
     pydoc
-    (pylookup :location (recipe :fetcher local))
+    (pylookup :location local)
     (pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
     (ruff-format :toggle (eq 'ruff python-formatter))
