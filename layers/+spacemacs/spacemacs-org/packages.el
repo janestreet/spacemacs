@@ -34,7 +34,7 @@
     ;; `org' package.
     (default-org-config :location built-in)
     org-superstar
-    (space-doc :location (recipe :fetcher local))
+    (space-doc :location local)
     toc-org
     ))
 

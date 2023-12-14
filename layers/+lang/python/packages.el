@@ -49,7 +49,7 @@
     py-isort
     pyenv-mode
     pydoc
-    (pylookup :location (recipe :fetcher local))
+    (pylookup :location local)
     (python-pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
     ;; Use the performance enhanced fork (https://github.com/jorgenschaefer/pyvenv/pull/128)
