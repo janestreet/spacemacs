@@ -41,7 +41,7 @@
     pcre2el
     (smartparens :toggle dotspacemacs-activate-smartparens-mode)
     (evil-swap-keys :toggle dotspacemacs-swap-number-row)
-    (spacemacs-whitespace-cleanup :location (recipe :fetcher local))
+    (spacemacs-whitespace-cleanup :location local)
     string-edit-at-point
     string-inflection
     multi-line
