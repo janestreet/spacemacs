@@ -24,9 +24,7 @@
   '(auto-highlight-symbol
     imenu
     marginalia
-    ;; (compleseus-spacemacs-help :location local)
-    (compleseus-spacemacs-help
-     :location (recipe :fetcher local))
+    (compleseus-spacemacs-help :location local)
     consult
     consult-yasnippet
     embark
@@ -440,7 +438,6 @@
 
 (defun compleseus/init-compleseus-spacemacs-help ()
   (use-package compleseus-spacemacs-help
-    :defer t
     :init
     (spacemacs/set-leader-keys
       "h ."   'compleseus-spacemacs-help-dotspacemacs
