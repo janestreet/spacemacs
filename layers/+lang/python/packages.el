@@ -47,7 +47,7 @@
     py-isort
     pydoc
     pyenv-mode
-    (pylookup :location (recipe :fetcher local))
+    (pylookup :location local)
     (pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
     pyvenv
@@ -106,15 +106,15 @@
   ;; backend specific
   (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-company)
   (spacemacs|add-company-backends
-    :backends (company-files company-capf)
-    :modes inferior-python-mode
-    :variables
-    company-minimum-prefix-length 0
-    company-idle-delay 0.5)
+   :backends (company-files company-capf)
+   :modes inferior-python-mode
+   :variables
+   company-minimum-prefix-length 0
+   company-idle-delay 0.5)
   (when (configuration-layer/package-used-p 'pip-requirements)
     (spacemacs|add-company-backends
-      :backends company-capf
-      :modes pip-requirements-mode)))
+     :backends company-capf
+     :modes pip-requirements-mode)))
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda

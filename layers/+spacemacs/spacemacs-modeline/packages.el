@@ -29,7 +29,7 @@
                                  '(spacemacs all-the-icons custom)))
         (spaceline-all-the-icons :toggle (eq (spacemacs/get-mode-line-theme-name) 'all-the-icons))
         symon
-        (vim-powerline :location (recipe :fetcher local))))
+        (vim-powerline :location local)))
 
 (defun spacemacs-modeline/init-doom-modeline ()
   ;; doom modeline depends on `display-graphic-p' so we delay its initialization
