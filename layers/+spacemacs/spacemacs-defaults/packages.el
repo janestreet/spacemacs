@@ -410,7 +410,6 @@ un-modified buffer for recentf."
           savehist-additional-variables '(search-ring
                                           regexp-search-ring
                                           extended-command-history
-                                          kill-ring
                                           kmacro-ring
                                           log-edit-comment-ring)
           ;; We use an idle timer instead, as saving can cause
