@@ -432,7 +432,6 @@ excessive pauses when saving."
     (dolist (v '(search-ring
                  regexp-search-ring
                  extended-command-history
-                 kill-ring
                  kmacro-ring
                  log-edit-comment-ring))
       (add-to-list 'savehist-additional-variables v))))
