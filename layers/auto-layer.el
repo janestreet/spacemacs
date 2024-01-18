@@ -66,7 +66,6 @@
 (configuration-layer/lazy-install 'nginx :extensions '("\\(nginx\\.conf\\'\\|/nginx/.+\\.conf\\'\\)" nginx-mode))
 (configuration-layer/lazy-install 'octave :extensions '("\\(\\.m\\'\\)" octave-mode))
 (configuration-layer/lazy-install 'markdown :extensions '("\\(\\.markdown\\'\\|\\.md\\'\\|\\.m[k]d\\)" markdown-mode))
-(configuration-layer/lazy-install 'ocaml :extensions '("\\(\\.ml[ip]?\\'\\|\\.eliomi?\\'\\)" tuareg-mode))
 (configuration-layer/lazy-install 'perl5 :extensions '("\\.\\(p[lm]x?\\|P[LM]X?\\)\\'" cperl-mode))
 (configuration-layer/lazy-install 'php :extensions '("\\(\\.amk\\'\\|/Amkfile\\'\\|\\.phtml\\'\\|\\.php[s345t]?\\'\\|[^/]\\.\\(module\\|test\\|install\\|profile\\|tpl\\.php\\|theme\\|inc\\)\\'\\|\\.php\\'\\)" php-mode))
 (configuration-layer/lazy-install 'protobuf :extensions '("\\(\\.proto\\'\\)" protobuf-mode))
