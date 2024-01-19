@@ -1406,6 +1406,14 @@ Returns nil if there is no layer named LAYER-NAME."
       file-name-directory
       configuration-layer//get-category-from-path)))
 
+(defun configuration-layer//layer-paths-from-site-lisp-dirs ()
+  "Return a list of existing dirs named \"spacemacs-layers\" under `load-path' entries."
+  (seq-mapcat (lambda (path)
+                (let ((layers-path (file-name-concat path "spacemacs-layers")))
+                  (when (file-directory-p layers-path)
+                    (list layers-path))))
+              load-path))
+
 (defun configuration-layer/discover-layers (&optional refresh-index)
   "Initialize `configuration-layer--indexed-layers' with layer directories.
 If REFRESH-INDEX is non-nil, the layer index is cleared before
@@ -1421,6 +1429,8 @@ discovery."
                        (list configuration-layer-directory)
                        ;; layers in private folder ~/.emacs.d/private
                        (list spacemacs-private-directory)
+                       ;; layers under .../site-lisp/spacemacs-layers/
+                       (configuration-layer//layer-paths-from-site-lisp-dirs)
                        ;; layers in dotdirectory
                        ;; this path may not exist, so check if it does
                        (when dotspacemacs-directory
@@ -1473,7 +1483,12 @@ discovery."
                         (configuration-layer//warning
                          (concat
                           "Duplicated layer %s detected in directory \"%s\", "
-                          "replacing old directory \"%s\" with new directory.")
+                          "replacing old directory \"%s\" with new directory."
+                          "\n\n"
+                          "If you are specifying the jane-elisp directory in
+`dotspacemacs-configuration-layer-path', you no longer need to do
+so (it is now determined by the Emacs binary path you are
+running).")
                          layer-name-str sub (oref indexed-layer :dir))
                         (oset indexed-layer :dir sub))
                     (spacemacs-buffer/message
