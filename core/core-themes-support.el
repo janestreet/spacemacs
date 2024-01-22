@@ -368,7 +368,12 @@ THEME."
                 (add-to-list 'custom-theme-load-path pkg-dir)
                 (package-activate pkg-name))))
           (when disable
-            (mapc 'disable-theme custom-enabled-themes))
+            (mapc 'disable-theme
+                  (seq-remove (lambda (theme)
+                                ;; Don't disable jane- themes, which are meant
+                                ;; to coexist with other themes.
+                                (string-prefix-p "jane-" (symbol-name theme)))
+                              custom-enabled-themes)))
           (unless (eq 'default theme-name)
             (load-theme theme-name t))
           (unless (display-graphic-p)
