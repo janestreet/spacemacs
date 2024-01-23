@@ -8,13 +8,13 @@
 (setq configuration-layer-elpa-subdirectory "develop")
 
 (setq configuration-layer-elpa-archives
-      `(("melpa"    . "melpa.org/packages/")
-        ("gnu"      . "elpa.gnu.org/packages/")
-        ("nongnu"   . "elpa.nongnu.org/nongnu/")
-        ("spacelpa" . ,(concat configuration-layer-stable-elpa-archive "/packages/"))))
+      (append package-archives
+              `(("melpa"    . "melpa.org/packages/")
+                ("spacelpa" . ,(concat configuration-layer-stable-elpa-archive "/packages/")))))
 
 (setq package-archive-priorities
-      '(("spacelpa" . 8)
-        ("melpa"    . 4)
-        ("nongnu"   . 2)
-        ("gnu"      . 1)))
+      (append package-archive-priorities
+              '(("spacelpa" . 8)
+                ("melpa"    . 4)
+                ("nongnu"   . 2)
+                ("gnu"      . 1))))
