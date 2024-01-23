@@ -53,15 +53,16 @@ SPACEMACSDIR environment variable. If neither of these
 directories exist, this variable will be nil.")
 
   (defvar dotspacemacs-filepath
-    (let ((spacemacs-dir-init (when dotspacemacs-directory
-                                (concat dotspacemacs-directory
-                                        "init.el"))))
-      (cond
-       (env-init)
-       ((file-exists-p default-init) default-init)
-       ((and dotspacemacs-directory (file-exists-p spacemacs-dir-init))
-        spacemacs-dir-init)
-       (t default-init)))
+    (when user-init-file
+      (let ((spacemacs-dir-init (when dotspacemacs-directory
+                                  (concat dotspacemacs-directory
+                                          "init.el"))))
+        (cond
+         (env-init)
+         ((file-exists-p default-init) default-init)
+         ((and dotspacemacs-directory (file-exists-p spacemacs-dir-init))
+          spacemacs-dir-init)
+         (t default-init))))
     "Filepath to the installed dotfile. If SPACEMACSDIR is given
 then SPACEMACSDIR/init.el is used. Otherwise, if ~/.spacemacs
 exists, then this is used. If ~/.spacemacs does not exist, then
@@ -921,10 +922,11 @@ a display strng and the value is the actual value to return."
 
 (defun dotspacemacs/maybe-install-dotfile ()
   "Install the dotfile if it does not exist."
-  (unless (file-exists-p dotspacemacs-filepath)
-    (spacemacs-buffer/set-mode-line "Dotfile wizard installer" t)
-    (when (dotspacemacs/install 'with-wizard)
-      (configuration-layer/load))))
+  (when dotspacemacs-filepath
+    (unless (file-exists-p dotspacemacs-filepath)
+      (spacemacs-buffer/set-mode-line "Dotfile wizard installer" t)
+      (when (dotspacemacs/install 'with-wizard)
+        (configuration-layer/load)))))
 
 (defun dotspacemacs/install (arg)
   "Install the dotfile, return non nil if the dotfile has been installed.
@@ -977,7 +979,7 @@ If ARG is non nil then ask questions to the user before installing the dotfile."
 
 (defun dotspacemacs/load-file ()
   "Load ~/.spacemacs if it exists."
-  (let ((dotspacemacs (dotspacemacs/location)))
+  (when-let ((dotspacemacs (dotspacemacs/location)))
     (if (file-exists-p dotspacemacs)
         (unless (with-demoted-errors "Error loading .spacemacs: %S"
                   (load dotspacemacs))
