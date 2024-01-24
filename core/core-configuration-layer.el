@@ -561,6 +561,8 @@ refreshed during the current session."
       (package-read-all-archive-contents)
       (unless quiet (spacemacs-buffer/append "\n")))))
 
+(defvar dotspacemacs--configuration-layers-from-last-startup nil)
+
 (defun configuration-layer/load ()
   "Load layers declared in dotfile if necessary."
   (run-hooks 'configuration-layer-pre-load-hook)
@@ -570,18 +572,19 @@ refreshed during the current session."
          configuration-layer--last-dotspacemacs-configuration-layers-file)
     (configuration-layer/load-file
      configuration-layer--last-dotspacemacs-configuration-layers-file))
-  (let ((layers dotspacemacs-configuration-layers))
-    (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-    ;; `dotspacemacs--configuration-layers-saved' is used to detect if the layer
-    ;; list has been changed outside of function `dotspacemacs/layers'
-    (setq dotspacemacs--configuration-layers-saved
-          dotspacemacs-configuration-layers)
-    (setq changed-since-last-dump-p
-          (not (equal layers dotspacemacs-configuration-layers)))
-    ;; save layers list to file
-    (spacemacs/dump-vars-to-file
-     '(dotspacemacs-configuration-layers)
-     configuration-layer--last-dotspacemacs-configuration-layers-file))
+  (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+  ;; `dotspacemacs--configuration-layers-saved' is used to detect if the layer
+  ;; list has been changed outside of function `dotspacemacs/layers'
+  (setq dotspacemacs--configuration-layers-saved
+        dotspacemacs-configuration-layers)
+  (setq changed-since-last-dump-p
+        (not (equal dotspacemacs--configuration-layers-from-last-startup
+                    dotspacemacs-configuration-layers)))
+  ;; save layers list to file
+  (setq dotspacemacs--configuration-layers-from-last-startup dotspacemacs-configuration-layers)
+  (spacemacs/dump-vars-to-file
+   '(dotspacemacs--configuration-layers-from-last-startup)
+   configuration-layer--last-dotspacemacs-configuration-layers-file))
   (cond
    (changed-since-last-dump-p
     ;; dump
