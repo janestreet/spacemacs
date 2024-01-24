@@ -41,7 +41,13 @@
     (smartparens :toggle dotspacemacs-activate-smartparens-mode)
     (evil-swap-keys :toggle dotspacemacs-swap-number-row)
     (spacemacs-whitespace-cleanup :location local)
-    string-edit-at-point
+    ;; CR-someday azeng: string-edit was renamed to string-edit-at-point, but
+    ;; that new name is not yet present in our snapshots.  On the other hand,
+    ;; Emacs 29+ introduces a string-edit-mode which is a major mode and
+    ;; conflicts with the minor mode in this package.  We'll exclude the package
+    ;; for now, and when we upgrade our package snapshot to include
+    ;; string-edit-at-point, we can remove this exclusion.
+    (string-edit-at-point :excluded t)
     string-inflection
     multi-line
     undo-tree
