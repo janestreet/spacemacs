@@ -21,6 +21,8 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+(setq async-bytecomp-allowed-packages nil)
+
 (defconst spacemacs-bootstrap-packages
   '(
     ;; bootstrap packages,
