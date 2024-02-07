@@ -2434,8 +2434,7 @@ depends on it."
   "Delete package with name PKG-NAME."
   (if-let ((pkg (car (alist-get pkg-name package-alist))))
       ;; add force flag to ignore dependency checks in Emacs25
-      (if (configuration-layer//system-package-p pkg)
-          (message "Would have removed package %s but this is a system package so it has not been changed." pkg-name)
+      (unless (configuration-layer//system-package-p pkg)
         (package-delete pkg t t))
     (message "Can't remove package %s since it isn't installed." pkg-name)))
 
