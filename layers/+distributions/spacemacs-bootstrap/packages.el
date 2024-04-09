@@ -34,7 +34,7 @@
     (evil :step bootstrap)
     (hydra :step bootstrap)
     (use-package :step bootstrap)
-    (which-key :step bootstrap)
+    (which-key :step bootstrap :location built-in)
     ;; pre packages, initialized after the bootstrap packages
     ;; these packages can use use-package
     (dotenv-mode :step pre)
