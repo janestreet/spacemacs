@@ -173,6 +173,10 @@
         :mode volatile-highlights-mode
         :documentation "Display visual feedback for some operations."
         :evil-leader "thv")
+      ;; volatile-highlights is redundant with built-in highlighting in occur.  in
+      ;; emacs 29, it starts to cause errors.  see
+      ;; https://github.com/k-talo/volatile-highlights.el/issues/26
+      (setq vhl/use-occur-extension-p (< emacs-major-version 28))
       (volatile-highlights-mode t))
     :config
     (progn
