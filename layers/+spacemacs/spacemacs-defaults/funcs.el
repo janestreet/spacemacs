@@ -1146,6 +1146,7 @@ dotspacemacs-persistent-server to be t"
 (defadvice kill-emacs (around spacemacs-really-exit activate)
   "Only kill emacs if a prefix is set"
   (if (and (not spacemacs-really-kill-emacs)
+           (not noninteractive)         ;in batch mode, just kill emacs
            (spacemacs//persistent-server-running-p))
       (spacemacs/frame-killer)
     ad-do-it))
@@ -1153,6 +1154,7 @@ dotspacemacs-persistent-server to be t"
 (defadvice save-buffers-kill-emacs (around spacemacs-really-exit activate)
   "Only kill emacs if a prefix is set"
   (if (and (not spacemacs-really-kill-emacs)
+           (not noninteractive)         ;in batch mode, just kill emacs
            (spacemacs//persistent-server-running-p))
       (spacemacs/frame-killer)
     ad-do-it))
