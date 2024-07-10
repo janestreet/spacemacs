@@ -64,7 +64,7 @@
     (spacemacs-buffer/display-startup-note)
     (spacemacs/setup-startup-hook)
     (spacemacs/dump-eval-delayed-functions)
-    (when (and dotspacemacs-enable-server (not (spacemacs-is-dumping-p)))
+    (when (and dotspacemacs-enable-server (not noninteractive))
       (require 'server)
       (when dotspacemacs-server-socket-dir
         (setq server-socket-dir dotspacemacs-server-socket-dir))
