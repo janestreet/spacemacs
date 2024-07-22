@@ -2346,12 +2346,15 @@ depends on it."
     result))
 
 (defun configuration-layer//get-implicit-packages-from-alist (packages)
-  "Returns packages in `packages-alist' which are not found in PACKAGES."
+  "Returns packages in `packages-alist' which are not found in PACKAGES.
+
+Also omits system packages."
   (let (imp-pkgs)
     (dolist (pkg package-alist)
-      (let ((pkg-sym (car pkg)))
-        (unless (memq pkg-sym packages)
-          (cl-pushnew pkg-sym imp-pkgs))))
+      (unless (cl-some #'configuration-layer//system-package-p (cdr pkg))
+        (let ((pkg-sym (car pkg)))
+          (unless (memq pkg-sym packages)
+            (cl-pushnew pkg-sym imp-pkgs)))))
     imp-pkgs))
 
 (defun configuration-layer//get-orphan-packages
