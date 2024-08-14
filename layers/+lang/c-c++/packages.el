@@ -95,8 +95,8 @@
       (spacemacs/declare-prefix-for-mode mode "mg" "goto")
       (spacemacs/declare-prefix-for-mode mode "mp" "project")
       (spacemacs/set-leader-keys-for-major-mode mode
-        "ga" 'projectile-find-other-file
-        "gA" 'projectile-find-other-file-other-window))))
+        "ga" 'ff-find-other-file
+        "gA" 'ff-find-other-file-other-window))))
 
 (defun c-c++/init-ccls ()
   (use-package ccls
