@@ -43,7 +43,10 @@
     terminal-here
     vi-tilde-fringe
     window-purpose
-    (multi-vterm :toggle (and module-file-suffix (not (spacemacs/system-is-mswindows))))
+    (multi-vterm :toggle (and module-file-suffix (not (spacemacs/system-is-mswindows)))
+                 :excluded t)
+    ;; CR-someday azeng: Remove this exclusion for multi-vterm once our package
+    ;; snapshot includes it.
     (vterm :toggle (and module-file-suffix (not (spacemacs/system-is-mswindows))))))
 
 
