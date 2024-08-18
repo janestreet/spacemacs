@@ -33,6 +33,8 @@
 ;; Load the paths to Spacemacs core files.
 (load (concat (file-name-directory load-file-name) "core/core-load-paths")
       nil (not init-file-debug))
+(load (concat (file-name-directory load-file-name) "core/core-early-funcs")
+      nil (not init-file-debug))
 
 ;; ---------------------------------------------------------------------------
 ;; * Load Version Info
