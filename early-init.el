@@ -35,10 +35,6 @@
 ;; needed nor loaded on those versions.
 (setq package-enable-at-startup nil)
 
-(load (concat (file-name-directory load-file-name)
-              "core/core-early-funcs")
-      nil (not init-file-debug))
-
 ;; Unfortunately the hooks below prevent users from customizing gui elements
 ;; within dotspacemacs/user-config function. Thus the hooks are commented out.
 ;; These should not be needed in any case since gui elements are turned off
