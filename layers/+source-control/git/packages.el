@@ -23,7 +23,7 @@
 
 (defconst git-packages
   '(
-    code-review
+    (code-review :excluded t)
     emojify
     evil-collection
     evil-surround

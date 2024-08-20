@@ -50,7 +50,7 @@
     org-download
     (org-jira :toggle org-enable-jira-support)
     org-mime
-    (org-modern :toggle org-enable-modern-support)
+    (org-modern :toggle org-enable-modern-support :excluded t)
     org-pomodoro
     org-present
     org-cliplink
