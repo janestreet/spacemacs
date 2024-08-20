@@ -26,7 +26,7 @@
     ;; Disabled for now until
     ;; https://github.com/wandersoncferreira/code-review/issues/245
     ;; is fixed
-    ;; code-review
+    ;; (code-review :excluded t)
     ;; emojify
 
     evil-collection
@@ -274,7 +274,7 @@
   (use-package magit-gitflow
     :hook (magit-mode . magit-gitflow-mode)
     :init (setq magit-gitflow-popup-key "%")
-    :config 
+    :config
     (spacemacs|diminish magit-gitflow-mode "Flow")
     (define-key magit-mode-map "%" 'magit-gitflow-popup)))
 
@@ -285,7 +285,7 @@
 (defun git/init-magit-svn ()
   (use-package magit-svn
     :hook (magit-mode . magit-svn-mode)
-    :config 
+    :config
     (spacemacs|diminish magit-svn-mode "SVN")
     (define-key magit-mode-map "~" 'magit-svn)))
 
