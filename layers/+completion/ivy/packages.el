@@ -176,10 +176,7 @@
     (spacemacs//ivy-command-not-implemented-yet "jI")
     ;; Set syntax highlighting for counsel search results
     (ivy-set-display-transformer 'spacemacs/counsel-search
-                                 'counsel-git-grep-transformer)
-    ;; Enable better auto completion of counsel-find-file
-    ;; by recognizing file at point.
-    (setq counsel-find-file-at-point t)))
+                                 'counsel-git-grep-transformer)))
 
 (defun ivy/init-counsel-projectile ()
   ;; overwrite projectile settings
