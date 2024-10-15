@@ -38,7 +38,7 @@
     password-generator
     (persistent-scratch :toggle dotspacemacs-scratch-buffer-persistent)
     pcre2el
-    (smartparens :toggle dotspacemacs-activate-smartparens-mode)
+    (smartparens :toggle dotspacemacs-activate-smartparens-mode-really)
     (evil-swap-keys :toggle dotspacemacs-swap-number-row)
     (spacemacs-whitespace-cleanup :location local)
     string-edit-at-point
