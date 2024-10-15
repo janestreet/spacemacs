@@ -566,6 +566,11 @@ smartparens-strict-mode will be enabled in programming modes."
   'spacemacs-dotspacemacs-init)
 
 (spacemacs|defc dotspacemacs-activate-smartparens-mode t
+  "Has no effect; see `dotspacemacs-activate-smartparens-mode-really'."
+  'boolean
+  'spacemacs-dotspacemacs-init)
+
+(spacemacs|defc dotspacemacs-activate-smartparens-mode-really nil
   "If non-nil smartparens-mode will be enabled in programming modes."
   'boolean
   'spacemacs-dotspacemacs-init)
