@@ -52,61 +52,7 @@
       "gvl" 'vc-print-log
       "gvL" 'vc-print-root-log
       "gvr" 'vc-resolve-conflicts)
-    :config
-    (with-eval-after-load 'vc-dir
-      (evilified-state-evilify-map vc-dir-mode-map
-        :mode vc-dir-mode
-        :bindings
-        "j" 'vc-dir-next-line
-        (kbd "M-n") 'vc-dir-next-line
-        "k" 'vc-dir-previous-line
-        (kbd "M-p") 'vc-dir-previous-line
-        "gj" 'vc-dir-next-directory
-        (kbd "<tab>") 'vc-dir-next-directory
-        "gk" 'vc-dir-previous-directory
-        (kbd "<backtab>") 'vc-dir-previous-directory
-        "l" 'vc-print-log
-        "c" 'vc-next-action
-        "a" 'vc-annotate
-        "r" 'vc-dir-refresh
-        "E" 'vc-dir-ignore))
-
-    (with-eval-after-load 'log-view
-      (evilified-state-evilify-map log-view-mode-map
-        :mode log-view-mode
-        :bindings
-        (kbd "M-n") 'log-view-msg-next
-        (kbd "M-p") 'log-view-msg-prev
-        (kbd "C-j") 'log-view-msg-next
-        (kbd "C-k") 'log-view-msg-prev
-        "J" 'log-view-file-next
-        (kbd "<tab>") 'log-view-file-next
-        "gj" 'log-view-file-next
-        "K" 'log-view-file-prev
-        "gk" 'log-view-file-prev
-        (kbd "<backtab>") 'log-view-file-prev
-        (kbd "<return>") 'log-view-find-revision
-        "H" 'log-view-toggle-entry-display
-        "o" 'ace-link-woman)
-      (evilified-state-evilify-map vc-svn-log-view-mode-map
-        :mode vc-svn-log-view-mode
-        :eval-after-load vc-svn)
-      (evilified-state-evilify-map vc-git-log-view-mode-map
-        :mode vc-git-log-view-mode
-        :eval-after-load vc-git)
-      (evilified-state-evilify-map vc-hg-log-view-mode-map
-        :mode vc-hg-log-view-mode
-        :eval-after-load vc-hg))
-    (with-eval-after-load 'vc-annotate
-      (evilified-state-evilify-map vc-annotate-mode-map
-       :mode vc-annotate-mode
-       :bindings
-       "J" 'vc-annotate-next-revision
-       "K" 'vc-annotate-prev-revision
-       "L" 'vc-annotate-show-log-revision-at-line
-       "H" 'vc-annotate-toggle-annotation-visibility
-       "a" 'vc-annotate-revision-at-line
-       "p" 'vc-annotate-revision-previous-to-line))))
+    :config))
 
 (defun version-control/init-diff-mode ()
   (use-package diff-mode
