@@ -35,7 +35,7 @@
     highlight-parentheses
     indent-guide
     rainbow-delimiters
-    (term-cursor :location site)
+    (term-cursor :location (recipe :fetcher github :repo "h0d/term-cursor.el"))
     volatile-highlights
     writeroom-mode))
 
