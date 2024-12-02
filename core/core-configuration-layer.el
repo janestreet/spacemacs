@@ -1431,8 +1431,6 @@ discovery."
                ((eq 'category type)
                 (let ((category (configuration-layer//get-category-from-path
                                  sub)))
-                  (spacemacs-buffer/message "-> Discovered category: %S"
-                                            category)
                   (add-to-list 'configuration-layer-categories category)
                   (setq search-paths (cons sub search-paths))))
                ((eq 'layer type)
@@ -1458,8 +1456,6 @@ so (it is now determined by the Emacs binary path you are
 running).")
                          layer-name-str sub (oref indexed-layer dir))
                         (oset indexed-layer dir sub))
-                    (spacemacs-buffer/message
-                     "-> Discovered configuration layer: %s" layer-name-str)
                     (let ((configuration-layer--load-packages-files nil))
                       (configuration-layer//add-layer
                        (configuration-layer/make-layer
