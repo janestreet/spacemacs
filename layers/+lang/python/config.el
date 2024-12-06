@@ -26,13 +26,8 @@
 (spacemacs|define-jump-handlers python-mode)
 (spacemacs|define-jump-handlers cython-mode anaconda-mode-goto)
 
-(defvar python-backend (cond
-                         ((configuration-layer/layer-used-p 'lsp) 'lsp)
-                         ((configuration-layer/layer-used-p 'eglot) 'eglot)
-                         (t 'anaconda))
-  "The backend to use for IDE features.
-Possible values are `anaconda', `eglot' and `lsp'.
-If `nil' then `anaconda' is the default backend unless the `lsp' or `eglot' layer is used.")
+(defvar python-backend 'eglot
+  "The backend to use for IDE features.")
 (put 'python-backend 'safe-local-variable #'symbolp)
 
 (defvar python-lsp-server 'pylsp
