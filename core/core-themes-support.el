@@ -459,10 +459,10 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
   (interactive)
   (spacemacs/cycle-spacemacs-theme t))
 
-(define-advice load-theme (:after (theme &rest _) spacemacs/load-theme-adv)
+(define-advice enable-theme (:after (theme &rest _) spacemacs//run-post-theme-hooks)
   "Perform post load processing."
   (setq spacemacs--cur-theme theme)
-  (spacemacs/post-theme-init theme))
+  (run-hooks 'spacemacs-post-theme-change-hook))
 
 (defun spacemacs/theme-loader ()
   "Call appropriate theme loader based on completion framework."
@@ -475,12 +475,6 @@ When BACKWARD is non-nil, or with universal-argument, cycle backwards."
    ((configuration-layer/layer-used-p 'compleseus)
     (call-interactively 'consult-theme))
    (t (call-interactively 'load-theme))))
-
-(defun spacemacs/post-theme-init (theme)
-  "Some processing that needs to be done when the current theme
-has been changed to THEME."
-  (interactive)
-  (run-hooks 'spacemacs-post-theme-change-hook))
 
 (defun spacemacs//add-theme-packages-to-additional-packages ()
   "Add all theme packages from `dotspacemacs-themes' to packages to install."
