@@ -23,8 +23,9 @@
 
 (defconst git-packages
   '(
-    (code-review :location (recipe :fetcher github :repo "doomelpa/code-review"))
-    emojify
+    (code-review :location (recipe :fetcher github :repo "doomelpa/code-review")
+                 :excluded t)
+    (emojify :excluded t)
     evil-collection
     evil-surround
     fill-column-indicator
