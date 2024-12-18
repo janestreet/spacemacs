@@ -32,11 +32,12 @@
         golden-ratio
         (grep :location built-in)
         (info :location built-in)
-        (info+ :location (recipe :fetcher github
+        (info+ :excluded t
+               :location (recipe :fetcher github
                                  :repo "emacsmirror/info-plus"))
         open-junk-file
         paradox
-        restart-emacs
+        (restart-emacs :excluded t)
         (smooth-scrolling :location built-in)
         symbol-overlay
         winum
@@ -120,9 +121,9 @@
 
     (with-eval-after-load 'evil
       (define-key evil-motion-state-map (kbd "*")
-        'spacemacs/enter-ahs-forward)
+                  'spacemacs/enter-ahs-forward)
       (define-key evil-motion-state-map (kbd "#")
-        'spacemacs/enter-ahs-backward))
+                  'spacemacs/enter-ahs-backward))
 
     (spacemacs/set-leader-keys
       "sh" 'spacemacs/symbol-highlight
