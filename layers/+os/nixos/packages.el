@@ -27,7 +27,7 @@
     flycheck
     (helm-nixos-options :requires (helm nixos-options))
     nix-mode
-    nixos-options))
+    (nixos-options :excluded t)))
 
 (defun nixos/post-init-company ()
   (when (configuration-layer/package-used-p 'company-nixos-options)
