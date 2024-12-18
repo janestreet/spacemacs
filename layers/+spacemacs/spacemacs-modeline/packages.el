@@ -24,10 +24,10 @@
 (setq spacemacs-modeline-packages
       '(
         (doom-modeline :toggle (eq (spacemacs/get-mode-line-theme-name) 'doom))
-        fancy-battery
+        (fancy-battery :excluded t)
         (spaceline :toggle (spacemacs//enable-spaceline-p))
         (spaceline-all-the-icons :toggle (eq (spacemacs/get-mode-line-theme-name) 'all-the-icons))
-        symon
+        (symon :excluded t)
         (powerline :toggle (eq (spacemacs/get-mode-line-theme-name) 'vim-powerline))
         (vim-powerline :location local
                        :toggle (eq (spacemacs/get-mode-line-theme-name) 'vim-powerline))))
