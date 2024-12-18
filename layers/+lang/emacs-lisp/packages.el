@@ -29,7 +29,7 @@
     (edebug :location built-in)
     eldoc
     elisp-def
-    elisp-demos
+    (elisp-demos :excluded t)
     elisp-slime-nav
     (emacs-lisp :location built-in)
     evil
@@ -42,7 +42,8 @@
     (ielm :location built-in)
     (inspector :location (recipe
                           :fetcher github
-                          :repo "mmontone/emacs-inspector"))
+                          :repo "mmontone/emacs-inspector")
+               :excluded t)
     macrostep
     nameless
     overseer

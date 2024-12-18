@@ -23,7 +23,7 @@
 
 (setq spacemacs-language-packages
       '((define-word :toggle (not (bound-and-true-p osx-use-dictionary-app)))
-        google-translate))
+        (google-translate :excluded t)))
 
 (defun spacemacs-language/init-define-word ()
   (use-package define-word

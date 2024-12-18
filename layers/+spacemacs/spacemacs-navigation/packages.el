@@ -32,11 +32,12 @@
         golden-ratio
         (grep :location built-in)
         (info :location built-in)
-        (info+ :location (recipe :fetcher github
+        (info+ :excluded t
+               :location (recipe :fetcher github
                                  :repo "emacsmirror/info-plus"))
         open-junk-file
         paradox
-        restart-emacs
+        (restart-emacs :excluded t)
         (smooth-scrolling :location built-in)
         symbol-overlay
         (transient-cycles

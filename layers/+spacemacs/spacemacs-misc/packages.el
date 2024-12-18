@@ -23,8 +23,8 @@
 
 (setq spacemacs-misc-packages
       '(
-        devdocs
-        dumb-jump))
+        (devdocs :excluded t)
+        (dumb-jump :excluded t)))
 
 
 (defun spacemacs-misc/init-dumb-jump ()
