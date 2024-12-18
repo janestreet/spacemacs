@@ -25,10 +25,10 @@
       '(
         anzu
         (doom-modeline :toggle (eq (spacemacs/get-mode-line-theme-name) 'doom))
-        fancy-battery
+        (fancy-battery :excluded t)
         spaceline
         (spaceline-all-the-icons :toggle (eq (spacemacs/get-mode-line-theme-name) 'all-the-icons))
-        symon
+        (symon :excluded t)
         (vim-powerline :location local)))
 
 (defun spacemacs-modeline/post-init-anzu ()
