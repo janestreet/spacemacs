@@ -25,7 +25,7 @@
       '(
         (default-helm-config :location built-in)
         (default-ivy-config :location built-in)
-        (flx-ido :requires ido-vertical-mode)
+        (flx-ido :requires ido-vertical-mode :excluded t)
         (ido :location built-in
              :toggle
              (not (or (configuration-layer/package-used-p 'helm)
