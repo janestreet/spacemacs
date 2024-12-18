@@ -29,7 +29,7 @@
     (edebug :location built-in)
     eldoc
     elisp-def
-    elisp-demos
+    (elisp-demos :excluded t)
     elisp-slime-nav
     (emacs-lisp :location built-in)
     evil
