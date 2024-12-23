@@ -23,7 +23,7 @@
 
 (defconst python-packages
   '(
-    blacken
+    (blacken :toggle (eq 'black python-formatter))
     (code-cells :toggle (not (configuration-layer/layer-used-p 'ipython-notebook)))
     company
     counsel-gtags
@@ -56,7 +56,7 @@
     smartparens
     xcscope
     window-purpose
-    yapfify
+    (yapfify :toggle (eq 'yapf python-formatter))
     ;; packages for anaconda backend
     (anaconda-mode :toggle (eq python-backend 'anaconda))
     (company-anaconda :requires (anaconda-mode company))
@@ -126,8 +126,7 @@
     :defer t
     :init
     (spacemacs//bind-python-formatter-keys)
-    (when (and python-format-on-save
-               (eq 'black python-formatter))
+    (when python-format-on-save
       (add-hook 'python-mode-hook 'blacken-mode))
     :config (spacemacs|hide-lighter blacken-mode)))
 
@@ -487,8 +486,7 @@ fix this issue."
     :defer t
     :init
     (spacemacs//bind-python-formatter-keys)
-    (when (and python-format-on-save
-               (eq 'yapf python-formatter))
+    (when python-format-on-save
       (add-hook 'python-mode-hook 'yapf-mode))
     :config (spacemacs|hide-lighter yapf-mode)))
 
