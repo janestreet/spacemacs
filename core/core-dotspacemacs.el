@@ -250,9 +250,13 @@ whenever you start Emacs."
   'boolean
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-configuration-layers '(emacs-lisp
-                                                    helm
+(spacemacs|defc dotspacemacs-configuration-layers '(jane
+                                                    auto-completion
+                                                    emacs-lisp
+                                                    (ivy :variables ivy-initial-inputs-alist nil)
                                                     multiple-cursors
+                                                    syntax-checking
+                                                    version-control
                                                     treemacs)
   "List of configuration layers to load."
   '(repeat (choice symbol (cons symbol sexp)))
@@ -272,9 +276,7 @@ DOCUMENTATION.org for the full theme specifications."
   '(repeat (choice symbol (cons symbol sexp)))
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-mode-line-theme '(spacemacs
-                                               :separator wave
-                                               :separator-scale 1.5)
+(spacemacs|defc dotspacemacs-mode-line-theme 'vanilla
   "Set the theme for the Spaceline. Supported themes are `spacemacs',
 `all-the-icons', `custom', `doom',`vim-powerline' and `vanilla'. The first three
 are spaceline themes. `doom' is the doom-emacs mode-line. `vanilla' is default
@@ -354,7 +356,7 @@ pressing `<leader> m`. Set it to `nil` to disable it."
 (define-obsolete-variable-alias 'dotspacemacs-command-key
   'dotspacemacs-emacs-command-key "2016-01-09 (58e524)")
 
-(spacemacs|defc dotspacemacs-distinguish-gui-tab nil
+(spacemacs|defc dotspacemacs-distinguish-gui-tab t
   "If non nil, distinguish C-i and tab in the GUI version of Emacs."
   'boolean
   'spacemacs-dotspacemacs-init)
@@ -386,7 +388,7 @@ Point size is recommended, because it's device independent. (default 10.0)"
   '(choice (const evil) (const origami) (const vimish))
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-undo-system 'undo-fu
+(spacemacs|defc dotspacemacs-undo-system 'undo-redo
   "The backend used for undo/redo functionality. Possible values are
 `undo-fu', `undo-redo' and `undo-tree' see also `evil-undo-system'.
 Note that saved undo history does not get transferred when changing
@@ -436,7 +438,7 @@ file stored in the cache directory and `nil' to disable auto-saving."
   '(choice (const cache) (const original) (const nil))
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-enable-paste-transient-state nil
+(spacemacs|defc dotspacemacs-enable-paste-transient-state t
   "If non-nil, the paste transient-state is enabled. While enabled, after you
 paste something, pressing `C-j' and `C-k' several times cycles through the
 elements in the `kill-ring'."
@@ -571,7 +573,7 @@ setting this variable to a number."
   '(choice boolean number)
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-line-numbers nil
+(spacemacs|defc dotspacemacs-line-numbers t
   "Control line numbers activation.
 If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
 `text-mode' derivatives. If set to `relative', line numbers are relative.
@@ -593,7 +595,7 @@ restricts line-number to the specified list of major-mode."
            (repeat sexp))
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-enable-server nil
+(spacemacs|defc dotspacemacs-enable-server t
   "If non-nil, start an Emacs server if one is not already running."
   'boolean
   'spacemacs-dotspacemacs-init)
@@ -617,7 +619,7 @@ smartparens-strict-mode will be enabled in programming modes."
   'boolean
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-activate-smartparens-mode t
+(spacemacs|defc dotspacemacs-activate-smartparens-mode nil
   "If non-nil smartparens-mode will be enabled in programming modes."
   'boolean
   'spacemacs-dotspacemacs-init)
