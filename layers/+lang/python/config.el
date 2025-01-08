@@ -58,12 +58,6 @@ If nil then `yapf' is the default formatter unless `lsp' layer is used.")
 (defvar python-save-before-test t
   "If non nil, current buffer will be save before call a test function")
 
-(defvar python-fill-column 79
-  "Fill column value for python buffers")
-
-(defvar python-tab-width 4
-  "Tab width value for python buffers")
-
 (defvar python-spacemacs-indent-guess t
   "If non-nil, try to guess correct indentation settings for python buffers on opening")
 
