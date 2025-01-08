@@ -105,10 +105,6 @@
 
 (defun spacemacs//python-default ()
   "Default settings for python buffers"
-  (setq mode-name "Python"
-        tab-width python-tab-width
-        fill-column python-fill-column)
-
   ;; since we changed the tab-width we need to manually call python-indent-guess-indent-offset here
   (when python-spacemacs-indent-guess
     (python-indent-guess-indent-offset))
