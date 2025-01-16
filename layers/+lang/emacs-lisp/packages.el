@@ -43,7 +43,8 @@
     (ielm :location built-in)
     (inspector :location (recipe
                           :fetcher github
-                          :repo "mmontone/emacs-inspector"))
+                          :repo "mmontone/emacs-inspector")
+               :excluded t)
     macrostep
     nameless
     overseer
