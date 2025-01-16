@@ -32,11 +32,11 @@
     evil-collection
     expand-region
     (hexl :location built-in)
-    hungry-delete
+    (hungry-delete :excluded t)
     link-hint
     lorem-ipsum
     (origami :toggle (eq 'origami dotspacemacs-folding-method))
-    password-generator
+    (password-generator :excluded t)
     (persistent-scratch :toggle dotspacemacs-scratch-buffer-persistent)
     pcre2el
     (smartparens :toggle dotspacemacs-activate-smartparens-mode)
