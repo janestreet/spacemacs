@@ -353,8 +353,6 @@
  (("f" "Files"
    ("A" spacemacs/find-file-and-replace-buffer "Set another file for buffer...")
    ("c" spacemacs/save-as "Save file or active region as a new file...")
-   ("D" spacemacs/delete-current-buffer-file-yes "Delete without confirm...")
-   ("d" spacemacs/delete-current-buffer-file "Delete...")
    ("i" spacemacs/insert-file "Insert file content...")
    ("l" find-file-literally "Open file literally...")
    ("E" spacemacs/sudo-edit "Open using sudo...")
