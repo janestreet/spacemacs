@@ -24,8 +24,7 @@
 (setq spacemacs-misc-packages
       '(
         devdocs
-        dumb-jump
-        request))
+        dumb-jump))
 
 
 (defun spacemacs-misc/init-dumb-jump ()
@@ -42,10 +41,6 @@
     ;; Enable xref-backend of dumb-jump. It's chosen only when no better
     ;; options is available
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)))
-
-(defun spacemacs-misc/init-request ()
-  (setq request-storage-directory
-        (concat spacemacs-cache-directory "request/")))
 
 (defun spacemacs-misc/init-devdocs ()
   (use-package devdocs
