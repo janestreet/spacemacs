@@ -31,6 +31,7 @@
         (view :location built-in)
         golden-ratio
         (grep :location built-in)
+        (info :location built-in)
         (info+ :location (recipe :fetcher github
                                  :repo "emacsmirror/info-plus"))
         open-junk-file
@@ -316,11 +317,13 @@
     :config
     (define-key grep-mode-map "h" nil)))
 
+(defun spacemacs-navigation/init-info ()
+  (spacemacs/set-leader-keys "hj" 'info-display-manual))
+
 (defun spacemacs-navigation/init-info+ ()
   (use-package info+
     :defer t
     :init
-    (spacemacs/set-leader-keys "hj" 'info-display-manual)
     (setq Info-fontify-angle-bracketed-flag nil)
     (with-eval-after-load "info" (require 'info+))))
 
