@@ -26,10 +26,7 @@
 
 (defconst unicode-fonts-packages
   '(unicode-fonts
-    (ligature :location (recipe
-                         :fetcher github
-                         :repo "mickeynp/ligature.el")
-              :toggle unicode-fonts-enable-ligatures)))
+    (ligature :toggle unicode-fonts-enable-ligatures)))
 
 (defun unicode-fonts/init-unicode-fonts ()
   (use-package unicode-fonts
