@@ -30,7 +30,7 @@
     flycheck-bashate
     ggtags
     counsel-gtags
-    insert-shebang
+    (insert-shebang :excluded t)
     org
     (sh-script :location built-in)
     shfmt))
