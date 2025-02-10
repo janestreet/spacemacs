@@ -29,7 +29,7 @@
     flycheck
     flycheck-bashate
     ggtags
-    insert-shebang
+    (insert-shebang :excluded t)
     org
     (sh-script :location built-in)
     shfmt))
