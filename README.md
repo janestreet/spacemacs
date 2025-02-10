@@ -639,7 +639,7 @@ Thank you!
 [quote01]: https://gitter.im/syl20bnr/spacemacs?at=568e627a0cdaaa62045a7df6
 [quote02]: https://gitter.im/syl20bnr/spacemacs?at=5768456c6577f032450cfedb
 
-[Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
+[Spacemacs logo]: https://github.com/nashamri/spacemacs-logo 
 [Nasser Alshammari]: https://github.com/nashamri
 [creativecommons-4]: https://creativecommons.org/licenses/by-sa/4.0/
 
