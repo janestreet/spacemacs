@@ -32,8 +32,6 @@
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
   - [[#manage-virtual-environments-with-pyvenv][Manage virtual environments with pyvenv]]
     - [[#automatic-activation-of-local-virtual-environment][Automatic activation of local virtual environment]]
-  - [[#manage-multiple-python-versions-with-pyenv][Manage multiple Python versions with pyenv]]
-    - [[#automatic-activation-of-local-pyenv-version][Automatic activation of local pyenv version]]
   - [[#manage-environments-and-packages-with-pipenv][Manage environments and packages with pipenv]]
   - [[#manage-environments-and-packages-with-poetry][Manage environments and packages with Poetry]]
 - [[#key-bindings][Key bindings]]
@@ -386,32 +384,6 @@ variable =python-auto-set-local-pyvenv-virtualenv= to:
 - =on-project-switch= set the virtualenv when you switch projects,
 - =nil= to disable.
 
-** Manage multiple Python versions with pyenv
-If you need multiple Python versions (e.g. Python 2 and Python 3) then take a
-look at [[https://github.com/yyuu/pyenv][pyenv]]. It enables the installation and management of multiple
-Python versions.
-[[https://www.brianthicks.com/post/2015/04/15/automate-your-python-environment-with-pyenv/][This blogpost]] gives a good overview on how to use the tool. Spacemacs
-integration is provided by [[https://github.com/proofit404/pyenv-mode][pyenv mode]] which has the following key bindings.
-
-| Key binding | Description                          |
-|-------------+--------------------------------------|
-| ~SPC m v s~ | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]   |
-| ~SPC m v u~ | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]] |
-
-Pyenv can also manage virtual environments for each of the Python versions it
-has installed. Those will be listed alongside your Python versions.
-
-*** Automatic activation of local pyenv version
-A project-specific pyenv version may be written to a file called
-=.python-version= using the [[https://github.com/yyuu/pyenv/blob/master/COMMANDS.md#user-content-pyenv-local][pyenv local]] command.
-
-Spacemacs can search in parent directories for this file, and automatically set
-the pyenv version. The behavior can be set with the variable
-=python-auto-set-local-pyenv-version= to:
-- =on-visit= (default) set the version when you visit a python buffer,
-- =on-project-switch= set the version when you switch projects,
-- =nil= to disable.
-
 ** Manage environments and packages with pipenv
 [[https://pipenv.kennethreitz.org/en/latest/][Pipenv]] is the new standard tool to manage your virtual environments. It can act as
 a replacement for both =pyenv= and =venv= on a per-repository basis. An overview
@@ -551,8 +523,6 @@ In the package list buffer:
 | ~SPC m S d~              | insert doc-string skeleton using [[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]]                                       |
 | ~SPC m v a~              | activate a virtual environment in any directory                                   |
 | ~SPC m v d~              | deactivate active virtual environment                                             |
-| ~SPC m v s~              | set a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                                |
-| ~SPC m v u~              | unset a pyenv environment with [[https://github.com/pyenv/pyenv][pyenv]]                                              |
 | ~SPC m v w~              | work on virtual environment in =WORKON_HOME=                                      |
 | ~SPC m v p a~            | activate pipenv in current project                                                |
 | ~SPC m v p d~            | deactivate pipenv in current project                                              |
