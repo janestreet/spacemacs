@@ -22,7 +22,6 @@
   - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
   - [[#automatic-save-of-buffer-when-testing][Automatic save of buffer when testing]]
   - [[#autoflake][autoflake]]
-  - [[#pylookup][pylookup]]
   - [[#dap-mode-debugger-only-for-lsp-backend][dap-mode debugger (only for lsp backend)]]
   - [[#notebook-and-code-cells][Notebook and code cells]]
 - [[#configuration][Configuration]]
@@ -56,7 +55,7 @@ This layer adds support for the Python language.
     - Microsoft pyright language server
 - Auto-completion
 - Code Navigation
-- Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] and [[https://github.com/tsgates/pylookup][pylookup]]
+- Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
 - Test Runners using [[https://github.com/ionrock/pytest-el][pytest]] or [[https://github.com/syl20bnr/nose.el][nose.el]]
 - Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]] as well as [[https://github.com/pypa/pipenv][pipenv]] and [[https://github.com/galaunay/poetry.el][poetry]]
 - semantic mode is enabled
@@ -269,10 +268,6 @@ To be able to suppress unused imports easily, install [[https://github.com/myint
 #+BEGIN_SRC sh
   pip install autoflake
 #+END_SRC
-
-** pylookup
-To use =pylookup= on ~SPC m h H~, make sure you update the database first, using
-~SPC SPC pylookup-update~.
 
 ** dap-mode debugger (only for lsp backend)
 To use =dap-mode= for debugging do:
@@ -534,7 +529,6 @@ Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][li
 | ~SPC m h h~              | quick documentation using anaconda                                                |
 | ~SPC m h p~              | quick documentation using pydoc (no-jedi, as =pydoc-at-point= seems broken)       |
 | ~SPC m h P~              | quick documentation using pydoc                                                   |
-| ~SPC m h H~              | open documentation in =firefox= using [[https://github.com/tsgates/pylookup][pylookup]]                                    |
 | ~SPC m S d~              | insert doc-string skeleton using [[https://github.com/naiquevin/sphinx-doc.el][sphinx-doc]]                                       |
 | ~SPC m v a~              | activate a virtual environment in any directory                                   |
 | ~SPC m v d~              | deactivate active virtual environment                                             |
