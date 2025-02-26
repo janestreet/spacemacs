@@ -30,7 +30,6 @@
   - [[#importmagic][Importmagic]]
   - [[#pyenv-pipenv-and-poetry][Pyenv, pipenv and poetry]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
-  - [[#manage-environments-and-packages-with-poetry][Manage environments and packages with Poetry]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#running-python-script-in-shell][Running Python Script in shell]]
@@ -355,20 +354,6 @@ following additional packages to be available in your path:
 | ~sqlite3~ | a lightwait and serverless database [[https://www.sqlite.org/][sqlite]]    |
 
 Independent of this you can activate and switch virtual environments manually with below tools.
-
-** Manage environments and packages with Poetry
-Poetry is a tool for dependency management and packaging in Python.
-It allows you to declare the libraries your project depends on and it will
-manage (install/update) them for you.
-
-Spacemacs integration for Poetry is provided by the [[https://github.com/galaunay/poetry.el][poetry]] package.
-It provides the following key bindings:
-
-| Key binding   | Description                                                         |
-|---------------+---------------------------------------------------------------------|
-| ~SPC m v o d~ | De-activate the virtualenv associated to the current poetry project |
-| ~SPC m v o a~ | Activate the virtualenv associated to the current poetry project    |
-| ~SPC m v o t~ | Toggle the virtualenv associated to the current poetry project      |
 
 * Key bindings
 ** Inferior REPL process
