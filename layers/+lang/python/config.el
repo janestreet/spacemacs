@@ -43,15 +43,8 @@
 (defvar python-poetry-activate nil
   "If non-nil, activate poetry before enabling backend")
 
-(defvar python-formatter
-  (if (and (configuration-layer/layer-used-p 'lsp)
-           ;; pyright does not support formatting
-           (eq python-lsp-server 'pylsp))
-      'lsp
-    'yapf)
-  "The formatter to use. Possible values are `yapf', `black', `ruff' and `lsp'.
-The default formatter is `yapf' unless both the `lsp' layer is used,
-and `python-lsp-server' is `pylsp' (pyright does not support formatting).")
+(defvar python-formatter 'black
+  "The formatter to use. Possible values are `yapf', `black', `ruff' and `lsp'.")
 
 (defvar python-format-on-save nil
   "If non-nil, automatically format code with formatter selected
