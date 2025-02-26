@@ -26,7 +26,6 @@
     (blacken :toggle (eq 'black python-formatter))
     (code-cells :toggle (not (configuration-layer/layer-used-p 'ipython-notebook)))
     company
-    cython-mode
     dap-mode
     eldoc
     evil-matchit
@@ -126,15 +125,6 @@
     (when python-format-on-save
       (add-hook 'python-mode-hook 'blacken-mode))
     :config (spacemacs|hide-lighter blacken-mode)))
-
-(defun python/init-cython-mode ()
-  (use-package cython-mode
-    :defer t
-    :config
-    (when (eq python-backend 'anaconda)
-      (spacemacs/set-leader-keys-for-major-mode 'cython-mode
-        "hh" 'anaconda-mode-show-doc
-        "gu" 'anaconda-mode-find-references))))
 
 (defun python/pre-init-dap-mode ()
   (when (eq python-backend 'lsp)
