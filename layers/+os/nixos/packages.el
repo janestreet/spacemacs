@@ -26,7 +26,7 @@
     flycheck
     (helm-nixos-options :requires (helm nixos-options))
     nix-mode
-    nixos-options))
+    (nixos-options :excluded t)))
 
 (defun nixos/post-init-company ()
   (let ((backends '(company-capf)))
