@@ -43,7 +43,6 @@
     pippel
     py-isort
     pydoc
-    pyenv-mode
     (pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
     pyvenv
@@ -260,31 +259,6 @@
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "hp" 'pydoc-at-point-no-jedi
       "hP" 'pydoc)))
-
-(defun python/pre-init-pyenv-mode ()
-  (add-to-list 'spacemacs--python-pyenv-modes 'python-mode))
-(defun python/init-pyenv-mode ()
-  (use-package pyenv-mode
-    :if (executable-find "pyenv")
-    :commands (pyenv-mode-versions)
-    :init
-    (pcase python-auto-set-local-pyenv-version
-      ('on-visit
-       (dolist (m spacemacs--python-pyenv-modes)
-         (add-hook (intern (format "%s-hook" m))
-                   'spacemacs//pyenv-mode-set-local-version)))
-      ('on-project-switch
-       (add-hook 'projectile-after-switch-project-hook
-                 'spacemacs//pyenv-mode-set-local-version)))
-    ;; setup shell correctly on environment switch
-    (dolist (func '(pyenv-mode-set pyenv-mode-unset))
-      (advice-add func :after
-                  (lambda (&optional version)
-                    (spacemacs/python-setup-everything
-                     (when version (pyenv-mode-full-path version))))))
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "vu" 'pyenv-mode-unset
-      "vs" 'pyenv-mode-set)))
 
 (defun python/pre-init-pyvenv ()
   (add-to-list 'spacemacs--python-pyvenv-modes 'python-mode))
