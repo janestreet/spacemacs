@@ -46,7 +46,6 @@
     py-isort
     pydoc
     pyenv-mode
-    (pylookup :location local)
     (pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
     pyvenv
@@ -329,21 +328,6 @@
     ;; setup shell correctly on environment switch
     (dolist (func '(pyvenv-activate pyvenv-deactivate))
       (advice-add func :after 'spacemacs/python-setup-everything))))
-
-(defun python/init-pylookup ()
-  (use-package pylookup
-    :commands (pylookup-lookup pylookup-update pylookup-update-all)
-    :init
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "hH" 'pylookup-lookup)
-    :config
-    (evilified-state-evilify-map pylookup-mode-map
-      :mode pylookup-mode)
-    (let ((dir (configuration-layer/get-layer-local-dir 'python)))
-      (setq pylookup-dir (concat dir "pylookup/")
-            pylookup-program (concat pylookup-dir "pylookup.py")
-            pylookup-db-file (concat pylookup-dir "pylookup.db")))
-    (setq pylookup-completing-read 'completing-read)))
 
 (defun python/init-pytest ()
   (use-package pytest
