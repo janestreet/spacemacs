@@ -37,9 +37,6 @@
 (defvar python-lsp-git-root nil
   "If non-nil, use a development version of the language server in this folder")
 
-(defvar python-poetry-activate nil
-  "If non-nil, activate poetry before enabling backend")
-
 (defvar python-formatter 'black
   "The formatter to use. Possible values are `yapf', `black', `ruff' and `lsp'.")
 
@@ -71,9 +68,6 @@ Possible values are `on-visit', `on-project-switch' or `nil'.")
 
 (defvar spacemacs--python-pyvenv-modes nil
   "List of major modes where to add pyvenv support.")
-
-(defvar spacemacs--python-poetry-modes nil
-  "List of major modes where to add poetry support.")
 
 ;; inferior-python-mode needs these variables to be defined.  The python
 ;; package declares them but does not initialize them.
