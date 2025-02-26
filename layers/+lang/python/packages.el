@@ -36,7 +36,6 @@
     helm-cscope
     (helm-pydoc :requires helm)
     (importmagic :toggle python-enable-importmagic)
-    live-py-mode
     (nose :location (recipe :fetcher github :repo "syl20bnr/nose.el")
           :toggle (memq 'nose (flatten-list (list python-test-runner))))
     org
@@ -174,14 +173,6 @@
     (spacemacs|diminish importmagic-mode " ⓘ" " [i]")
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "rf" 'importmagic-fix-symbol-at-point)))
-
-(defun python/init-live-py-mode ()
-  (use-package live-py-mode
-    :defer t
-    :commands live-py-mode
-    :init
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "l" 'live-py-mode)))
 
 (defun python/init-nose ()
   (use-package nose
