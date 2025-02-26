@@ -41,7 +41,6 @@
           :toggle (memq 'nose (flatten-list (list python-test-runner))))
     org
     pip-requirements
-    poetry
     pippel
     py-isort
     pydoc
@@ -182,21 +181,6 @@
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(python . t))))
 
-(defun python/pre-init-poetry ()
-  (add-to-list 'spacemacs--python-poetry-modes 'python-mode))
-(defun python/init-poetry ()
-  (use-package poetry
-    :defer t
-    :commands (poetry-venv-toggle
-               poetry-tracking-mode)
-    :init
-    (dolist (m spacemacs--python-poetry-modes)
-      (spacemacs/set-leader-keys-for-major-mode m
-        "vod" 'poetry-venv-deactivate
-        "vow" 'poetry-venv-workon
-        "vot" 'poetry-venv-toggle))))
-
-
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
     :defer t))
@@ -298,7 +282,6 @@
     (spacemacs/declare-prefix-for-mode 'python-mode "ms" "REPL")
     (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
     (spacemacs/declare-prefix-for-mode 'python-mode "mv" "virtualenv")
-    (spacemacs/declare-prefix-for-mode 'python-mode "mvo" "poetry")
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "'"  'spacemacs/python-start-or-switch-repl
       "cc" 'spacemacs/python-execute-file
