@@ -22,11 +22,11 @@
 
 
 (defconst nixos-packages
-  '((company-nixos-options :requires company)
-     flycheck
-     (helm-nixos-options :requires helm)
-     nix-mode
-     nixos-options))
+  '((company-nixos-options :requires (company nixos-options))
+    flycheck
+    (helm-nixos-options :requires (helm nixos-options))
+    nix-mode
+    nixos-options))
 
 (defun nixos/post-init-company ()
   (let ((backends '(company-capf)))
