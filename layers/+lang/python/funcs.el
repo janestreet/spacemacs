@@ -135,24 +135,10 @@ COMMANDS may also be a single string, for backwards
 compatibility."
   (unless (listp commands)
     (setq commands (list commands)))
-  (if (or (bound-and-true-p pyvenv-virtual-env) ; in virtualenv
-          (not (executable-find "pyenv")))      ; or no pyenv
-      (cl-some (lambda (dir)
-                 (let ((exec-path (list dir)))
-                   (cl-find-if 'executable-find commands)))
-               exec-path)
-
-    (let ((pyenv-vers (split-string (string-trim (shell-command-to-string "pyenv version-name")) ":")))
-      (cl-some
-       (lambda (cmd)
-         (when-let* ((pyenv-cmd (string-trim (shell-command-to-string (concat "pyenv which " cmd))))
-                     ((not (string-match "not found" pyenv-cmd))))
-           (cl-some
-            (lambda (ver)
-              (cond ((string-match ver pyenv-cmd) pyenv-cmd)
-                    ((string-match ver "system") (and (executable-find cmd) cmd))))
-            pyenv-vers)))
-       commands))))
+  (cl-some (lambda (dir)
+             (let ((exec-path (list dir)))
+               (cl-find-if 'executable-find commands)))
+           exec-path))
 
 (defun spacemacs//python-setup-shell (&optional root-dir)
   "Setup the python shell if no customer prefered value or the value be cleaned.
@@ -225,23 +211,6 @@ Equivalent to: autoflake --remove-all-unused-imports --in-place <FILE>"
           (pop-to-buffer shell-command-buffer-name)
         (revert-buffer t t t))
     (user-error "Cannot find autoflake executable")))
-
-(defun spacemacs//pyenv-mode-set-local-version ()
-  "Set pyenv version from \".python-version\" by looking in parent directories."
-  (interactive)
-  (when-let* ((root-path (locate-dominating-file default-directory
-                                                 ".python-version"))
-              (file-path (expand-file-name ".python-version" root-path))
-              (version
-               (with-temp-buffer
-                 (insert-file-contents-literally file-path)
-                 (nth 0 (split-string (buffer-substring-no-properties
-                                       (line-beginning-position)
-                                       (line-end-position)))))))
-    (cond ((member version (pyenv-mode-versions))
-           (pyenv-mode-set version))
-          (t (message "pyenv: version `%s' is not installed (set by %s)"
-                      version file-path)))))
 
 (defun spacemacs//pyvenv-mode-set-local-virtualenv ()
   "Set pyvenv virtualenv from \".venv\" by looking in parent directories.
