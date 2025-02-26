@@ -37,9 +37,6 @@
 (defvar python-lsp-git-root nil
   "If non-nil, use a development version of the language server in this folder")
 
-(defvar python-pipenv-activate nil
-  "If non-nil, activate pipenv before enabling backend")
-
 (defvar python-poetry-activate nil
   "If non-nil, activate poetry before enabling backend")
 
@@ -86,9 +83,6 @@ Possible values:
 
 (defvar spacemacs--python-pyvenv-modes nil
   "List of major modes where to add pyvenv support.")
-
-(defvar spacemacs--python-pipenv-modes nil
-  "List of major modes where to add pipenv support.")
 
 (defvar spacemacs--python-poetry-modes nil
   "List of major modes where to add poetry support.")
