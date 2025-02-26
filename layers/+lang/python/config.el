@@ -60,11 +60,6 @@
 (defvar python-spacemacs-indent-guess t
   "If non-nil, try to guess correct indentation settings for python buffers on opening")
 
-(defvar python-auto-set-local-pyenv-version 'on-visit
-  "Automatically set pyenv version from \".python-version\".
-
-Possible values are `on-visit', `on-project-switch' or `nil'.")
-
 (defvar python-auto-set-local-pyvenv-virtualenv 'on-visit
   "Automatically set pyvenv virtualenv from \".venv\".
 
@@ -88,9 +83,6 @@ Possible values:
 - `pipenv`: Enable pipenv virtual environment and package management
 - `poetry`: Enable Poetry package and dependency management
 - `uv`: Enable uv package and dependency management")
-
-(defvar spacemacs--python-pyenv-modes nil
-  "List of major modes where to add pyenv support.")
 
 (defvar spacemacs--python-pyvenv-modes nil
   "List of major modes where to add pyvenv support.")
