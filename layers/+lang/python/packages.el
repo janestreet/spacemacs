@@ -47,7 +47,6 @@
     (uv :toggle (memq 'uv python-enable-tools)
         :location (recipe :fetcher github :repo "borgstad/uv.el" :files ("*.el")))
     py-isort
-    pyenv-mode
     pydoc
     (pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
@@ -206,26 +205,6 @@
         "vpo" 'pipenv-open
         "vps" 'pipenv-shell
         "vpu" 'pipenv-uninstall))))
-
-(defun python/pre-init-pyenv-mode ()
-  (add-to-list 'spacemacs--python-pyenv-modes 'python-mode))
-(defun python/init-pyenv-mode ()
-  (use-package pyenv-mode
-    :if (executable-find "pyenv")
-    :commands (pyenv-mode-versions)
-    :init
-    (pcase python-auto-set-local-pyenv-version
-      ('on-visit
-       (dolist (m spacemacs--python-pyenv-modes)
-         (add-hook (intern (format "%s-hook" m))
-                   'spacemacs//pyenv-mode-set-local-version)))
-      ('on-project-switch
-       (add-hook 'projectile-after-switch-project-hook
-                 'spacemacs//pyenv-mode-set-local-version)))
-    ;; setup shell correctly on environment switch
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "vu" 'pyenv-mode-unset
-      "vs" 'pyenv-mode-set)))
 
 (defun python/pre-init-poetry ()
   (add-to-list 'spacemacs--python-poetry-modes 'python-mode))
