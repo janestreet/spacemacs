@@ -34,7 +34,6 @@
   - [[#manage-virtual-environments-with-pet-mode][Manage virtual environments with pet-mode]]
   - [[#manage-virtual-environments-with-pyvenv-legacy-inactively-maintained][Manage virtual environments with pyvenv (legacy, inactively maintained)]]
     - [[#automatic-activation-of-local-virtual-environment][Automatic activation of local virtual environment]]
-  - [[#manage-environments-and-packages-with-poetry][Manage environments and packages with Poetry]]
   - [[#manage-environments-and-packages-with-uv][Manage environments and packages with uv]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
@@ -430,20 +429,6 @@ variable =python-auto-set-local-pyvenv-virtualenv= to:
 - =on-visit= (default) set the virtualenv when you visit a python buffer,
 - =on-project-switch= set the virtualenv when you switch projects,
 - =nil= to disable.
-
-** Manage environments and packages with Poetry
-Poetry is a tool for dependency management and packaging in Python.
-It allows you to declare the libraries your project depends on and it will
-manage (install/update) them for you.
-
-Spacemacs integration for Poetry is provided by the [[https://github.com/galaunay/poetry.el][poetry]] package.
-It provides the following key bindings:
-
-| Key binding   | Description                                                         |
-|---------------+---------------------------------------------------------------------|
-| ~SPC m v o d~ | De-activate the virtualenv associated to the current poetry project |
-| ~SPC m v o a~ | Activate the virtualenv associated to the current poetry project    |
-| ~SPC m v o t~ | Toggle the virtualenv associated to the current poetry project      |
 
 ** Manage environments and packages with uv
 [[https://github.com/astral-sh/uv][UV]] is a fast Python package installer and resolver written in Rust. It's designed
