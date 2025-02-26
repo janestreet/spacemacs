@@ -21,17 +21,8 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-(defun spacemacs//poetry-activate ()
-  "Attempt to activate Poetry only if its configuration file is found."
-  (let ((root-path (locate-dominating-file default-directory "pyproject.toml")))
-    (when root-path
-      (message "Poetry configuration file found. Activating virtual environment.")
-      (poetry-venv-workon))))
-
-
 (defun spacemacs//python-setup-backend ()
   "Conditionally setup python backend."
-  (when python-poetry-activate (spacemacs//poetry-activate))
   (pcase python-backend
     ('anaconda (spacemacs//python-setup-anaconda))
     ('lsp (spacemacs//python-setup-lsp))))
