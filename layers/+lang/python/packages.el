@@ -40,7 +40,6 @@
           :toggle (memq 'nose (flatten-list (list python-test-runner))))
     org
     pip-requirements
-    pipenv
     poetry
     pippel
     py-isort
@@ -192,27 +191,6 @@
   (spacemacs|use-package-add-hook org
     :post-config (add-to-list 'org-babel-load-languages '(python . t))))
 
-(defun python/pre-init-pipenv ()
-  (add-to-list 'spacemacs--python-pipenv-modes 'python-mode))
-(defun python/init-pipenv ()
-  (use-package pipenv
-    :defer t
-    :commands (pipenv-activate
-               pipenv-deactivate
-               pipenv-shell
-               pipenv-open
-               pipenv-install
-               pipenv-uninstall)
-    :init
-    (dolist (m spacemacs--python-pipenv-modes)
-      (spacemacs/set-leader-keys-for-major-mode m
-        "vpa" 'pipenv-activate
-        "vpd" 'pipenv-deactivate
-        "vpi" 'pipenv-install
-        "vpo" 'pipenv-open
-        "vps" 'pipenv-shell
-        "vpu" 'pipenv-uninstall))))
-
 (defun python/pre-init-poetry ()
   (add-to-list 'spacemacs--python-poetry-modes 'python-mode))
 (defun python/init-poetry ()
@@ -305,7 +283,6 @@
     (spacemacs/declare-prefix-for-mode 'python-mode "ms" "REPL")
     (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
     (spacemacs/declare-prefix-for-mode 'python-mode "mv" "virtualenv")
-    (spacemacs/declare-prefix-for-mode 'python-mode "mvp" "pipenv")
     (spacemacs/declare-prefix-for-mode 'python-mode "mvo" "poetry")
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "'"  'spacemacs/python-start-or-switch-repl

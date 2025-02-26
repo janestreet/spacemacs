@@ -30,7 +30,6 @@
   - [[#importmagic][Importmagic]]
   - [[#pyenv-pipenv-and-poetry][Pyenv, pipenv and poetry]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
-  - [[#manage-environments-and-packages-with-pipenv][Manage environments and packages with pipenv]]
   - [[#manage-environments-and-packages-with-poetry][Manage environments and packages with Poetry]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
@@ -357,23 +356,6 @@ following additional packages to be available in your path:
 
 Independent of this you can activate and switch virtual environments manually with below tools.
 
-** Manage environments and packages with pipenv
-[[https://pipenv.kennethreitz.org/en/latest/][Pipenv]] is the new standard tool to manage your virtual environments. It can act as
-a replacement for both =pyenv= and =venv= on a per-repository basis. An overview
-of how to use the tool is provided [[https://pipenv.pypa.io/en/latest/basics/][here]].
-
-Spacemacs integration for pipenv is provided by the [[https://github.com/pwalsh/pipenv.el][pipenv package]].
-It provides the following key bindings:
-
-| Key binding   | Description                                                |
-|---------------+------------------------------------------------------------|
-| ~SPC m v p a~ | activate a pipenv environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]                  |
-| ~SPC m v p d~ | deactivate a pipenv environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]                |
-| ~SPC m v p i~ | install a package into a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]]   |
-| ~SPC m v p o~ | open an installed module in a new buffer with [[https://github.com/pwalsh/pipenv.el][pipenv]]       |
-| ~SPC m v p s~ | open a shell buffer in the current environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
-| ~SPC m v p u~ | uninstall a package from a virtual environment with [[https://github.com/pwalsh/pipenv.el][pipenv]] |
-
 ** Manage environments and packages with Poetry
 Poetry is a tool for dependency management and packaging in Python.
 It allows you to declare the libraries your project depends on and it will
@@ -497,12 +479,6 @@ In the package list buffer:
 | ~SPC m v a~              | activate a virtual environment in any directory                                   |
 | ~SPC m v d~              | deactivate active virtual environment                                             |
 | ~SPC m v w~              | work on virtual environment in =WORKON_HOME=                                      |
-| ~SPC m v p a~            | activate pipenv in current project                                                |
-| ~SPC m v p d~            | deactivate pipenv in current project                                              |
-| ~SPC m v p i~            | install module into pipenv environment                                            |
-| ~SPC m v p o~            | open pipenv module in buffer                                                      |
-| ~SPC m v p s~            | launch pipenv shell in current project                                            |
-| ~SPC m v p u~            | uninstall module from pipenv environment                                          |
 
 ** Debugger
 Using the =dap= layer you'll get access to all the DAP key bindings, see the
