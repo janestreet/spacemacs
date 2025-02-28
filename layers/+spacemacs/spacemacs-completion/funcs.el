@@ -222,17 +222,12 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
                        ivy-reverse-i-search-map))
       (define-key map (kbd "C-j") 'ivy-next-line)
       (define-key map (kbd "C-k") 'ivy-previous-line))
-    (define-key ivy-minibuffer-map (kbd "C-h") (kbd "DEL"))
-    (define-key counsel-find-file-map (kbd "C-h") 'counsel-up-directory)
-    ;; Move C-h to C-S-h
-    (define-key ivy-minibuffer-map (kbd "C-S-h") help-map)
     (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-alt-done)
     (define-key ivy-minibuffer-map (kbd "<escape>")
       'minibuffer-keyboard-quit))
    (t
     (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-alt-done)
     (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-kill-line)
-    (define-key ivy-minibuffer-map (kbd "C-h") nil)
     (define-key ivy-minibuffer-map (kbd "C-l") nil))))
 
 (defun spacemacs//ivy-matcher-desc ()
