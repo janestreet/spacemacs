@@ -30,5 +30,5 @@
 (defvar emacs-lisp-hide-namespace-prefix nil
   "If non-nil, hide namespace prefixes using nameless-mode.")
 
-(defvar emacs-lisp-format-on-save t
+(defvar emacs-lisp-format-on-save nil
   "If non-nil, format elisp buffers before saving.")
