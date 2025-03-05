@@ -797,16 +797,16 @@ a dedicated window."
 (defun spacemacs--directory-path ()
   "Retrieve the directory path of the current buffer.
 
-If the buffer is not visiting a file, use the `list-buffers-directory' variable
-as a fallback to display the directory, useful in buffers like the ones created
-by `magit' and `dired'.
+If the buffer is not visiting a file, use the `default-directory'
+variable as a fallback to display the directory, useful in buffers like
+the ones created by `magit' and `dired'.
 
 Returns:
   - A string containing the directory path in case of success.
   - `nil' in case the current buffer does not have a directory."
   (when-let (directory-name (if-let (file-name (buffer-file-name))
                                 (file-name-directory file-name)
-                              list-buffers-directory))
+                              default-directory))
     (file-truename directory-name)))
 
 (defun spacemacs--file-path ()
@@ -843,9 +843,9 @@ Returns:
 (defun spacemacs/copy-directory-path ()
   "Copy and show the directory path of the current buffer.
 
-If the buffer is not visiting a file, use the `list-buffers-directory'
-variable as a fallback to display the directory, useful in buffers like the
-ones created by `magit' and `dired'."
+If the buffer is not visiting a file, use the `default-directory'
+variable as a fallback to display the directory, useful in buffers like
+the ones created by `magit' and `dired'."
   (interactive)
   (if-let (directory-path (spacemacs--directory-path))
       (progn
