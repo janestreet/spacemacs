@@ -399,10 +399,6 @@ again layer configuration."
         ;; non-registered theme, assume the theme is from a package
         (when-let* (((not (memq theme-name (cons 'default (custom-available-themes)))))
                     (pkg-name (spacemacs/get-theme-package-name default-theme)))
-          (when dotspacemacs-enable-package-quickstart
-            (spacemacs-buffer/warning
-             (format-message "Your default theme %s requires full package initialization, negating the benefit of `dotspacemacs-enable-package-quickstart'."
-                             theme-name)))
           (unless package--initialized
             (package-initialize 'no-activate))
           (package-activate pkg-name)
