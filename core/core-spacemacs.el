@@ -73,108 +73,6 @@
   "Whether or not spacemacs has finished initializing by completing
 the final step of executing code in `emacs-startup-hook'.")
 
-;; Utility to regenerate autoloads for installed packages.
-(defun spacemacs//package-regenerate-autoloads (&optional path)
-  "Regenerate the autoloads for installed packages.
-If PATH is provided, use it as the package directory, otherwise use `package-user-dir'."
-  (interactive "P")
-  (dolist (dir (or path (list package-user-dir)))
-    (when (file-directory-p dir)
-      (dolist (pkg-dir (directory-files dir t "\\`[^.]"))
-        (when-let* (((file-directory-p pkg-dir))
-                    (pkg-desc (package-load-descriptor pkg-dir)))
-          (let ((default-directory pkg-dir))
-            ;; Remove existing autoload files before regenerating.
-            (mapc 'delete-file (file-expand-wildcards "*-autoloads.el" )))
-          (package-generate-autoloads
-           (package-desc-name pkg-desc) pkg-dir))))))
-
-;; Lookup load hints for a given file.
-(defsubst spacemacs//lookup-load-hints (file)
-  "Find out the `load-hints' item for the FILE.
-Returns the directory path from load-hints where FILE is found."
-  (unless (file-name-absolute-p file)
-    (car-safe (seq-find (lambda (row) (member file (cdr row))) load-hints))))
-
-;; Activate load hints support for Spacemacs.
-(defun spacemacs//activate-load-hints ()
-  "Enable the `load-hints' support for Spacemacs.
-This helps Emacs locate files more efficiently by maintaining a mapping
-of directories to file basenames."
-  (setq package-enable-load-hints dotspacemacs-enable-load-hints
-        load-hints
-        (mapcar
-         (lambda (path)
-           (when-let* (((file-directory-p path))
-                       (files (seq-difference
-                               (directory-files path) '("." "..")
-                               #'string=))
-                       ;; Remove load-suffixes from file basenames.
-                       (bases
-                        (mapcar
-                         (lambda (f)
-                           (seq-some
-                            (lambda (s)
-                              (if-let* ((n (length s))
-                                        ((length> f n))
-                                        ((string= s (substring f (- n)))))
-                                  (substring f 0 (- n))))
-                            (get-load-suffixes)))
-                         files)))
-             (cons path (seq-uniq (remove nil bases) 'string-equal))))
-         load-path))
-
-  ;; Advice for `require' to use load-hints when loading features.
-  (defun require@LOAD-HINTS (args)
-    "Advice for `require' to use load-hints for locating files."
-    (let ((feature (nth 0 args))
-          (filename (nth 1 args))
-          (noerror (nth 2 args)))
-      (when-let* (((not filename))
-                  (name (symbol-name feature))
-                  (path (spacemacs//lookup-load-hints name)))
-        (setq filename (expand-file-name name path)))
-      (list feature filename noerror)))
-
-  (advice-add #'require :filter-args #'require@LOAD-HINTS '((depth . -99)))
-
-  ;; Advice to update load-hints after autoload generation.
-  (define-advice package-generate-autoloads (:after (name pkg-dir) LOAD-HINTS)
-    ;; If load-hints are enabled, collect loadable files in pkg-dir and update load-hints.
-    (when-let* (dotspacemacs-enable-load-hints
-                (auto-name (format "%s-autoloads.el" name))
-                (output-file (expand-file-name auto-name pkg-dir))
-                (name (symbol-name name))
-                (files (seq-difference
-                        (directory-files pkg-dir)
-                        `("." ".." ,(concat name "-pkg.el") ,auto-name)
-                        #'string=))
-                ;; Remove load-suffixes from file basenames.
-                (bases
-                 (remove nil
-                         (mapcar
-                          (lambda (f)
-                            (seq-some
-                             (lambda (s)
-                               (if-let* ((n (length s))
-                                         ((length> f n))
-                                         ((string= s (substring f (- n)))))
-                                   (substring f 0 (- n))))
-                             (get-load-suffixes)))
-                          files))))
-      (with-current-buffer (find-file-noselect output-file)
-        (goto-char (point-min))
-        (when (re-search-forward "add-to-list 'load-path" nil t)
-          (forward-line 0)
-          (insert (format "(add-to-list 'load-hints (cons %S '%S))\n"
-                          '(or (and load-file-name
-                                    (directory-file-name
-                                     (file-name-directory load-file-name)))
-                               (car load-path))
-                          (seq-uniq bases 'string-equal))))
-        (save-buffer)
-        (kill-buffer)))))
-
 ;; Main initialization function for Spacemacs startup.
 (defun spacemacs/init ()
   "Perform startup initialization for Spacemacs."
@@ -232,12 +130,6 @@ of directories to file basenames."
     (if dotspacemacs-icon-title-format
         (setq icon-title-format '((:eval (spacemacs/title-prepare dotspacemacs-icon-title-format))))
       (setq icon-title-format frame-title-format)))
-  ;; Activate load hints if enabled and not already available.
-  (when (and dotspacemacs-enable-load-hints (not (boundp 'load-hints)))
-    (spacemacs//activate-load-hints))
-  ;; Ensure load-hints variable exists for autoloads.
-  (unless (boundp 'load-hints)
-    (defvar load-hints '()))
   ;; Load the default theme.
   (spacemacs/load-default-theme)
   ;; Set the default font after display system is initialized.
