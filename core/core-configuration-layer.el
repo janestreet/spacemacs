@@ -137,7 +137,7 @@ subdirectory of ROOT is used."
 It is populated by `configuration-layer/update-packages'.")
 
 (defconst configuration-layer--elpa-root-directory
-  (concat spacemacs-start-directory "elpa/")
+  (concat user-emacs-directory "elpa/")
   "Spacemacs ELPA root directory.")
 
 (defconst configuration-layer--rollback-root-directory
