@@ -44,7 +44,6 @@ This function should only modify configuration layer settings."
      compleseus
      emacs-lisp
      ;; git
-     ;; lsp
      ;; markdown
      multiple-cursors
      ;; org
