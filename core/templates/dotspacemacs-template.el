@@ -50,7 +50,6 @@ This function should only modify configuration layer settings."
       ivy-initial-inputs-alist nil
       )
 
-     ;; lsp
      ;; markdown
      multiple-cursors
      ;; org
