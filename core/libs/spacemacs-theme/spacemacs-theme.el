@@ -193,7 +193,7 @@ to 'auto, tags may not be properly aligned. "
      `(font-lock-warning-face ((,class (:foreground ,war :background ,bg1))))
      `(fringe ((,class (:background ,bg1 :foreground ,base))))
      `(header-line ((,class :background ,bg2)))
-     `(help-key-binding ((,class :foreground ,blue :box (:line-width 1 :color ,blue-bg-s))))
+     `(help-key-binding ((,class :foreground ,blue)))
      `(highlight ((,class (:foreground ,base :background ,highlight))))
      `(hl-line ((,class (:background ,bg2 :extend t))))
      `(isearch ((,class (:foreground ,bg1 :background ,mat))))
