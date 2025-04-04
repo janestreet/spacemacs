@@ -28,7 +28,7 @@
   "If non-nil, will show diff margins globally."
   'boolean)
 
-(spacemacs|defc version-control-diff-tool 'diff-hl
+(spacemacs|defc version-control-diff-tool nil
   "Options are `diff-hl' (the preferred choice) or `git-gutter' to show
 version-control markers, `nil' to disable this feature."
   '(choice (const diff-hl) (const git-gutter) nil))
