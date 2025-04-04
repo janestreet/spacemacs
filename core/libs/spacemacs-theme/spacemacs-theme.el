@@ -215,7 +215,7 @@ This overrides `spacemacs-theme-force-gui-colors' if both are non-nil."
      `(font-lock-warning-face ((,class (:foreground ,war :background ,bg1))))
      `(fringe ((,class (:background ,bg1 :foreground ,base))))
      `(header-line ((,class :background ,bg2)))
-     `(help-key-binding ((,class :foreground ,blue :box (:line-width 1 :color ,blue-bg-s))))
+     `(help-key-binding ((,class :foreground ,blue)))
      ;; see https://github.com/nashamri/spacemacs-theme/issues/215
      `(highlight ((,class (:foreground ,base :background ,highlight-dim))))
      `(hl-line ((,class (:background ,bg2 :extend t))))
