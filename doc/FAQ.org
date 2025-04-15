@@ -48,7 +48,6 @@
   - [[#modify-spacemacs-documentation-look-space-doc-mode][Modify spacemacs documentation look (space-doc-mode)]]
 - [[#linux][Linux]]
   - [[#error-on-deleting-a-system-package][Error on deleting a system package]]
-  - [[#speedup-the-spacemacs-with-package-quickstart][Speedup the Spacemacs with package-quickstart]]
 - [[#windows][Windows]]
   - [[#why-do-the-fonts-look-crappy-on-windows][Why do the fonts look crappy on Windows?]]
   - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
@@ -603,21 +602,6 @@ in your =.spacemacs= file.
 
 In addition, you also need to add the said package to =dotspacemacs-frozen-packages= in your
 =.spacemacs=, so that you will be able to update your Emacs packages successfully.
-
-** Speedup the Spacemacs with package-quickstart
-The ~package-quickstart~ will collect all the ~*-autoloads.el~ into one file
-~package-quickstart-file~ to speed up the packages loading procedure. After
-Spacemacs startup, manually executing the function ~package-quickstart-refreshe~
-to generate the package quickstart file, then setting the
-~dotspacemacs-enable-package-quickstart~ to ~t~, on the next startup, the
-Spacemacs will set up packages with loading the ~package-quickstart-file~, won't
-call the ~package-initialize~ (which will scan ~package-user-dir~ and active
-packages one by one).
-
-*NOTE*: Please enable the ~load-hints~ feature first, otherwise the
-~package-quickstart-file~ addes all the package directories into the ~load-path~
-may lead Spacemacs startup slower than no ~package-quickstartup~ feature
-enabled.
 
 * Windows
 ** Why do the fonts look crappy on Windows?
