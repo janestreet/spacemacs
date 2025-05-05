@@ -395,7 +395,8 @@ again layer configuration."
         ;; non-registered theme, assume the theme is from a package
         (when-let* (((not (memq theme-name (cons 'default (custom-available-themes)))))
                     (pkg-name (spacemacs/get-theme-package-name default-theme)))
-          (package-initialize 'no-activate)
+          (unless package--initialized
+            (package-initialize 'no-activate))
           (package-activate pkg-name)
           (spacemacs//activate-theme-packages (list default-theme)))
         (condition-case _
