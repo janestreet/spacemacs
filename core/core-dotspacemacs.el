@@ -681,6 +681,8 @@ Default is `all' (highlight any scope and emphasize the current one."
 (spacemacs|defc dotspacemacs-whitespace-cleanup nil
   "Delete whitespace while saving buffer.
 
+Ignored in workspaces with apply-style.
+
 Possible values are:
 `all' to aggressively delete empty lines and long sequences of whitespace,
 `trailing' to delete only the whitespace at end of lines,
