@@ -492,16 +492,6 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-show-trailing-whitespace t
 
-   ;; Delete whitespace while saving buffer. Possible values are `all'
-   ;; to aggressively delete empty line and long sequences of whitespace,
-   ;; `trailing' to delete only the whitespace at end of lines, `changed' to
-   ;; delete only whitespace for changed lines or `nil' to disable cleanup.
-   ;; The variable `global-spacemacs-whitespace-cleanup-modes' controls
-   ;; which major modes have whitespace cleanup enabled or disabled
-   ;; by default.
-   ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
-
    ;; If non-nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfere with mode specific
    ;; indent handling like has been reported for `go-mode'.
