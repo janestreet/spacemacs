@@ -54,23 +54,12 @@
 (defvar python-spacemacs-indent-guess t
   "If non-nil, try to guess correct indentation settings for python buffers on opening")
 
-(defvar python-auto-set-local-pyvenv-virtualenv 'on-visit
-  "Automatically set pyvenv virtualenv from \".venv\".
-
-Possible values are `on-visit', `on-project-switch' or `nil'.")
-
 (defvar python-sort-imports-on-save nil
   "If non-nil, automatically sort imports on save.")
 (put 'python-sort-imports-on-save 'safe-local-variable 'booleanp)
 
-(defvar python-virtualenv-management 'pyvenv
-  "The management backend for virtualenv, Possible value is `pet' or `pyvenv'")
-
 (defvar python-enable-importmagic nil
   "If non-nil, enable the importmagic feature.")
-
-(defvar spacemacs--python-pyvenv-modes nil
-  "List of major modes where to add pyvenv support.")
 
 (defvar spacemacs--python-shell-interpreter-origin nil
   "Origin python-shell-interpreter value.")
