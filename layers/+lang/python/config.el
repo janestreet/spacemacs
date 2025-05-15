@@ -24,18 +24,10 @@
 ;; variables
 
 (spacemacs|define-jump-handlers python-mode)
-(spacemacs|define-jump-handlers cython-mode anaconda-mode-goto)
 
 (defvar python-backend 'eglot
   "The backend to use for IDE features.")
 (put 'python-backend 'safe-local-variable #'symbolp)
-
-(defvar python-lsp-server 'pylsp
-  "Language server for lsp backend. Possible values are `pylsp', `pyright'")
-(put 'python-lsp-server 'safe-local-variable #'symbolp)
-
-(defvar python-lsp-git-root nil
-  "If non-nil, use a development version of the language server in this folder")
 
 (defvar python-formatter 'black
   "The formatter to use. Possible values are `yapf', `black', `ruff' and `lsp'.")
