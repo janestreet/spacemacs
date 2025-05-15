@@ -21,8 +21,6 @@
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
   - [[#importmagic][Importmagic]]
-  - [[#pyenv-pipenv-and-poetry][Pyenv, pipenv and poetry]]
-- [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#running-python-script-in-shell][Running Python Script in shell]]
@@ -197,33 +195,6 @@ layer config section:
 #+BEGIN_SRC sh
   pip install importmagic epc
 #+END_SRC
-
-** Pyenv, pipenv and poetry
-Sometimes, it is convenient to be able to use python virtual environments from
-other modes. For this reason, the python layer provides the variables
-=spacemacs--python-pyenv-modes=,
-=spacemacs--python-poetry-modes= and =spacemacs--python-pipenv-modes=.
-If you wish to be able to access these functionalities from other modes,
-in your user config section, do:
-
-#+BEGIN_SRC elisp
-  (add-to-list 'spacemacs--python-pipenv-modes 'your-mode)
-#+END_SRC
-
-This will allow you to use [[https://github.com/pwalsh/pipenv.el][pipenv]] bindings from the mode your-mode.
-You can add to the other two lists analogously.
-
-* Management of Python versions and virtual environments
-In general virtual environments are automatically used when active
-using [[https://github.com/wyuenho/emacs-pet][pet-mode]], this requires the
-following additional packages to be available in your path:
-
-| Package   | Description                                   |
-|-----------+-----------------------------------------------|
-| ~dasel~   | an application to query data structures [[https://github.com/TomWright/dasel][dasel]] |
-| ~sqlite3~ | a lightwait and serverless database [[https://www.sqlite.org/][sqlite]]    |
-
-Independent of this you can activate and switch virtual environments manually with below tools.
 
 * Key bindings
 ** Inferior REPL process
