@@ -20,77 +20,8 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-(defun spacemacs//python-setup-backend ()
-  "Conditionally setup python backend."
-  (pcase python-backend
-    ('anaconda (spacemacs//python-setup-anaconda))
-    ('lsp (spacemacs//python-setup-lsp))))
-
-(defun spacemacs//python-setup-company ()
-  "Conditionally setup company based on backend."
-  (when (eq python-backend 'anaconda)
-    (spacemacs//python-setup-anaconda-company)))
-
-(defun spacemacs//python-setup-dap ()
-  "Conditionally setup elixir DAP integration."
-  ;; currently DAP is only available using LSP
-  (when (eq python-backend 'lsp)
-    (spacemacs//python-setup-lsp-dap)))
-
-(defun spacemacs//python-setup-eldoc ()
-  "Conditionally setup eldoc based on backend."
-  (when (eq python-backend 'anaconda)
-    ;; lsp setup eldoc on its own
-    (spacemacs//python-setup-anaconda-eldoc)))
-
 
-;; anaconda
 
-(defun spacemacs//python-setup-anaconda ()
-  "Setup anaconda backend."
-  (anaconda-mode))
-
-(defun spacemacs//python-setup-anaconda-company ()
-  "Setup anaconda auto-completion."
-  (spacemacs|add-company-backends
-    :backends company-anaconda
-    :modes python-mode
-    :append-hooks nil
-    :call-hooks t)
-  (company-mode))
-
-(defun spacemacs//python-setup-anaconda-eldoc ()
-  "Setup anaconda eldoc."
-  (eldoc-mode)
-  (when (configuration-layer/package-used-p 'anaconda-mode)
-    (anaconda-eldoc-mode)))
-
-(defun spacemacs/anaconda-view-forward-and-push ()
-  "Find next button and hit RET"
-  (interactive)
-  (forward-button 1)
-  (call-interactively #'push-button))
-
-
-;; lsp
-
-(defun spacemacs//python-setup-lsp ()
-  "Setup lsp backend."
-  (if (configuration-layer/layer-used-p 'lsp)
-      (progn
-        (require (pcase python-lsp-server
-                   ('pylsp 'lsp-pylsp)
-                   ('pyright 'lsp-pyright)
-                   (x (user-error "Unknown value for `python-lsp-server': %s" x))))
-        (lsp-deferred))
-    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
-
-(defun spacemacs//python-setup-lsp-dap ()
-  "Setup DAP integration."
-  (require 'dap-python))
-
-
 ;; others
 
 (defun spacemacs//python-default ()
@@ -451,28 +382,6 @@ Bind formatter to '==' for LSP and '='for all other backends."
     ('ruff (ruff-format-buffer))
     ('lsp (lsp-format-buffer))
     (code (message "Unknown formatter: %S" code))))
-
-(defun spacemacs//python-lsp-set-up-format-on-save ()
-  (when (and python-format-on-save
-             (eq python-formatter 'lsp))
-    (add-hook
-     'python-mode-hook
-     'spacemacs//python-lsp-set-up-format-on-save-local)))
-
-(defun spacemacs//python-lsp-set-up-format-on-save-local ()
-  (add-hook 'before-save-hook 'spacemacs//python-lsp-format-on-save nil t))
-
-(defun spacemacs//python-lsp-format-on-save ()
-  (condition-case err
-      (when (and python-format-on-save
-                 (eq python-formatter 'lsp))
-        (lsp-format-buffer))
-    (lsp-capability-not-supported
-     (display-warning
-      '(spacemacs python)
-      "Configuration error: `python-formatter' is `lsp', no active workspace supports textDocument/formatting"
-      :error))))
-
 
 
 ;; REPL
