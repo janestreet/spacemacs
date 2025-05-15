@@ -46,9 +46,6 @@
     pydoc
     (python-pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
-    ;; Use the performance enhanced fork (https://github.com/jorgenschaefer/pyvenv/pull/128)
-    (pyvenv :location (recipe :fetcher github :repo "sunlin7/pyvenv")
-            :toggle (eq python-virtualenv-management 'pyvenv))
     (ruff-format :toggle (eq 'ruff python-formatter))
     semantic
     sphinx-doc
@@ -238,30 +235,6 @@
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "hp" 'pydoc-at-point-no-jedi
       "hP" 'pydoc)))
-
-(defun python/pre-init-pyvenv ()
-  (add-to-list 'spacemacs--python-pyvenv-modes 'python-mode))
-(defun python/init-pyvenv ()
-  (use-package pyvenv
-    :defer t
-    :init
-    (add-hook 'python-mode-hook #'pyvenv-tracking-mode)
-    (pcase python-auto-set-local-pyvenv-virtualenv
-      ('on-visit
-       (dolist (m spacemacs--python-pyvenv-modes)
-         (add-hook (intern (format "%s-hook" m))
-                   'spacemacs//pyvenv-mode-set-local-virtualenv)))
-      ('on-project-switch
-       (add-hook 'projectile-after-switch-project-hook
-                 'spacemacs//pyvenv-mode-set-local-virtualenv)))
-    (dolist (m spacemacs--python-pyvenv-modes)
-      (spacemacs/set-leader-keys-for-major-mode m
-        "va" 'pyvenv-activate
-        "vd" 'pyvenv-deactivate
-        "vw" 'pyvenv-workon))
-    ;; setup shell correctly on environment switch
-    (dolist (func '(pyvenv-activate pyvenv-deactivate))
-      (advice-add func :after 'spacemacs/python-setup-everything))))
 
 (defun python/init-python-pytest ()
   (use-package python-pytest
