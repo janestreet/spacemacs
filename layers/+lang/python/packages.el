@@ -26,8 +26,6 @@
     (blacken :toggle (eq 'black python-formatter))
     (code-cells :toggle (not (configuration-layer/layer-used-p 'ipython-notebook)))
     company
-    ;; We are using a fork until pet is prefering ipython as default shell (https://github.com/wyuenho/emacs-pet/pull/56)
-    (pet :location (recipe :fetcher github :repo "smile13241324/emacs-pet"))
     evil-matchit
     flycheck
     ggtags
@@ -49,13 +47,6 @@
     xcscope
     window-purpose
     (yapfify :toggle (eq 'yapf python-formatter))))
-
-(defun python/init-pet ()
-  (use-package pet
-    :hook (python-base-mode . pet-mode)
-    :if (and (executable-find "dasel")
-             (executable-find "sqlite3"))
-    :defer t))
 
 (defun python/init-code-cells ()
   (use-package code-cells
@@ -90,10 +81,7 @@
   (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
 
 (defun python/post-init-flycheck ()
-  (spacemacs/enable-flycheck 'python-mode)
-  ;; Setup flycheck but only after pet is loaded.
-  (with-eval-after-load 'pet
-    (add-hook 'python-mode-hook 'pet-flycheck-setup)))
+  (spacemacs/enable-flycheck 'python-mode))
 
 (defun python/pre-init-helm-cscope ()
   (spacemacs|use-package-add-hook xcscope
