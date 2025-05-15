@@ -26,9 +26,7 @@
     (blacken :toggle (eq 'black python-formatter))
     (code-cells :toggle (not (configuration-layer/layer-used-p 'ipython-notebook)))
     company
-    dap-mode
     (pet :toggle (eq python-virtualenv-management 'pet))
-    eldoc
     evil-matchit
     flycheck
     ggtags
@@ -47,38 +45,15 @@
     (python-pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
     (python :location built-in)
     (ruff-format :toggle (eq 'ruff python-formatter))
-    semantic
     sphinx-doc
     smartparens
     xcscope
     window-purpose
-    (yapfify :toggle (eq 'yapf python-formatter))
-    ;; packages for anaconda backend
-    (anaconda-mode :toggle (eq python-backend 'anaconda))
-    (company-anaconda :requires (anaconda-mode company))
-    ;; packages for Microsoft's pyright language server
-    (lsp-pyright :requires lsp-mode :toggle (eq python-lsp-server 'pyright))))
+    (yapfify :toggle (eq 'yapf python-formatter))))
 
 (defun python/init-pet ()
   (use-package pet
     :hook (python-base-mode . pet-mode)))
-
-(defun python/init-anaconda-mode ()
-  (use-package anaconda-mode
-    :defer t
-    :init
-    (setq anaconda-mode-installation-directory
-          (concat spacemacs-cache-directory "anaconda-mode"))
-    :config
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "hh" 'anaconda-mode-show-doc
-      "ga" 'anaconda-mode-find-assignments
-      "gu" 'anaconda-mode-find-references)
-    (spacemacs|hide-lighter anaconda-mode)
-    (define-advice anaconda-mode-goto (:before (&rest _) python/anaconda-mode-goto)
-      (evil--jumps-push))
-    (add-to-list 'spacemacs-jump-handlers-python-mode
-                 '(anaconda-mode-find-definitions :async t))))
 
 (defun python/init-code-cells ()
   (use-package code-cells
@@ -93,7 +68,6 @@
 
 (defun python/post-init-company ()
   ;; backend specific
-  (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-company)
   (spacemacs|add-company-backends
     :backends (company-files company-capf)
     :modes inferior-python-mode)
@@ -102,11 +76,6 @@
       :backends company-capf
       :modes pip-requirements-mode)))
 
-(defun python/init-company-anaconda ()
-  (use-package company-anaconda
-    :defer t))
-;; see `spacemacs//python-setup-anaconda-company'
-
 (defun python/init-blacken ()
   (use-package blacken
     :defer t
@@ -114,14 +83,6 @@
     (when python-format-on-save
       (add-hook 'python-mode-hook 'blacken-mode))
     :config (spacemacs|hide-lighter blacken-mode)))
-
-(defun python/pre-init-dap-mode ()
-  (when (eq python-backend 'lsp)
-    (add-to-list 'spacemacs--dap-supported-modes 'python-mode))
-  (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-dap))
-
-(defun python/post-init-eldoc ()
-  (add-hook 'python-mode-local-vars-hook #'spacemacs//python-setup-eldoc))
 
 (defun python/post-init-evil-matchit ()
   (add-hook `python-mode-hook `turn-on-evil-matchit-mode))
@@ -265,8 +226,6 @@
                              'spacemacs/python-start-or-switch-repl "python")
     (spacemacs//bind-python-repl-keys)
     (spacemacs//bind-python-formatter-keys)
-    (spacemacs//python-lsp-set-up-format-on-save)
-    (add-hook 'python-mode-local-vars-hook 'spacemacs//python-setup-backend)
     (add-hook 'python-mode-hook 'spacemacs//python-default)
     :config
     ;; add support for `ahs-range-beginning-of-defun' for python-mode
@@ -341,12 +300,6 @@
       (dolist (x '(python-shell-interpreter python-shell-interpreter-args))
         (set-default-toplevel-value x (symbol-value x))))))
 
-(defun python/post-init-semantic ()
-  (when (configuration-layer/package-used-p 'anaconda-mode)
-    (add-hook 'python-mode-hook
-              'spacemacs//disable-semantic-idle-summary-mode t))
-  (add-hook 'python-mode-hook 'semantic-mode))
-
 (defun python/pre-init-smartparens ()
   (spacemacs|use-package-add-hook smartparens
     :post-config
@@ -381,10 +334,6 @@
     (when python-format-on-save
       (add-hook 'python-mode-hook 'ruff-format-on-save-mode))
     :config (spacemacs|hide-lighter ruff-format-on-save-mode)))
-
-(defun python/init-lsp-pyright ()
-  (use-package lsp-pyright
-    :defer t))
 
 (defun python/post-init-window-purpose ()
   (purpose-set-extension-configuration
