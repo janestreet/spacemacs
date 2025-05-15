@@ -9,12 +9,6 @@
   - [[#features][Features:]]
 - [[#install][Install]]
   - [[#layer][Layer]]
-  - [[#choosing-a-backend][Choosing a backend]]
-- [[#backends][Backends]]
-  - [[#anaconda][Anaconda]]
-  - [[#language-server-protocol][Language Server Protocol]]
-    - [[#python-lsp-server][python-lsp-server]]
-    - [[#microsoft-pyright-language-server][Microsoft pyright language server]]
 - [[#additional-tools][Additional tools]]
   - [[#syntax-checking][Syntax checking]]
   - [[#test-runner][Test runner]]
@@ -22,7 +16,6 @@
   - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
   - [[#automatic-save-of-buffer-when-testing][Automatic save of buffer when testing]]
   - [[#autoflake][autoflake]]
-  - [[#dap-mode-debugger-only-for-lsp-backend][dap-mode debugger (only for lsp backend)]]
   - [[#notebook-and-code-cells][Notebook and code cells]]
 - [[#configuration][Configuration]]
   - [[#fill-column][Fill column]]
@@ -44,14 +37,8 @@
 This layer adds support for the Python language.
 
 ** Features:
-- Support for the following backends:
-  - [[https://github.com/proofit404/anaconda-mode][anaconda]] (default),
-  - [[https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-pylsp.el][Language Server Protocol]] (experimental - 2 implementations),
-    - python-lsp-server
-    - Microsoft pyright language server
 - Auto-completion
 - Code Navigation
-- Documentation Lookup using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
 - Test Runners using [[https://github.com/ionrock/pytest-el][pytest]] or [[https://github.com/syl20bnr/nose.el][nose.el]]
 - Virtual Environment using [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]] as well as [[https://github.com/pypa/pipenv][pipenv]], [[https://github.com/galaunay/poetry.el][poetry]], and [[https://github.com/astral-sh/uv][UV]]
 - semantic mode is enabled
@@ -70,116 +57,6 @@ This layer adds support for the Python language.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =python= to the existing =dotspacemacs-configuration-layers= list in this
 file.
-
-** Choosing a backend
-To choose a default backend set the layer variable =python-backend=:
-
-#+BEGIN_SRC elisp
-  (python :variables python-backend 'anaconda)
-#+END_SRC
-
-Alternatively the =lsp= backend will be automatically chosen if the layer =lsp=
-is used and you did not specify any value for =python-backend=.
-
-Backend can be chosen on a per project basis using directory local variables
-(files named =.dir-locals.el= at the root of a project), an example to use the
-=lsp= backend:
-
-#+BEGIN_SRC elisp
-  ;;; Directory Local Variables
-  ;;; For more information see (info "(emacs) Directory Variables")
-
-  ((python-mode (python-backend . lsp)))
-#+END_SRC
-
-*Note:* you can easily add a directory local variable with ~SPC f v d~.
-
-The available options are:
-
-| symbol    | description               |
-|-----------+---------------------------|
-| 'anaconda | Default                   |
-| 'lsp      | python-lsp-server package |
-
-* Backends
-** Anaconda
-=anaconda-mode= tries to install the dependencies itself but sometimes
-it does not work and you may encounter the following message when
-opening a python buffer:
-
-#+BEGIN_EXAMPLE
-  Blocking call to accept-process-output with quit inhibited!!
-#+END_EXAMPLE
-
-To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/wiki][anaconda-deps]] by hand:
-
-#+BEGIN_SRC sh
-  pip install --upgrade "jedi>=0.13.0" "json-rpc>=1.8.1" "service_factory>=0.1.5"
-#+END_SRC
-
-If you encounter problems with Jedi 1.0 consider downgrading to 0.13.0. See [[https://github.com/davidhalter/jedi/issues/873][this
-issue]] for details.
-
-Source: [[https://github.com/proofit404/anaconda-mode#issues]]
-
-If you are facing errors such as "Unable to run anaconda-mode server", try
-setting your =PYTHONPATH= as explained at
-[[https://github.com/proofit404/anaconda-mode#pythonpath]]
-
-** Language Server Protocol
-The =lsp= backend can use either of the following language server implementations:
-
-| symbol   | description                         |
-|----------+-------------------------------------|
-| 'pylsp   | [[https://pypi.org/project/python-lsp-server/][python-lsp-server package]] (default) |
-| 'pyright | [[https://github.com/emacs-lsp/lsp-pyright][Microsoft pyright language server]]   |
-
-=pylsp= is default value for =python-lsp-server=, an example for use =pylsp=:
-
-#+BEGIN_SRC elisp
-  (python :variables python-backend 'lsp)
-#+END_SRC
-
-To use the Microsoft pyright language server, set the =python-lsp-server= layer
-variable as follows:
-
-#+BEGIN_SRC elisp
-  (python :variables python-backend 'lsp python-lsp-server 'pyright)
-#+END_SRC
-
-*** python-lsp-server
-You need to install python language server:
-
-#+BEGIN_SRC sh
-  pip install python-lsp-server
-#+END_SRC
-
-You may also be interested in installing all optional dependencies with
-
-#+BEGIN_SRC sh
-  pip install 'python-lsp-server[all]'
-#+END_SRC
-
-For more information on optional dependencies, as well as 3rd-party plugins, see
-[[https://github.com/python-lsp/python-lsp-server][python-lsp-server repository]].
-
-If you've installed the language server and related packages as development
-dependencies in a pipenv environment, you'll want to set the ~python-pipenv-activate~
-config variable to ~t~. This activates your pipenv before enabling the
-lsp backend. The same applies for ~python-poetry-activate~.
-
-*** Microsoft pyright language server
-[[https://github.com/microsoft/pyright][Pyright]] is a language server by Microsoft rewritten from scratch. It can be
-installed via pip, yarn or npm as follows:
-
-#+BEGIN_SRC sh
-  # via pip
-  pip install pyright
-  # or via yarn
-  yarn global add pyright
-  # or via npm
-  npm install -g pyright
-#+END_SRC
 
 * Additional tools
 ** Syntax checking
@@ -263,13 +140,6 @@ To be able to suppress unused imports easily, install [[https://github.com/myint
 
 #+BEGIN_SRC sh
   pip install autoflake
-#+END_SRC
-
-** dap-mode debugger (only for lsp backend)
-To use =dap-mode= for debugging do:
-
-#+BEGIN_SRC bash
-  pip install debugpy
 #+END_SRC
 
 ** Notebook and code cells
@@ -478,10 +348,7 @@ In the package list buffer:
 |--------------------------+-----------------------------------------------------------------------------------|
 | ~SPC m =~ or ~SPC m = =~ | reformat the buffer using default formatter specified in =python-formatter=       |
 | ~SPC m d t~              | toggle a breakpoint using =wdb=, =ipdb=, =pudb=, =pdb= or =python3.7= (and above) |
-| ~SPC m g a~              | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back)      |
 | ~SPC m g b~              | jump back                                                                         |
-| ~SPC m g g~              | go to definition using =anaconda-mode-find-definitions= (~C-o~ to jump back)      |
-| ~SPC m g u~              | navigate between usages with =anaconda-mode-find-references=                      |
 | ~SPC m h d~              | look for documentation using =helm-pydoc=                                         |
 | ~SPC m h h~              | quick documentation using anaconda                                                |
 | ~SPC m h p~              | quick documentation using pydoc (no-jedi, as =pydoc-at-point= seems broken)       |
