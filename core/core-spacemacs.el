@@ -254,11 +254,7 @@ defer call using `spacemacs-post-user-config-hook'."
      (setq gc-cons-threshold (car dotspacemacs-gc-cons)
            gc-cons-percentage (cadr dotspacemacs-gc-cons))))
 
-  (if dotspacemacs-byte-compile
-      (when (> 1 (spacemacs//dir-byte-compile-state
-                  (concat spacemacs-core-directory "libs/")))
-        (byte-recompile-directory (concat spacemacs-core-directory "libs/") 0))
-    (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory))
+  (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory)
 
   ;; Check if revision has changed.
   (spacemacs//revision-check))
