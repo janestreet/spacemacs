@@ -811,11 +811,6 @@ will bury it instead of killing."
   'boolean
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-byte-compile nil
-  "If non-nil, byte-compile some of Spacemacs files."
-  'boolean
-  'spacemacs-dotspacemacs-init)
-
 (defun dotspacemacs//prettify-spacemacs-docs ()
   "Run `spacemacs/prettify-org-buffer' if `buffer-file-name'
 looks like Spacemacs documentation."
