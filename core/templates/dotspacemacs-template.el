@@ -523,10 +523,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If nil the home buffer shows the full path of agenda items
    ;; and todos. If non-nil only the file name is shown.
-   dotspacemacs-home-shorten-agenda-source nil
-
-   ;; If non-nil then byte-compile some of Spacemacs files.
-   dotspacemacs-byte-compile nil))
+   dotspacemacs-home-shorten-agenda-source nil))
 
 
 (defun dotspacemacs/user-init ()
