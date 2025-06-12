@@ -84,6 +84,10 @@
   (require 'evil)
   (evil-mode 1)
 
+  (when (eq dotspacemacs-undo-system 'undo-tree)
+    (lwarn '(jane spacemacs deprecate-undo-tree)
+           :warning
+           "undo-tree is unmaintained.  Please change `dotspacemacs-undo-system' to `undo-redo'."))
   (customize-set-variable 'evil-undo-system dotspacemacs-undo-system)
 
   ;; Use evil as a default jump handler
