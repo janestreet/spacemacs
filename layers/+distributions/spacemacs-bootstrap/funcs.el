@@ -75,12 +75,24 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
   (set-face-attribute (spacemacs/state-color-face (intern state)) nil
                       :foreground (face-attribute 'mode-line :background)))
 
+
+
+(defun spacemacs//pick-contrasting-fg-color-from-mode-line (bg-color)
+  (let* ((ml-fg (face-attribute 'mode-line :foreground))
+         (ml-bg (face-attribute 'mode-line :background))
+         (candidates (mapcar (lambda (fg) (cons (modus-themes-contrast bg-color fg) fg))
+                             (list ml-fg ml-bg "#ffffff" "#000000"))))
+    ;; Pick the first candidate with a reasonably acceptable contrast ratio; if
+    ;; none, just pick the best one.
+    (cdr (or (cl-find-if (lambda (fg) (>= (car fg) 3.0)) candidates)
+             (last (cl-sort candidates #'car-less-than-car))))))
+
 (defun spacemacs/set-state-faces ()
-  (let ((ml-bg (face-attribute 'mode-line :background)))
-    (cl-loop for (state color cursor) in spacemacs-evil-cursors
-             do
-             (set-face-attribute (spacemacs/state-color-face (intern state)) nil
-                                 :foreground ml-bg))))
+  (cl-loop for (state color cursor) in spacemacs-evil-cursors
+           for foreground = (spacemacs//pick-contrasting-fg-color-from-mode-line color)
+           do
+           (set-face-attribute (spacemacs/state-color-face (intern state)) nil
+                               :foreground foreground)))
 
 (defun spacemacs/set-evil-search-module (style)
   "Set the evil search module depending on STYLE."
