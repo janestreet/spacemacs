@@ -82,9 +82,6 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
              (set-face-attribute (spacemacs/state-color-face (intern state)) nil
                                  :foreground ml-bg))))
 
-(defun evil-insert-state-cursor-hide ()
-  (setq evil-insert-state-cursor '((hbar . 0))))
-
 (defun spacemacs/set-evil-search-module (style)
   "Set the evil search module depending on STYLE."
   (cond
