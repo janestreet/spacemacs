@@ -77,10 +77,40 @@ For evil states that also need an entry to `spacemacs-evil-cursors' use
 
 
 
+;;; Helper functions copied from modus-themes.el, which is distributed with
+;;; Emacs.
+
+;; This is the WCAG formula: https://www.w3.org/TR/WCAG20-TECHS/G18.html
+(defun spacemacs//wcag-contribution (channel weight)
+  "Return the CHANNEL contribution to overall luminance given WEIGHT."
+  (* weight
+     (if (<= channel 0.03928)
+         (/ channel 12.92)
+       (expt (/ (+ channel 0.055) 1.055) 2.4))))
+
+(defun spacemacs//wcag-formula (hex)
+  "Get WCAG value of color value HEX.
+The value is defined in hexadecimal RGB notation, such #123456."
+  (let ((channels (color-name-to-rgb hex))
+        (weights '(0.2126 0.7152 0.0722))
+        contribution)
+    (while channels
+      (push (spacemacs//wcag-contribution (pop channels) (pop weights)) contribution))
+    (apply #'+ contribution)))
+
+(defun spacemacs//color-contrast (c1 c2)
+  "Measure WCAG contrast ratio between C1 and C2.
+C1 and C2 are color values written in hexadecimal RGB."
+  (let ((ct (/ (+ (spacemacs//wcag-formula c1) 0.05)
+               (+ (spacemacs//wcag-formula c2) 0.05))))
+    (max ct (/ ct))))
+
+
+
 (defun spacemacs//pick-contrasting-fg-color-from-mode-line (bg-color)
   (let* ((ml-fg (face-attribute 'mode-line :foreground))
          (ml-bg (face-attribute 'mode-line :background))
-         (candidates (mapcar (lambda (fg) (cons (modus-themes-contrast bg-color fg) fg))
+         (candidates (mapcar (lambda (fg) (cons (spacemacs//color-contrast bg-color fg) fg))
                              (list ml-fg ml-bg "#ffffff" "#000000"))))
     ;; Pick the first candidate with a reasonably acceptable contrast ratio; if
     ;; none, just pick the best one.
