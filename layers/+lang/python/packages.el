@@ -37,8 +37,6 @@
     org
     pip-requirements
     (pippel :toggle (memq 'pip python-enable-tools))
-    (uv :toggle (memq 'uv python-enable-tools)
-        :location (recipe :fetcher github :repo "borgstad/uv.el" :files ("*.el")))
     py-isort
     pydoc
     (python-pytest :toggle (memq 'pytest (flatten-list (list python-test-runner))))
@@ -143,24 +141,6 @@
     :config
     (evilified-state-evilify-map pippel-package-menu-mode-map
       :mode pippel-package-menu-mode)))
-
-(defun python/init-uv ()
-  (use-package uv
-    :defer t
-    :init
-    (spacemacs/declare-prefix-for-mode 'python-mode
-      "u" "UV")
-    (spacemacs/set-leader-keys-for-major-mode 'python-mode
-      "uv" 'uv
-      "ua" 'uv-add
-      "ud" 'uv-remove
-      "ul" 'uv-lock
-      "ue" 'uv-edit-pyproject-toml
-      "ub" 'uv-build
-      "up" 'uv-publish
-      "un" 'uv-new
-      "ui" 'uv-init
-      "ur" 'uv-run)))
 
 (defun python/init-py-isort ()
   (use-package py-isort
