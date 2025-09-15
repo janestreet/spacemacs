@@ -21,8 +21,6 @@
   - [[#fill-column][Fill column]]
   - [[#sort-imports][Sort imports]]
   - [[#importmagic][Importmagic]]
-- [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
-  - [[#manage-environments-and-packages-with-uv][Manage environments and packages with uv]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
   - [[#running-python-script-in-shell][Running Python Script in shell]]
@@ -197,38 +195,6 @@ layer config section:
 #+BEGIN_SRC sh
   pip install importmagic epc
 #+END_SRC
-
-* Management of Python versions and virtual environments
-** Manage environments and packages with uv
-[[https://github.com/astral-sh/uv][UV]] is a fast Python package installer and resolver written in Rust. It's designed
-to be a drop-in replacement for pip and pip-tools, offering significantly faster
-package installation and dependency resolution.
-
-Spacemacs integration for UV is provided by the [[https://github.com/borgstad/uv.el][uv.el]] package.
-It provides the following key bindings:
-
-| Key binding | Description                        |
-|-------------+------------------------------------|
-| ~SPC m u v~ | Open the main UV transient menu    |
-| ~SPC m u a~ | Add regular dependencies           |
-| ~SPC m u d~ | Remove dependencies                |
-| ~SPC m u l~ | Lock project dependencies          |
-| ~SPC m u e~ | Edit pyproject.toml file           |
-| ~SPC m u b~ | Build the package                  |
-| ~SPC m u p~ | Publish the package                |
-| ~SPC m u n~ | Create a new Python project        |
-| ~SPC m u i~ | Initialize a new UV project        |
-| ~SPC m u r~ | Run commands in the UV environment |
-
-To enable UV support, add ~uv~ to your ~python-enable-tools~ list:
-
-#+BEGIN_SRC elisp
-  (setq-default dotspacemacs-configuration-layers
-                '((python :variables python-enable-tools '(uv))))
-#+END_SRC
-
-*Note:* You need to install the ~uv~ command-line tool first. See the
-[[https://github.com/astral-sh/uv][UV documentation]] for installation instructions.
 
 * Key bindings
 ** Inferior REPL process
