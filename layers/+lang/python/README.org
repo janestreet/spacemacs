@@ -22,7 +22,6 @@
   - [[#sort-imports][Sort imports]]
   - [[#importmagic][Importmagic]]
 - [[#management-of-python-versions-and-virtual-environments][Management of Python versions and virtual environments]]
-  - [[#manage-virtual-environments-with-pet-mode][Manage virtual environments with pet-mode]]
   - [[#manage-environments-and-packages-with-uv][Manage environments and packages with uv]]
 - [[#key-bindings][Key bindings]]
   - [[#inferior-repl-process][Inferior REPL process]]
@@ -200,26 +199,6 @@ layer config section:
 #+END_SRC
 
 * Management of Python versions and virtual environments
-** Manage virtual environments with pet-mode
-To enable the [[https://github.com/wyuenho/emacs-pet][pet-mode]], set the variable ~python-virtualenv-management~ to
-~pet~, for example:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (python :variables python-virtualenv-management 'pet)))
-#+END_SRC
-
-In general virtual environments are automatically used when active using
-~pet-mode~, following additional packages are high recommended to enable full
-~pet-mode~ features:
-
-| Package   | Description                                   |
-|-----------+-----------------------------------------------|
-| ~dasel~   | an application to query data structures [[https://github.com/TomWright/dasel][dasel]] |
-| ~sqlite3~ | a lightwait and serverless database [[https://www.sqlite.org/][sqlite]]    |
-
-Independent of this you can activate and switch virtual environments manually with below tools.
-
 ** Manage environments and packages with uv
 [[https://github.com/astral-sh/uv][UV]] is a fast Python package installer and resolver written in Rust. It's designed
 to be a drop-in replacement for pip and pip-tools, offering significantly faster
