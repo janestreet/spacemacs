@@ -265,8 +265,8 @@ whenever you start Emacs."
 (defvar dotspacemacs--configuration-layers-saved nil
   "Saved value of `dotspacemacs-configuration-layers' after sync.")
 
-(spacemacs|defc dotspacemacs-themes '(spacemacs-dark
-                                      spacemacs-light)
+(spacemacs|defc dotspacemacs-themes '(modus-vivendi
+                                      modus-operandi)
   "List of themes, the first of the list is loaded when spacemacs starts.
 Press `SPC T n' to cycle to the next theme in the list (works great
 with 2 themes variants, one dark and one light). A theme from external
