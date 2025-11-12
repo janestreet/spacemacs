@@ -480,66 +480,10 @@ ivy"
   (paradox-list-packages nil))
 
 
-;; restart-emacs
+ ;; restart-emacs
 
-(defun spacemacs/restart-emacs (&optional args)
+(defun spacemacs/restart-emacs ()
   "Restart emacs."
   (interactive)
   (let ((spacemacs-really-kill-emacs t))
-    (restart-emacs args)))
-
-(defun spacemacs/restart-emacs-builtin ()
-  "Restart emacs using the built-in `restart-emacs' command rather than external package."
-  (interactive)
-  (let ((spacemacs-really-kill-emacs t))
     (restart-emacs)))
-
-;; This key binding may be overwritten by
-;; `spacemacs-navigation/init-restart-emacs' if that package is used.  It is
-;; defined here rather than in keybindings.el because it needs to be overwritten
-;; by package initialization, and keybindings.el is loaded too late.
-(spacemacs/set-leader-keys
-  "qr" 'spacemacs/restart-emacs-builtin)
-
-(defun spacemacs/restart-emacs-resume-layouts (&optional args)
-  "Restart emacs and resume layouts."
-  (interactive)
-  (spacemacs/restart-emacs (cons "--resume-layouts" args)))
-
-(defun spacemacs/restart-emacs-debug-init (&optional args)
-  "Restart emacs and enable debug-init."
-  (interactive)
-  (spacemacs/restart-emacs (cons "--debug-init" args)))
-
-(defun spacemacs/restart-emacs-timed-requires (&optional args)
-  "Restart emacs and time loads / requires."
-  (interactive)
-  (spacemacs/restart-emacs (cons "--timed-requires" args)))
-
-(defun spacemacs/restart-emacs-adv-timers (&optional args)
-  "Restart emacs and time loads / requires and spacemacs configuration."
-  (interactive)
-  (spacemacs/restart-emacs (cons "--adv-timers" args)))
-
-(defun spacemacs/restart-stock-emacs-with-packages (packages &optional args)
-  "Restart emacs without the spacemacs configuration, enable
-debug-init and load the given list of packages."
-  (interactive
-   (progn
-     (unless package--initialized
-       (package-initialize t))
-     (let ((packages (append (mapcar 'car package-alist)
-                             (mapcar 'car package-archive-contents)
-                             (mapcar 'car package--builtins))))
-       (setq packages (mapcar 'symbol-name packages))
-       (let ((val (completing-read-multiple "Packages to load (comma separated): "
-                                            packages nil t)))
-         `(,val)))))
-  (let ((load-packages-string (mapconcat (lambda (pkg) (format "(use-package %s)" pkg))
-                                         packages " ")))
-    (spacemacs/restart-emacs-debug-init
-     (append (list "-q" "--execute"
-                   (concat "(progn (package-initialize) "
-                           "(require 'use-package)"
-                           load-packages-string ")"))
-             args))))
