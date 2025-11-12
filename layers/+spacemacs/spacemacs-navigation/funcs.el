@@ -480,78 +480,10 @@ ivy"
   (paradox-list-packages nil))
 
 
-;; restart-emacs
+ ;; restart-emacs
 
-(defun spacemacs/restart-emacs (&optional args)
+(defun spacemacs/restart-emacs ()
   "Restart emacs."
   (interactive)
   (let ((spacemacs-really-kill-emacs t))
-    (restart-emacs args)))
-
-(defun spacemacs/restart-emacs-builtin ()
-  "Restart emacs using the built-in `restart-emacs' command rather than external package."
-  (interactive)
-  (let ((spacemacs-really-kill-emacs t))
     (restart-emacs)))
-
-;; This key binding may be overwritten by
-;; `spacemacs-navigation/init-restart-emacs' if that package is used.  It is
-;; defined here rather than in keybindings.el because it needs to be overwritten
-;; by package initialization, and keybindings.el is loaded too late.
-(spacemacs/set-leader-keys
-  "qr" 'spacemacs/restart-emacs-builtin)
-
-(defun spacemacs/restart-emacs-resume-layouts (&optional args)
-  "Restart emacs and resume layouts."
-  (interactive)
-  (spacemacs/restart-emacs (cons "--resume-layouts" args)))
-
-(defun spacemacs/restart-emacs-debug-init (&optional args)
-  "Restart emacs and enable debug-init."
-  (interactive)
-  (spacemacs/restart-emacs (cons "--debug-init" args)))
-
-(defun spacemacs/restart-emacs-timed-requires (&optional args)
-  "Restart emacs and time loads / requires."
-  (interactive)
-  (spacemacs/restart-emacs (cons "--timed-requires" args)))
-
-(defun spacemacs/restart-emacs-adv-timers (&optional args)
-  "Restart emacs and time loads / requires and spacemacs configuration."
-  (interactive)
-  (spacemacs/restart-emacs (cons "--adv-timers" args)))
-
-(defun spacemacs/restart-stock-emacs-with-packages (packages &optional args)
-  "Restart Emacs without the Spacemacs configuration, enable
---debug-init and load the given PACKAGES.
-
-PACKAGES may be a list of strings or symbols.
-
-ARGS should be additional command-line arguments for Emacs."
-  (interactive
-   (progn
-     (unless package--initialized
-       (package-initialize t))
-     (let* ((all-packages
-             (append package-alist
-                     ;; In order to activate packages from an archive
-                     ;; that are not installed (i.e. not in `package-alist'),
-                     ;; we would first need to set up `package-archives' and
-                     ;; then install the packages, perhaps implicitly via
-                     ;; `use-package-always-ensure'.
-                     ;; (mapcar 'car package-archive-contents)
-                     package--builtins))
-            (packages (completing-read-multiple "Packages to load (comma separated): "
-                                                all-packages nil t)))
-       (list packages))))
-  (let ((load-packages-string (mapconcat (lambda (pkg) (format "(use-package %s)" pkg))
-                                         packages " ")))
-    (spacemacs/restart-emacs-debug-init
-     (append (list "-q" "--execute"
-                   (format "
-(progn
-  (setq package-user-dir %S)
-  (package-initialize)
-  (require 'use-package)
-  %s)" package-user-dir load-packages-string))
-             args))))
