@@ -246,6 +246,7 @@ that directory."
  for (tools tool-name) in '((dotspacemacs-search-tools "auto")
                             ((list "rg") "rg")
                             ((list "ag") "ag")
+                            ((list "pt") "pt")
                             ((list "ack") "ack")
                             ((list "grep") "grep"))
  do
