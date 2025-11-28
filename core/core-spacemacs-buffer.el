@@ -23,7 +23,6 @@
 ;;; Code:
 
 (require 'core-dotspacemacs)
-(require 'core-obsolete)
 (eval-when-compile
   (defvar dotspacemacs-distribution)
   (defvar dotspacemacs-filepath)
@@ -1581,8 +1580,6 @@ can be adjusted with the variable:
     (when dotspacemacs-startup-lists
       (spacemacs-buffer/insert-startup-lists))
     (spacemacs-buffer//insert-footer)
-    (when-let* ((obsolete-vars (spacemacs//check-obsolete-variables)))
-      (mapcan #'spacemacs-buffer/error obsolete-vars))
     (if configuration-layer-error-count
         (progn
           (spacemacs-buffer-mode)
