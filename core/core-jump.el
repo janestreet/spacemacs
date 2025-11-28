@@ -73,19 +73,18 @@ They are in order: `spacemacs-jump-handlers',
   "Jump to definition around point using the best tool for this action."
   (interactive)
   (catch 'done
-    (let ((old-buffer (current-buffer))
-          (old-point (point)))
-      (dolist (-handler (spacemacs//get-jump-handlers))
-        (let ((handler (if (listp -handler) (car -handler) -handler))
-              (async (plist-get (cdr-safe -handler) :async)))
-          (ignore-errors
-            (call-interactively handler))
-          (when (or (eq async t)
-                    (and (fboundp async) (funcall async))
-                    (not (eq old-point (point)))
-                    (not (equal old-buffer (current-buffer))))
-            (throw 'done t)))))
-    (message "No jump handler was able to find this symbol.")))
+    (dolist (-handler (spacemacs//get-jump-handlers))
+      ;; TODO: Some jump handlers specify an :async keyword if they jump
+      ;; asynchronously (e.g., the command finishes executing before the jump
+      ;; may happen).  `spacemacs/jump-to-definition' used to handle
+      ;; asynchronous jump handlers differently, but now it handles async and
+      ;; sync ones uniformly.
+      (let ((handler (if (listp -handler) (car -handler) -handler)))
+        (condition-case nil
+            (progn (call-interactively handler)
+                   (throw 'done t))
+          (error nil))))
+    (error "No jump handler was able to find this symbol")))
 
 (defun spacemacs/jump-to-definition-other-window ()
   "Jump to definition around point in other window."
@@ -93,6 +92,12 @@ They are in order: `spacemacs-jump-handlers',
   (let ((pos (point)))
     ;; since `spacemacs/jump-to-definition' can be asynchronous we cannot use
     ;; `save-excursion' here, so we have to bear with the jumpy behavior.
+    ;;
+    ;; TODO: Can we replace asynchronous jump handlers with synchronous ones?
+    ;; (In theory one could always wrap async ones).  That would fix the issue
+    ;; where `spacemacs/jump-to-definition-other-window' may open another window
+    ;; but then the jump handler might fail.  (It should only open another
+    ;; window if it can successfully determine where to jump to).
     (switch-to-buffer-other-window (current-buffer))
     (goto-char pos)
     (spacemacs/jump-to-definition)))
