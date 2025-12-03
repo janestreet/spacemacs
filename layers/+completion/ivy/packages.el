@@ -163,6 +163,11 @@
 
     (define-key read-expression-map (kbd "C-r") 'counsel-minibuffer-history)
     (spacemacs//counsel-search-add-extra-bindings counsel-ag-map)
+
+    ;; Do not enable `counsel-mode', but add a small subset of its remappings.
+    (global-set-key [remap execute-extended-command] #'counsel-M-x) ;integrates with amx history
+    (global-set-key [remap imenu] #'counsel-imenu) ;search over whole path by default
+
     ;; TODO Commands to port
     (spacemacs//ivy-command-not-implemented-yet "jI")
     ;; Set syntax highlighting for counsel search results
