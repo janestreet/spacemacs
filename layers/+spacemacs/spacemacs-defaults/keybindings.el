@@ -689,7 +689,6 @@ respond to this toggle."
   "w_"  'spacemacs/maximize-horizontally
   "w|"  'spacemacs/maximize-vertically)
 ;; text -----------------------------------------------------------------------
-(defalias 'count-region 'count-words-region)
 
 (spacemacs/set-leader-keys
   "xa%" 'spacemacs/align-repeat-percent
@@ -711,7 +710,7 @@ respond to this toggle."
   "xam" 'spacemacs/align-repeat-math-oper
   "xar" 'spacemacs/align-repeat
   "xa|" 'spacemacs/align-repeat-bar
-  "xc"  'count-region
+  "xc"  'count-words-region
   "xd SPC" 'cycle-spacing
   "xdl" 'delete-blank-lines
   "xdw" 'delete-trailing-whitespace
