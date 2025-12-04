@@ -199,7 +199,7 @@ to `auto', tags may not be properly aligned. "
      `(fringe ((,class (:background ,bg1 :foreground ,base))))
      `(header-line ((,class :background ,bg2)))
      `(help-key-binding ((,class :foreground ,blue)))
-     `(highlight ((,class (:foreground ,base :background ,highlight))))
+     `(highlight ((,class (:foreground ,base :background ,highlight-dim))))
      `(hl-line ((,class (:background ,bg2 :extend t))))
      `(isearch ((,class (:foreground ,bg1 :background ,mat))))
      `(lazy-highlight ((,class (:background ,green-bg-s))))
