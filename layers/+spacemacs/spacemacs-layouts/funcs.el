@@ -98,10 +98,12 @@ Cancels autosave on exiting perspectives mode."
 
 This is similar to `with-persp-buffer-list', but maintains the order of the list
 returned by `buffer-list'."
-  (cl-letf* ((orig-buffer-list (symbol-function 'buffer-list))
-             ((symbol-function 'buffer-list)
-              (lambda (&optional frame)
-                (seq-filter #'persp-contain-buffer-p (funcall orig-buffer-list frame)))))
+  (if (fboundp 'persp-contain-buffer-p)
+      (cl-letf* ((orig-buffer-list (symbol-function 'buffer-list))
+                 ((symbol-function 'buffer-list)
+                  (lambda (&optional frame)
+                    (seq-filter #'persp-contain-buffer-p (funcall orig-buffer-list frame)))))
+        (apply orig-fun args))
     (apply orig-fun args)))
 
 
