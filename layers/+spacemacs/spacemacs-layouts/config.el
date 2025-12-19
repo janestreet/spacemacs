@@ -70,28 +70,31 @@ layout, the 4th for the 4th, and so on until the 10th (aka layout
 number 0). The first list is sepcial - it is a grab-bag for names
 in case none of the regular names can be used for a new layout.")
 
-(defvar spacemacs--old-layouts-restricted-functions nil)
 (defcustom spacemacs-layouts-restricted-functions
   '(switch-to-prev-buffer
     switch-to-next-buffer
     spacemacs/window-split-double-columns
     spacemacs/window-split-triple-columns
     spacemacs/window-split-grid)
-  "List of functions to be wrapped by `spacemacs||with-persp-buffer-list',
-which restricts the value of `buffer-list' to the buffers in the current layout.
+  "List of functions which should only see buffers in the current layout.
 
-To change the value of this variable, redefine the complete list
-using `setopt', `customize-set-variable', or by setting it as a
-layer variable in `dotspacemacs-configuration-layers'. This
-ensures that the custom set function is called which removes and
-adds advices to the respective functions."
+These functions will be advised with
+`spacemacs-layouts//advice-with-persp-buffer-list', which restricts the
+return value of `buffer-list' to the buffers in the current layout.
+
+To change the value of this variable, redefine the complete list using
+`setopt', `customize-set-variable', or by setting it as a layer variable
+in `dotspacemacs-configuration-layers'.  This ensures that the custom
+set function is called which removes and adds advices to the respective
+functions."
   :type '(repeat function)
-  :set (lambda (_ value)
-         (dolist (fn spacemacs--old-layouts-restricted-functions)
-           (advice-remove fn 'spacemacs-layouts//advice-with-persp-buffer-list))
-         (setq spacemacs--old-layouts-restricted-functions value
-               spacemacs-layouts-restricted-functions value)
-         (dolist (fn spacemacs-layouts-restricted-functions)
+  :set (lambda (var new-value)
+         (ignore-error void-variable
+           (let ((old-value (default-toplevel-value var)))
+             (dolist (fn old-value)
+               (advice-remove fn 'spacemacs-layouts//advice-with-persp-buffer-list))))
+         (set-default-toplevel-value var new-value)
+         (dolist (fn new-value)
            (advice-add fn :around 'spacemacs-layouts//advice-with-persp-buffer-list))))
 
 ;; This is needed to allow setting it as a layer variable in
