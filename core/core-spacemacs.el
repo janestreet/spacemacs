@@ -62,7 +62,7 @@
 (defvar spacemacs-post-user-config-hook-run nil
   "Whether `spacemacs-post-user-config-hook' has been run")
 (defvar spacemacs-scratch-mode-hook nil
-  "Hook run on buffer *scratch* after `dotspacemacs-scratch-mode' is invoked.")
+  "Hook run on buffer *scratch* after `initial-major-mode' is invoked.")
 
 ;; Backup of the default mode line format, so it can be restored if needed.
 (defvar spacemacs--default-mode-line mode-line-format
@@ -195,10 +195,10 @@ defer call using `spacemacs-post-user-config-hook'."
      (run-hooks 'spacemacs-post-user-config-hook)
      (setq spacemacs-post-user-config-hook-run t)
      ;; Setup scratch buffer mode if defined.
-     (when (fboundp dotspacemacs-scratch-mode)
+     (when (fboundp initial-major-mode)
        (when (get-buffer "*scratch*")
          (with-current-buffer "*scratch*"
-           (funcall dotspacemacs-scratch-mode)
+           (funcall initial-major-mode)
            (run-hooks 'spacemacs-scratch-mode-hook))))
      ;; Load delayed user theme if set.
      (when spacemacs--delayed-user-theme
