@@ -232,16 +232,6 @@ Set the value to quoted `display-graphic-p' for graphic frame only."
   '(choice boolean (const all))
   'spacemacs-dotspacemacs-init)
 
-(spacemacs|defc dotspacemacs-scratch-mode 'text-mode
-  "Default major mode of the scratch buffer."
-  'symbol
-  'spacemacs-dotspacemacs-init)
-
-(spacemacs|defc dotspacemacs-initial-scratch-message nil
-  "Initial message in the scratch buffer."
-  '(choice (const nil) string)
-  'spacemacs-dotspacemacs-init)
-
 (spacemacs|defc dotspacemacs-check-for-update nil
   "If non-nil then spacemacs will check for updates at startup
 when the current branch is not `develop'. Note that checking for
