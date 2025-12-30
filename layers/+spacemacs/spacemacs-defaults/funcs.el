@@ -1725,9 +1725,9 @@ a split-side entry, its value must be usable as the SIDE argument for
           (add-hook 'kill-buffer-hook
                     #'spacemacs//confirm-kill-buffer
                     nil t)
-          (when (and (not (eq major-mode dotspacemacs-scratch-mode))
-                     (fboundp dotspacemacs-scratch-mode))
-            (funcall dotspacemacs-scratch-mode)
+          (when (and (not (eq major-mode initial-major-mode))
+                     (fboundp initial-major-mode))
+            (funcall initial-major-mode)
             (run-hooks 'spacemacs-scratch-mode-hook)))
         scratch)))
 
