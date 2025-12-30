@@ -121,10 +121,6 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
  undo-strong-limit 120000000
  undo-outer-limit 360000000)
 
-;; Start with the *scratch* buffer in text mode (speeds up Emacs load time,
-;; because it avoids autoloads of elisp modes)
-(setq initial-major-mode 'text-mode)
-
 ;; use only spaces and no tabs
 (setq-default indent-tabs-mode nil
               tab-width 2)
@@ -232,8 +228,6 @@ variables (see `savehist-mode' and `savehist-additional-variables')."
 
 (defvar spacemacs--savehist-idle-timer nil)
 
-;; scratch buffer empty
-(setq initial-scratch-message dotspacemacs-initial-scratch-message)
 ;; don't create backup~ files
 (setq make-backup-files nil)
 
