@@ -348,11 +348,12 @@
 
     ;; should be all in with orderless otherwise the results are inconsistent.
     ;; the available styles are registered in `completion-styles-alist`.
-    (setq completion-styles '(orderless basic)
+    (setq completion-styles '(orderless partial-completion basic)
           completion-category-defaults nil
           ;; we need to have 'basic here first in order to support tramp connections...
           ;; see `completion-styles`.
-          completion-category-overrides '((file (styles basic partial-completion))))
+          completion-category-overrides '((file (styles basic partial-completion)))
+          orderless-matching-styles '(orderless-regexp orderless-literal orderless-prefixes))
     :config
     (add-to-list 'orderless-style-dispatchers #'orderless-kwd-dispatch)))
 
