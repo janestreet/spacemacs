@@ -345,10 +345,11 @@
 
     ;; should be all in with orderless otherwise the results are inconsistent.
     ;; the available styles are registered in `completion-styles-alist`.
-    (setq completion-styles '(orderless basic)
+    (setq completion-styles '(orderless partial-completion basic)
           ;; we need to have 'basic here first in order to support tramp connections...
           ;; see `completion-styles`.
-          completion-category-overrides '((file (styles basic partial-completion))))
+          completion-category-overrides '((file (styles basic partial-completion)))
+          orderless-matching-styles '(orderless-regexp orderless-literal orderless-prefixes))
     ;; Only override built-in categories, from the default value of
     ;; `completion-category-defaults'.  Do not second-guess site- or
     ;; package-specific categories.
