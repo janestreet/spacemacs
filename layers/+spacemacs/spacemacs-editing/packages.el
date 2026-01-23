@@ -662,10 +662,11 @@ See variable `undo-fu-session-directory'." dir))
     (unkillable-scratch dotspacemacs-scratch-buffer-unkillable)))
 
 (defun spacemacs-editing/init-wgrep ()
-  (spacemacs/set-leader-keys-for-major-mode 'grep-mode
-    "s" 'wgrep-save-all-buffers
-    "w" 'spacemacs/grep-change-to-wgrep-mode
-    "f" 'next-error-follow-minor-mode)
+  (dolist (mode '(grep-mode urgrep-mode))
+    (spacemacs/set-leader-keys-for-major-mode mode
+      "s" 'wgrep-save-all-buffers
+      "w" 'spacemacs/grep-change-to-wgrep-mode
+      "f" 'next-error-follow-minor-mode))
   (evil-define-key 'normal wgrep-mode-map ",," #'spacemacs/wgrep-finish-edit)
   (evil-define-key 'normal wgrep-mode-map ",c" #'spacemacs/wgrep-finish-edit)
   (evil-define-key 'normal wgrep-mode-map ",a" #'spacemacs/wgrep-abort-changes)
