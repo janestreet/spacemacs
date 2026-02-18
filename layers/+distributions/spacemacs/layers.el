@@ -31,7 +31,6 @@
    treemacs
    spacemacs-base
    spacemacs-completion
-   spacemacs-layouts
    spacemacs-editing
    spacemacs-editing-visual
    spacemacs-evil
