@@ -86,7 +86,7 @@ A COUNT argument matches the indentation to the next COUNT lines."
   :type '(repeat symbol)
   :group 'spacemacs)
 
-(defcustom spacemacs-yank-indent-modes '(prog-mode latex-mode)
+(defcustom spacemacs-yank-indent-modes '()
   "Modes in which to indent regions that are yanked (or yank-popped)."
   :type '(repeat symbol)
   :group 'spacemacs)
