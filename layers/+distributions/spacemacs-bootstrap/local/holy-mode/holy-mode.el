@@ -58,6 +58,8 @@ The `insert state' is replaced by the `emacs state'."
       (in-nomine-patris-et-filii-et-spiritus-sancti)
     (amen)))
 
+(defvar holy-mode--saved-evil-mode-line-format nil)
+
 (defun in-nomine-patris-et-filii-et-spiritus-sancti ()
   "Enter the church of Emacs (wash your hands)."
   ;; make all buffers' initial state emacs
@@ -69,7 +71,9 @@ The `insert state' is replaced by the `emacs state'."
   ;; key bindings hooks for dynamic switching of editing styles
   (run-hook-with-args 'spacemacs-editing-style-hook 'emacs)
   ;; initiate `emacs state' and enter the church
-  (holy-mode//update-states-for-current-buffers 'emacs))
+  (holy-mode//update-states-for-current-buffers 'emacs)
+  (setq holy-mode--saved-evil-mode-line-format evil-mode-line-format
+        evil-mode-line-format nil))
 
 (defun amen ()
   "May the force be with you my son (or not)."
@@ -82,7 +86,9 @@ The `insert state' is replaced by the `emacs state'."
   ;; restore key bindings
   (run-hook-with-args 'spacemacs-editing-style-hook 'vim)
   ;; restore the states
-  (holy-mode//update-states-for-current-buffers 'vim))
+  (holy-mode//update-states-for-current-buffers 'vim)
+  (setq evil-mode-line-format holy-mode--saved-evil-mode-line-format
+        holy-mode--saved-evil-mode-line-format nil))
 
 (defun holy-mode//update-states-for-current-buffers (style)
   "Update the active state in all current buffers given current STYLE."
