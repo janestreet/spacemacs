@@ -184,20 +184,6 @@ to act on with `embark-act-all', and move to the next candidate."
   (vertico-previous (or n 1))
   (spacemacs/embark-preview))
 
-;; selectrum
-
-(defun spacemacs/selectrum-next-candidate-preview (&optional n)
-  "Go forward N candidates and preview"
-  (interactive)
-  (selectrum-next-candidate (or n 1))
-  (spacemacs/embark-preview))
-
-(defun spacemacs/selectrum-previous-candidate-preview (&optional n)
-  "Go backward N candidates and preview"
-  (interactive)
-  (selectrum-previous-candidate (or n 1))
-  (spacemacs/embark-preview))
-
 ;; which-key integration functions for embark
 ;; https://github.com/oantolin/embark/wiki/Additional-Configuration#use-which-key-like-a-key-menu-prompt
 (defun spacemacs/embark-which-key-indicator ()
