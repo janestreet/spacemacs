@@ -2316,20 +2316,20 @@ in the back-up directory."
        ((memq action '(nil t lambda))
         (when (eq dirs 'unset)
           (let ((rolldir configuration-layer-rollback-directory))
-            (when (file-exists-p rolldir)
-              (setq dirs
-                    (delq nil
-                          (mapcar
-                           (lambda (slot-dir)
-                             (when (and (file-directory-p (concat rolldir slot-dir))
-                                        (not (or (string= "." slot-dir) (string= ".." slot-dir))))
-                               (let ((p (length (cl-set-difference
-                                                 (directory-files (file-name-as-directory
-                                                                   (concat rolldir slot-dir)))
-                                                 '("." ".." "rollback-info")
-                                                 :test #'string=))))
-                                 (cons slot-dir p))))
-                           (directory-files rolldir)))))))
+            (setq dirs
+                  (and (file-exists-p rolldir)
+                       (delq nil
+                             (mapcar
+                              (lambda (slot-dir)
+                                (when (and (file-directory-p (concat rolldir slot-dir))
+                                           (not (or (string= "." slot-dir) (string= ".." slot-dir))))
+                                  (let ((p (length (cl-set-difference
+                                                    (directory-files (file-name-as-directory
+                                                                      (concat rolldir slot-dir)))
+                                                    '("." ".." "rollback-info")
+                                                    :test #'string=))))
+                                    (cons slot-dir p))))
+                              (directory-files rolldir)))))))
         (complete-with-action action dirs string predicate))))))
 
 (defun configuration-layer/rollback (slot-dir)
