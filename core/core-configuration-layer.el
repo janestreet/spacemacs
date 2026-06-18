@@ -829,19 +829,19 @@ a new object."
           (and (configuration-layer/layer-used-p layer-name)
                (or excluded (oref obj excluded))))
     (if location
-      (if (and (listp location)
-               (eq (car location) 'recipe)
-               (eq (plist-get (cdr location) :fetcher) 'local))
-          (cond
-           (layer (let ((path (expand-file-name
-                               (format "%s%s"
-                                       (configuration-layer/get-layer-local-dir
-                                        layer-name)
-                                       pkg-name))))
-                    (oset
-                     obj location `(recipe :fetcher file :path ,path))))
-           ((eq 'dotfile layer-name) nil))
-        (oset obj location location))
+        (if (and (listp location)
+                 (eq (car location) 'recipe)
+                 (eq (plist-get (cdr location) :fetcher) 'local))
+            (cond
+             (layer (let ((path (expand-file-name
+                                 (format "%s%s"
+                                         (configuration-layer/get-layer-local-dir
+                                          layer-name)
+                                         pkg-name))))
+                      (oset
+                       obj location `(recipe :fetcher file :path ,path))))
+             ((eq 'dotfile layer-name) nil))
+          (oset obj location location))
       (when (and ownerp (package-built-in-p pkg-name))
         (oset obj location 'built-in)))
     ;; cannot override protected packages
@@ -1808,7 +1808,7 @@ RNAME is the name symbol of another existing layer."
           ;; example, if hypothetically, org (optionally) requires transient in
           ;; the future, we should take care to update transient before org.
           (let* (built-in bootstrap-pre remaining
-                 sorted-upkg-names)
+                          sorted-upkg-names)
             (dolist (pkg-name upkg-names)
               (let ((pkg (configuration-layer/get-package pkg-name)))
                 (push pkg-name
