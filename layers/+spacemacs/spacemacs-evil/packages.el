@@ -116,6 +116,18 @@
     :config
     (setq evil-collection-mode-list spacemacs-evil-collection-allowed-list)
     (setq evil-collection-want-unimpaired-p nil)
+    ;; evil-collection <3.0.0 used to bind `g r' to `revert-buffer' directly in
+    ;; the mode map, but changed to only bind it in the auxiliary keymap for
+    ;; normal state.
+    ;;
+    ;; Spacemacs puts `special-mode' buffers in motion state, but still wants `g
+    ;; r' to be bound to `revert-buffer'.  We also want it bound in evilified
+    ;; state, for the many modes which are evilified but derived from
+    ;; `special-mode'.
+    (when (boundp 'evil-collection-binding-overrides)
+      (setf (plist-get (alist-get 'refresh evil-collection-binding-overrides)
+                       :state)
+            nil))
     (evil-collection-init)
     ;; replace `dired-goto-file' with equivalent helm and ivy functions:
     ;; `spacemacs/helm-find-files' fuzzy matching and other features
