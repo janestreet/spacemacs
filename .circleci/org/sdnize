@@ -14,8 +14,8 @@
 mkdir -p "/tmp/sdn/"
 echo_headline "Extract data out of documentation files into .sdn"
 emacs -batch \
-      --no-dotspacemacs \
       -l /opt/spacetools/spacedoc/sdnize/sdnize \
+      --no-dotspacemacs \
       -no-site-file \
       -q \
       ~/.emacs.d/ \
