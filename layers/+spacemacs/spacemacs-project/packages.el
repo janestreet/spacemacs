@@ -60,7 +60,9 @@
           projectile-cache-file (concat spacemacs-cache-directory
                                         "projectile.cache")
           projectile-known-projects-file (concat spacemacs-cache-directory
-                                                 "projectile-bookmarks.eld"))
+                                                 "projectile-bookmarks.eld")
+          projectile-frecency-file (concat spacemacs-cache-directory
+                                           "projectile-frecency.eld"))
     (spacemacs/set-leader-keys
       ;; File path
       "fyC" 'spacemacs/projectile-copy-file-path-with-line-column
