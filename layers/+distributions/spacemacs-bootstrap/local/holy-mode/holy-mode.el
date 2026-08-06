@@ -91,6 +91,7 @@ The `insert state' is replaced by the `emacs state'."
   (dolist (buffer (buffer-list))
     (with-current-buffer buffer
       (cond
+       ((not evil-local-mode))
        ((eq 'emacs style) (evil-emacs-state))
        ((and (eq 'vim style)
              (eq 'emacs evil-state))
