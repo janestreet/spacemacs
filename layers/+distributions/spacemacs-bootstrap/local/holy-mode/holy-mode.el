@@ -36,6 +36,12 @@
       (apply f arg args)
     (evil-emacs-state)))
 
+(defconst holy-mode--overridden-states
+  (mapcar
+   (lambda (state) (intern (format "evil-%s-state" state)))
+   '(insert motion normal))
+  "List of Evil state functions that `holy-mode' will override with `evil-emacs-state'.")
+
 ;;;###autoload
 (define-minor-mode holy-mode
   "Global minor mode to repulse the evil from spacemacs.
@@ -53,9 +59,8 @@ The `insert state' is replaced by the `emacs state'."
   ;; make all buffers' initial state emacs
   (add-to-list 'evil-buffer-regexps '("." . emacs))
   ;; replace evil states by `emacs state'
-  (advice-add 'evil-insert-state :around #'holy-mode--override-with-emacs-state)
-  (advice-add 'evil-motion-state :around #'holy-mode--override-with-emacs-state)
-  (advice-add 'evil-normal-state :around #'holy-mode--override-with-emacs-state)
+  (dolist (state holy-mode--overridden-states)
+    (advice-add state :around #'holy-mode--override-with-emacs-state))
   ;; key bindings hooks for dynamic switching of editing styles
   (run-hook-with-args 'spacemacs-editing-style-hook 'emacs)
   ;; initiate `emacs state' and enter the church
@@ -66,9 +71,8 @@ The `insert state' is replaced by the `emacs state'."
   ;; restore defaults
   (setq evil-buffer-regexps (delete '("." . emacs) evil-buffer-regexps))
   ;; restore evil states
-  (advice-remove 'evil-insert-state #'holy-mode--override-with-emacs-state)
-  (advice-remove 'evil-motion-state #'holy-mode--override-with-emacs-state)
-  (advice-remove 'evil-normal-state #'holy-mode--override-with-emacs-state)
+  (dolist (state holy-mode--overridden-states)
+    (advice-remove state #'holy-mode--override-with-emacs-state))
   ;; restore key bindings
   (run-hook-with-args 'spacemacs-editing-style-hook 'vim)
   ;; restore the states
