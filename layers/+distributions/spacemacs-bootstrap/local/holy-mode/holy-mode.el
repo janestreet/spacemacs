@@ -30,20 +30,8 @@
 
 (require 'evil)
 
-(defun holy-insert-to-emacs-state (f &optional arg &rest args)
-  "Advice around `evil-insert-state' to force Emacs state."
-  (if (equal -1 arg)
-      (apply f arg args)
-    (evil-emacs-state)))
-
-(defun holy-motion-to-emacs-state (f &optional arg &rest args)
-  "Advice around `evil-motion-state' to force Emacs state."
-  (if (equal -1 arg)
-      (apply f arg args)
-    (evil-emacs-state)))
-
-(defun holy-normal-to-emacs-state (f &optional arg &rest args)
-  "Advice around `evil-normal-state' to force Emacs state."
+(defun holy-mode--override-with-emacs-state (f &optional arg &rest args)
+  "Advice around some Evil states to force Emacs state."
   (if (equal -1 arg)
       (apply f arg args)
     (evil-emacs-state)))
@@ -65,9 +53,9 @@ The `insert state' is replaced by the `emacs state'."
   ;; make all buffers' initial state emacs
   (add-to-list 'evil-buffer-regexps '("." . emacs))
   ;; replace evil states by `emacs state'
-  (advice-add 'evil-insert-state :around #'holy-insert-to-emacs-state)
-  (advice-add 'evil-motion-state :around #'holy-motion-to-emacs-state)
-  (advice-add 'evil-normal-state :around #'holy-normal-to-emacs-state)
+  (advice-add 'evil-insert-state :around #'holy-mode--override-with-emacs-state)
+  (advice-add 'evil-motion-state :around #'holy-mode--override-with-emacs-state)
+  (advice-add 'evil-normal-state :around #'holy-mode--override-with-emacs-state)
   ;; key bindings hooks for dynamic switching of editing styles
   (run-hook-with-args 'spacemacs-editing-style-hook 'emacs)
   ;; initiate `emacs state' and enter the church
@@ -78,9 +66,9 @@ The `insert state' is replaced by the `emacs state'."
   ;; restore defaults
   (setq evil-buffer-regexps (delete '("." . emacs) evil-buffer-regexps))
   ;; restore evil states
-  (advice-remove 'evil-insert-state #'holy-insert-to-emacs-state)
-  (advice-remove 'evil-motion-state #'holy-motion-to-emacs-state)
-  (advice-remove 'evil-normal-state #'holy-normal-to-emacs-state)
+  (advice-remove 'evil-insert-state #'holy-mode--override-with-emacs-state)
+  (advice-remove 'evil-motion-state #'holy-mode--override-with-emacs-state)
+  (advice-remove 'evil-normal-state #'holy-mode--override-with-emacs-state)
   ;; restore key bindings
   (run-hook-with-args 'spacemacs-editing-style-hook 'vim)
   ;; restore the states
