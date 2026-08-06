@@ -1,4 +1,4 @@
-;;; holy-mode.el --- Enter the church of Emacs  -*- lexical-binding: nil; -*-
+;;; holy-mode.el --- Enter the church of Emacs  -*- lexical-binding: t; -*-
 
 ;; Copyright (c) 2015-2025 Sylvain Benner
 ;;
@@ -27,6 +27,8 @@
 ;;; Commentary:
 
 ;;; Code:
+
+(require 'evil)
 
 (defun holy-insert-to-emacs-state (f &optional arg &rest args)
   "Advice around `evil-insert-state' to force Emacs state."
