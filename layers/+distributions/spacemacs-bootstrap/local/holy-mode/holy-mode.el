@@ -63,7 +63,7 @@ The `insert state' is replaced by the `emacs state'."
 (defun in-nomine-patris-et-filii-et-spiritus-sancti ()
   "Enter the church of Emacs (wash your hands)."
   ;; make all buffers' initial state emacs
-  (push '("." . emacs) evil-buffer-regexps)
+  (add-to-list 'evil-buffer-regexps '("." . emacs))
   ;; replace evil states by `emacs state'
   (advice-add 'evil-insert-state :around #'holy-insert-to-emacs-state)
   (advice-add 'evil-motion-state :around #'holy-motion-to-emacs-state)
