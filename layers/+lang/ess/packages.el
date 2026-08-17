@@ -51,7 +51,7 @@
 
 (defun ess/init-ess ()
   (use-package ess
-    :commands (R stata julia SAS ess-julia-mode)
+    :defer t
     :init
     (setq ess-use-company nil
           ess-offset-continued 'straight
