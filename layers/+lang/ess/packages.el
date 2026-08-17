@@ -51,17 +51,6 @@
 
 (defun ess/init-ess ()
   (use-package ess
-    :mode (("/R/.*\\.q\\'"       . R-mode)
-           ("\\.[rR]\\'"         . R-mode)
-           ("\\.[rR]profile\\'"  . R-mode)
-           ("NAMESPACE\\'"       . R-mode)
-           ("CITATION\\'"        . R-mode)
-           ("\\.[Ss][Aa][Ss]\\'" . SAS-mode)
-           ("\\.[Rr]out"         . R-transcript-mode)
-           ("\\.Rd\\'"           . Rd-mode)
-           ("\\.[Bb][Uu][Gg]\\'" . ess-bugs-mode)
-           ("\\.[Bb][Oo][Gg]\\'" . ess-bugs-mode)
-           ("\\.[Bb][Mm][Dd]\\'" . ess-bugs-mode))
     :commands (R stata julia SAS ess-julia-mode)
     :init
     (setq ess-use-company nil
