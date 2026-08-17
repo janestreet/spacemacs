@@ -37,6 +37,7 @@ the [[file:CHANGELOG.org][CHANGELOG.org]] file.
 - Fixed typos
 - Remove obsolete hack erc-sasl
 - Remove =spacemacs/counsel-gtags-define-keys-for-mode= warnings
+- Add configuration layer for just (thanks to Dietrich Daroch)
 - Add configuration layer for gleam-lang (thanks to Qynn Schwaab)
 - Highlight ruby debugger lines appropriately
 - Add support for Android emacs.

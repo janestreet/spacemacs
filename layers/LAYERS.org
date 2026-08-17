@@ -230,6 +230,7 @@
   - [[#geolocation][Geolocation]]
   - [[#imenu-list][Imenu-list]]
   - [[#import-js][Import-js]]
+  - [[#just][Just]]
   - [[#kubernetes][Kubernetes]]
   - [[#lsp][LSP]]
   - [[#meson][Meson]]
@@ -3018,6 +3019,16 @@ Features:
 - Import Javascript/Typescript modules to buffer
 - Import missing modules and remove unused one
 - Go to module location
+
+** Just
+[[file:+tools/just/README.org][+tools/just/README.org]]
+
+This layer provides support for [[https://just.systems/][just]] through the [[https://github.com/psibi/justl.el][justl.el]] package.
+
+Features:recipe
+- Run the default recipe with ~SPC p j~
+- Select and run a recipe with ~SPC p J J~
+- List recipes with ~SPC p J l~
 
 ** Kubernetes
 [[file:+tools/kubernetes/README.org][+tools/kubernetes/README.org]]
