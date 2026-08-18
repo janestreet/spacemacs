@@ -1,4 +1,4 @@
-;;; packages.el --- NixOS Layer packages File for Spacemacs  -*- lexical-binding: nil; -*-
+;;; packages.el --- NixOS Layer packages File for Spacemacs  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2015-2025 Sylvain Benner & Contributors
 ;;
@@ -30,12 +30,13 @@
     nixos-options))
 
 (defun nixos/post-init-company ()
-  (let ((backends '(company-capf)))
-    (when (configuration-layer/package-used-p 'company-nixos-options)
-      (add-to-list 'backends 'company-nixos-options t))
-    (eval `(spacemacs|add-company-backends
-            :backends ,backends
-            :modes nix-mode))))
+  (when (configuration-layer/package-used-p 'company-nixos-options)
+    (spacemacs|add-company-backends
+      :backends company-nixos-options
+      :modes nix-mode))
+  (spacemacs|add-company-backends
+    :backends company-capf
+    :modes nix-mode))
 
 (defun nixos/init-company-nixos-options ()
   (use-package company-nixos-options
