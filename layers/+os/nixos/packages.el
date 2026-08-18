@@ -22,7 +22,8 @@
 
 
 (defconst nixos-packages
-  '((company-nixos-options :requires (company nixos-options))
+  '(company
+    (company-nixos-options :requires (company nixos-options))
     flycheck
     (helm-nixos-options :requires (helm nixos-options))
     nix-mode
