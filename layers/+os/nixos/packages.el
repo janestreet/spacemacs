@@ -57,7 +57,6 @@
       "==" 'nix-format-buffer
       "f"  'nix-flake)
     :config
-    (electric-indent-mode -1)
     (when nixos-format-on-save
       (add-hook 'nix-mode-hook #'nix-format-on-save-mode))))
 
