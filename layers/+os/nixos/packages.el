@@ -56,10 +56,10 @@
     (spacemacs/set-leader-keys-for-major-mode 'nix-mode
       "==" 'nix-format-buffer
       "f"  'nix-flake)
-    (when nixos-format-on-save
-      (add-hook 'before-save-hook 'nix-format-before-save))
     :config
-    (electric-indent-mode -1)))
+    (electric-indent-mode -1)
+    (when nixos-format-on-save
+      (add-hook 'nix-mode-hook #'nix-format-on-save-mode))))
 
 (defun nixos/init-nixos-options ()
   (use-package nixos-options :defer t))
