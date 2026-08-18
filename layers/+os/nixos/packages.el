@@ -50,7 +50,6 @@
 (defun nixos/init-nix-mode ()
   (use-package nix-mode
     :defer t
-    :mode "\\.nix\\'"
     :init
     (add-hook 'nix-mode-hook #'spacemacs//nix-setup-backend)
     (add-to-list 'spacemacs-indent-sensitive-modes 'nix-mode)
