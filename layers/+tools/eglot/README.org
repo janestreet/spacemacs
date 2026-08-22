@@ -33,10 +33,11 @@ A number of eglot features have been bound to the ~eglot--managed-mode~ minor mo
 meaning they are available in all language layers using the eglot layer under
 the major mode leader key ~SPC m~ / ~,~:
 
-These key bindings are selected to match with the [[../lsp/][+tools/lsp]] layer regarding
+These key bindings are selected to match with the [[file:../lsp/][+tools/lsp]] layer regarding
 similar functions.
 
 ** Format
+
 | Key binding | Description      |
 |-------------+------------------|
 | ~SPC m = b~ | Format buffer    |
@@ -44,6 +45,7 @@ similar functions.
 | ~SPC m = o~ | Organize imports |
 
 ** Code actions
+
 | Key binding | Description      |
 |-------------+------------------|
 | ~SPC m a a~ | Code actions     |
@@ -53,6 +55,7 @@ similar functions.
 | ~SPC m a o~ | Organize imports |
 
 ** Goto
+
 | Key binding | Description                   |
 |-------------+-------------------------------|
 | ~SPC m g d~ | Find definitions              |
@@ -64,6 +67,7 @@ similar functions.
 | ~SPC m g b~ | Go back                       |
 
 ** Backend
+
 | Key binding | Description   |
 |-------------+---------------|
 | ~SPC m b r~ | Reconnect     |
@@ -72,6 +76,7 @@ similar functions.
 | ~SPC m b S~ | Shutdown all  |
 
 ** Refactor
+
 | Key binding | Description      |
 |-------------+------------------|
 | ~SPC m r r~ | Rename           |
@@ -81,6 +86,7 @@ similar functions.
 | ~SPC m r f~ | Format           |
 
 ** Toggles
+
 | Key binding | Description        |
 |-------------+--------------------|
 | ~SPC m T h~ | Toggle inlay hints |
