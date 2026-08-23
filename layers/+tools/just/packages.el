@@ -41,6 +41,4 @@
 
 (defun just/init-just-ts-mode ()
   "Initialization for just-ts-mode (not referenced by another Spacemacs layer)"
-  (use-package just-ts-mode
-    :config
-    ))
+  (use-package just-ts-mode))

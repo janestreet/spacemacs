@@ -14,17 +14,13 @@ This layer adds [[https://just.systems/][just]] support.
 - Adds [[https://github.com/psibi/justl.el][justl]] and sets up ~SPC p j/J~.
 - Adds [[https://github.com/leon-barrett/just-ts-mode.el][just-ts-mode]] for syntax highlighting
 
-
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =just= to the existing =dotspacemacs-configuration-layers= list in this file.
 
 #+begin_src elisp
   (defun dotspacemacs/layers ()
-    dotspacemacs-configuration-layers '(
-                                        just
-                                        )
-    )
+    dotspacemacs-configuration-layers '(just))
 #+end_src
 
 * Shortcuts
