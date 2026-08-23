@@ -1,4 +1,4 @@
-;;; packages.el --- Just layer packages file for Spacemacs.
+;;; packages.el --- Just layer packages file for Spacemacs.  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (c) 2012-2026 Sylvain Benner & Contributors
 ;;
