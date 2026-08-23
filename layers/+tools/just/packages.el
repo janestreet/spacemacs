@@ -41,4 +41,5 @@
 
 (defun just/init-just-ts-mode ()
   "Initialization for just-ts-mode (not referenced by another Spacemacs layer)"
-  (use-package just-ts-mode))
+  (use-package just-ts-mode
+    :defer t))
