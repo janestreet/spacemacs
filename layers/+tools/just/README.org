@@ -1,7 +1,8 @@
 #+TITLE: Just layer
+
 #+TAGS: layer|tool
 
-* Table of Contents                                       :TOC_5_gh:noexport:
+* Table of Contents                     :TOC_5_gh:noexport:
 - [[#description][Description]]
   - [[#features][Features:]]
 - [[#install][Install]]
@@ -18,10 +19,10 @@ This layer adds [[https://just.systems/][just]] support.
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =just= to the existing =dotspacemacs-configuration-layers= list in this file.
 
-#+begin_src elisp
+#+BEGIN_SRC elisp
   (defun dotspacemacs/layers ()
     dotspacemacs-configuration-layers '(just))
-#+end_src
+#+END_SRC
 
 * Shortcuts
 

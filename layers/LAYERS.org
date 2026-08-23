@@ -3023,12 +3023,11 @@ Features:
 ** Just
 [[file:+tools/just/README.org][+tools/just/README.org]]
 
-This layer provides support for [[https://just.systems/][just]] through the [[https://github.com/psibi/justl.el][justl.el]] package.
+This layer adds [[https://just.systems/][just]] support.
 
-Features:recipe
-- Run the default recipe with ~SPC p j~
-- Select and run a recipe with ~SPC p J J~
-- List recipes with ~SPC p J l~
+Features:
+- Adds [[https://github.com/psibi/justl.el][justl]] and sets up ~SPC p j/J~.
+- Adds [[https://github.com/leon-barrett/just-ts-mode.el][just-ts-mode]] for syntax highlighting
 
 ** Kubernetes
 [[file:+tools/kubernetes/README.org][+tools/kubernetes/README.org]]
