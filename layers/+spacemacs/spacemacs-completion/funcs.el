@@ -158,8 +158,6 @@ See https://github.com/syl20bnr/spacemacs/issues/3700"
   "Switch in edit mode depending on the current helm buffer."
   (interactive)
   (cond
-   ((string-equal "*helm-ag*" helm-buffer)
-    (helm-ag-edit))
    ((string-equal "*helm find files*" helm-buffer)
     (spacemacs/helm-find-files-edit))
    ((string-equal "*Helm Swoop*" helm-buffer)

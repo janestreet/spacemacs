@@ -1940,7 +1940,6 @@ The choice of ~fd~ was made to be able to use the same sequence to escape from
 - quit undo-tree buffer
 - quit paradox
 - quit gist-list menu
-- quit helm-ag-edit
 - hide neotree buffer
 
 If you find yourself in a buffer where the Spacemacs (~SPC~) or Vim keybindings

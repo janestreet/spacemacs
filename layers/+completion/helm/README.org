@@ -25,9 +25,7 @@
   - [[#colorsfaces][Colors/Faces]]
   - [[#c-z-and-tab-switch][C-z and Tab switch]]
   - [[#helm-focus][Helm focus]]
-  - [[#helm-swoop][Helm-swoop]]
   - [[#universal-argument][Universal argument]]
-  - [[#replacing-text-in-several-files][Replacing text in several files]]
   - [[#resume-last-session][Resume last session]]
 - [[#external-resources][External resources]]
 
@@ -44,7 +42,6 @@ Mastering your choice of completion system will make you a Spacemacs power user.
 ** Features:
 - Project wide =grep= like text search via =helm-dir-smart-do-search=
 - Project wide text replacements using =helm-edit-mode=
-- Buffer wide dynamic text search via =helm-swoop=
 - Fuzzy matching for most =helm-sources=
 - Detailed configuration parameters for helms appearance
 - Intuitive =transient state=
@@ -226,37 +223,10 @@ makes sense to swap them. It's also recommended [[http://tuhdo.github.io/helm-in
 If you find yourself unable to return focus to Helm (after a careless
 mouse-click for example), use ~SPC w b~ to return focus to the minibuffer.
 
-** Helm-swoop
-[[https://github.com/ShingoFukuyama/helm-swoop][Helm-swoop]] is very similar to =moccur=, it displays a =helm= buffer with all the
-occurrences of the word under point. You can then change the search query in
-real-time and navigate between them easily.
-
-You can even edit the occurrences directly in the =helm= buffer and apply the
-modifications to the buffer.
-
-| Key binding | Description                    |
-|-------------+--------------------------------|
-| ~SPC s C~   | clear =helm-swoop= own cache   |
-| ~SPC s s~   | execute =helm-swoop=           |
-| ~SPC s S~   | execute =helm-multi-swoop=     |
-| ~SPC s C-s~ | execute =helm-multi-swoop-all= |
-
 ** Universal argument
 ~SPC u~ is not working before =helm-M-x= (~SPC SPC~). Instead, call =helm-M-x=
 first, select the command you want to run, and press ~C-u~ before pressing
 ~<return>~. For instance: ~SPC SPC org-reload C-u RET~
-
-** Replacing text in several files
-If you have =rg=, =ag=, or =ack= installed, replacing an occurrence of text
-in several files can be performed via [[https://github.com/syohex/emacs-helm-ag][helm-ag]].
-
-To replace all occurrences of =foo= with =bar= in your current project:
-- Initiate a search with ~SPC /~ (in a project)
-- Open =helm-ag-edit= with ~C-c C-e~
-- Go to an occurrence of =foo= and enter =iedit-mode= with ~SPC s e~
-- Change =foo= to =bar=
-- Save the modifications and leave =helm-ag-edit= with ~C-c C-c~
-- Alternatively, discard all changes and leave =helm-ag-edit= with ~C-c C-k~
 
 ** Resume last session
 Use ~SPC r l~ to resume the last helm session. For instance it is handy to

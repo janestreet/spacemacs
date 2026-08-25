@@ -172,35 +172,7 @@
 (defun spacemacs-editing/init-expand-region ()
   (use-package expand-region
     :defer t
-    :init (spacemacs/set-leader-keys "v" 'er/expand-region)
-    :config
-    ;; add search capability to expand-region
-    (when (configuration-layer/package-used-p 'helm-ag)
-      (define-advice er/prepare-for-more-expansions-internal (:around (f &rest args) helm-ag/prepare-for-more-expansions-internal)
-        (let* ((return-value (apply f args))
-               (new-msg (concat (car return-value)
-                                ", / to search in project, "
-                                "f to search in files, "
-                                "b to search in opened buffers"))
-               (new-bindings (cdr return-value)))
-          (cl-pushnew
-           '("/" (lambda ()
-                   (call-interactively
-                    'spacemacs/helm-project-smart-do-search-region-or-symbol)))
-           new-bindings)
-          (cl-pushnew
-           '("f" (lambda ()
-                   (call-interactively
-                    'spacemacs/helm-files-smart-do-search-region-or-symbol)))
-           new-bindings)
-          (cl-pushnew
-           '("b" (lambda ()
-                   (call-interactively
-                    'spacemacs/helm-buffers-smart-do-search-region-or-symbol)))
-           new-bindings)
-          (cons new-msg new-bindings)))
-      (setq expand-region-contract-fast-key "V"
-            expand-region-reset-fast-key "r"))))
+    :init (spacemacs/set-leader-keys "v" 'er/expand-region)))
 
 (defun spacemacs-editing/init-hexl ()
   (use-package hexl

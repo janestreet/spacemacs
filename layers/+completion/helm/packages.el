@@ -27,9 +27,6 @@
     auto-highlight-symbol
     bookmark
     helm
-    (helm-ag :location (recipe
-                        :fetcher github
-                        :repo "smile13241324/helm-ag"))
     helm-comint
     helm-descbinds
     (helm-ls-git :toggle (configuration-layer/layer-used-p 'git))
@@ -37,11 +34,6 @@
     helm-mode-manager
     helm-org
     helm-projectile
-    ;; FIXME Remove obsolete packages helm-swoop
-    ;; helm-ag etc. (see https://github.com/melpa/melpa/pull/9520)
-    (helm-swoop :location (recipe
-                           :fetcher github
-                           :repo "emacsattic/helm-swoop"))
     (helm-spacemacs-help :location local)
     helm-xref
     imenu
@@ -242,100 +234,6 @@
     :defer t
     :after helm))
 
-(defun helm/init-helm-ag ()
-  (use-package helm-ag
-    :defer t
-    :init
-    (setq helm-ag-use-grep-ignore-list t)
-    ;; This overrides the default C-s action in helm-projectile-switch-project
-    ;; to search using rg/ag/whatever instead of just grep
-    (with-eval-after-load 'helm-projectile
-      (define-key helm-projectile-projects-map
-                  (kbd "C-s") 'spacemacs/helm-projectile-grep)
-      ;; `spacemacs/helm-projectile-grep' calls:
-      ;; `spacemacs/helm-project-smart-do-search-in-dir'
-      ;; which needs to be an action.
-      ;; Delete the current action.
-      (helm-delete-action-from-source
-       "Grep in projects `C-s'" helm-source-projectile-projects)
-      (helm-add-action-to-source
-       "Search in projects `C-s'"
-       'spacemacs/helm-project-smart-do-search-in-dir
-       helm-source-projectile-projects))
-
-    (spacemacs/set-leader-keys
-      ;; helm-ag marks
-      "s`"  'helm-ag-pop-stack
-      ;; opened buffers scope
-      "sb"  'spacemacs/helm-buffers-smart-do-search
-      "sB"  '("smart-search buffers w/ input" .
-              spacemacs/helm-buffers-smart-do-search-region-or-symbol)
-      "sab" 'helm-do-ag-buffers
-      "saB" '("ag-search buffers w/ input" .
-              spacemacs/helm-buffers-do-ag-region-or-symbol)
-      "skb" 'spacemacs/helm-buffers-do-ack
-      "skB" '("ack-search buffers w/ input" .
-              spacemacs/helm-buffers-do-ack-region-or-symbol)
-      "srb" 'spacemacs/helm-buffers-do-rg
-      "srB" '("rg-search buffers w/ input" .
-              spacemacs/helm-buffers-do-rg-region-or-symbol)
-      ;; current file scope
-      "ss"  'spacemacs/helm-file-smart-do-search
-      "sS"  'spacemacs/helm-file-smart-do-search-region-or-symbol
-      "saa" 'helm-ag-this-file
-      "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
-      ;; files scope
-      "sf"  'spacemacs/helm-files-smart-do-search
-      "sF"  '("smart-search files w/ input" .
-              spacemacs/helm-files-smart-do-search-region-or-symbol)
-      "saf" 'helm-do-ag
-      "saF" '("ag-search files w/ input" .
-              spacemacs/helm-files-do-ag-region-or-symbol)
-      "skf" 'spacemacs/helm-files-do-ack
-      "skF" '("ack-search files w/ input" .
-              spacemacs/helm-files-do-ack-region-or-symbol)
-      "srf" 'spacemacs/helm-files-do-rg
-      "srF" '("rg-search files w/ input" .
-              spacemacs/helm-files-do-rg-region-or-symbol)
-      ;; current dir scope
-      "sd"  'spacemacs/helm-dir-smart-do-search
-      "sD"  '("smart-search dir w/ input" .
-              spacemacs/helm-dir-smart-do-search-region-or-symbol)
-      "sad" 'spacemacs/helm-dir-do-ag
-      "saD" 'spacemacs/helm-dir-do-ag-region-or-symbol
-      "skd" 'spacemacs/helm-dir-do-ack
-      "skD" 'spacemacs/helm-dir-do-ack-region-or-symbol
-      "srd" 'spacemacs/helm-dir-do-rg
-      "srD" 'spacemacs/helm-dir-do-rg-region-or-symbol
-      ;; current project scope
-      "/"   'spacemacs/helm-project-smart-do-search
-      "*"   'spacemacs/helm-project-smart-do-search-region-or-symbol
-      "sp"  'spacemacs/helm-project-smart-do-search
-      "sP"  '("smart-search project w/ input" .
-              spacemacs/helm-project-smart-do-search-region-or-symbol)
-      "sap" 'spacemacs/helm-project-do-ag
-      "saP" '("ag-search project w/ input" .
-              spacemacs/helm-project-do-ag-region-or-symbol)
-      "skp" 'spacemacs/helm-project-do-ack
-      "skP" '("ack-search project w/ input" .
-              spacemacs/helm-project-do-ack-region-or-symbol)
-      "srp" 'spacemacs/helm-project-do-rg
-      "srP" '("rg-search project w/ input" .
-              spacemacs/helm-project-do-rg-region-or-symbol))
-    :config
-    (advice-add 'helm-ag--save-results :after 'spacemacs//gne-init-helm-ag)
-    (evil-define-key 'normal helm-ag-map
-      (kbd dotspacemacs-leader-key) spacemacs-default-map)
-    (evilified-state-evilify-map helm-grep-mode-map
-      :mode helm-grep-mode
-      :bindings
-      (kbd "q") 'quit-window)
-    (evilified-state-evilify-map helm-ag-mode-map
-      :mode helm-ag-mode
-      :bindings
-      (kbd "gr") 'helm-ag--update-save-results
-      (kbd "q") 'quit-window)))
-
 (defun helm/init-helm-descbinds ()
   (use-package helm-descbinds
     :defer t
@@ -445,35 +343,6 @@
       "h p"   'helm-spacemacs-help-packages
       "h r"   'helm-spacemacs-help-docs
       "h t"   'helm-spacemacs-help-toggles)))
-
-(defun helm/init-helm-swoop ()
-  (use-package helm-swoop
-    :defer t
-    :init
-    (setq helm-swoop-split-with-multiple-windows t
-          helm-swoop-split-direction 'split-window-vertically
-          helm-swoop-split-window-function 'spacemacs/helm-swoop-split-window-function)
-
-    (defun spacemacs/helm-swoop-split-window-function (&rest args)
-      "Override to make helm settings (like `helm-split-window-default-side') work"
-      (let (;; current helm-swoop implemenatation prevents it from being used fullscreen
-            (helm-full-frame nil)
-            (pop-up-windows t))
-        (apply 'helm-default-display-buffer args)))
-
-    (defun spacemacs/helm-swoop-clear-cache ()
-      "Call `helm-swoop--clear-cache' to clear the cache"
-      (interactive)
-      (helm-swoop--clear-cache)
-      (message "helm-swoop cache cleaned."))
-
-    (spacemacs/set-leader-keys
-      "sC"    'spacemacs/helm-swoop-clear-cache
-      "ss"    'helm-swoop
-      "sS"    'helm-multi-swoop
-      "s C-s" 'helm-multi-swoop-all)
-
-    (evil-add-command-properties 'helm-swoop :jump t)))
 
 (defun helm/init-helm-xref ()
   (use-package helm-xref
