@@ -45,7 +45,6 @@
   - [[#try-spacemacs-without-modifying-my-existing-emacs-configuration][Try Spacemacs without modifying my existing Emacs configuration?]]
   - [[#try-the-default-spacemacs-config-without-modifying-my-existing-spacemacs][Try the default Spacemacs config without modifying my existing .spacemacs?]]
   - [[#make-copypaste-working-with-the-mouse-in-x11-terminals][Make copy/paste working with the mouse in X11 terminals?]]
-  - [[#use-helm-ag-to-search-only-in-files-of-a-certain-type][Use =helm-ag= to search only in files of a certain type?]]
   - [[#modify-spacemacs-documentation-look-space-doc-mode][Modify spacemacs documentation look (space-doc-mode)]]
 - [[#linux][Linux]]
   - [[#error-on-deleting-a-system-package][Error on deleting a system package]]
@@ -565,22 +564,6 @@ enable copying/pasting with the mouse. You need to add this line to your
 #+BEGIN_SRC emacs-lisp
   (xterm-mouse-mode -1)
 #+END_SRC
-
-** Use =helm-ag= to search only in files of a certain type?
-It is possible to restrict the scope of =helm-ag= to search only expressions in
-some specified file types. There are two ways of doing this, both by appending
-some expressions to the search input:
-- By using a regexp with =-G=, for instance =-G\.el$= will look for all files
-  ending with =.el= which are emacs-lisp files.
-- By using a flag like =--python= which should be self-explaining. The list of
-  available flags could be accessed from terminal with:
-
-  #+BEGIN_SRC shell
-    ag --list-file-types
-  #+END_SRC
-
-This is possible because =helm-ag= is treating the search input as command-line
-arguments of the =ag= program.
 
 ** Modify spacemacs documentation look (space-doc-mode)
 You can modify the list of visual enhancements applied by the =space-doc-mode=:
