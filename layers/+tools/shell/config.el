@@ -84,8 +84,8 @@ This is only applied to `term' and `ansi-term' modes.")
 These packages require dynamic module support in your Emacs, as
 well as cmake and libtool.  See the layer README for details.")
 
-(defvar shell-enable-ghostel-support
-  (and module-file-suffix (not (spacemacs/system-is-mswindows)))
+;; CR-someday azeng: Enable ghostel support once we can build it in jane.
+(defvar shell-enable-ghostel-support nil
   "If non-nil, enable the `ghostel' package.
 
 Requires libghostty to be installed on the system.")
