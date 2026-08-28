@@ -52,7 +52,6 @@
 (configuration-layer/lazy-install 'python :extensions '("\\(\\.py\\'\\)" python-mode) :interpreter '("python[0-9.]*" python-mode))
 (configuration-layer/lazy-install 'python :extensions '("\\(\\.pyx\\'\\|\\.pxd\\'\\|\\.pxi\\'\\)" cython-mode))
 (configuration-layer/lazy-install 'racket :extensions '("\\(\\.rkt[dl]?\\'\\)" racket-mode))
-(configuration-layer/lazy-install 'react :extensions '("\\(\\.jsx$\\)" react-mode))
 (configuration-layer/lazy-install 'ruby
   :extensions '("\\(\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'\\|Puppetfile\\)" ruby-mode))
 (configuration-layer/lazy-install 'rust :extensions '("\\(\\.rs\\|Cargo.lock\\|\\.cargo/config\\)\\'" rust-mode))
