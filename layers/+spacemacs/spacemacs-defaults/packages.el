@@ -407,14 +407,15 @@ un-modified buffer for recentf."
     (setq savehist-file (concat spacemacs-cache-directory "savehist")
           enable-recursive-minibuffers t ; Allow commands in minibuffers
           history-length 1000
-          savehist-additional-variables '(search-ring
-                                          regexp-search-ring
-                                          extended-command-history
-                                          kmacro-ring
-                                          log-edit-comment-ring)
           ;; We use an idle timer instead, as saving can cause
           ;; noticable delays with large histories.
           savehist-autosave-interval nil)
+    (dolist (v '(search-ring
+                 regexp-search-ring
+                 extended-command-history
+                 kmacro-ring
+                 log-edit-comment-ring))
+      (add-to-list 'savehist-additional-variables v))
     (savehist-mode t)
     (define-advice savehist-save
         (:around (orig &rest args) spacemacs//kill-ring-no-properties)
