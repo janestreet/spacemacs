@@ -242,12 +242,12 @@ whenever you start Emacs."
 
 (spacemacs|defc dotspacemacs-configuration-layers '(jane
                                                     auto-completion
+                                                    compleseus
                                                     emacs-lisp
-                                                    (ivy :variables ivy-initial-inputs-alist nil)
                                                     multiple-cursors
                                                     syntax-checking
-                                                    version-control
-                                                    treemacs)
+                                                    treemacs
+                                                    version-control)
   "List of configuration layers to load."
   '(repeat (choice symbol (cons symbol sexp)))
   'spacemacs-dotspacemacs-layers)

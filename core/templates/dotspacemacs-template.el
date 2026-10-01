@@ -41,15 +41,9 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      auto-completion
      ;; better-defaults
+     compleseus
      emacs-lisp
      ;; git
-
-     (ivy
-      :variables
-      ;; Start with an empty search rather than "^"
-      ivy-initial-inputs-alist nil
-      )
-
      ;; markdown
      multiple-cursors
      ;; org
