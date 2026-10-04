@@ -179,6 +179,7 @@ Needed to bypass keymaps set as text properties."
           'evilified-state--evilified-state-on-entry)
 
 ;; default key bindings for all evilified buffers
+(define-key evil-evilified-state-map (kbd dotspacemacs-leader-key) 'spacemacs-cmds)
 (define-key evil-evilified-state-map "/" 'evil-search-forward)
 (define-key evil-evilified-state-map ":" 'evil-ex)
 (define-key evil-evilified-state-map "h" 'evil-backward-char)
