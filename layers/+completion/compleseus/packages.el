@@ -410,6 +410,7 @@
 
     :config
     (define-key vertico-map (kbd "C-.") 'spacemacs/embark-select)
+    (define-key vertico-map (kbd "M-DEL") #'vertico-directory-delete-word)
     (when (spacemacs//support-hjkl-navigation-p)
       (define-key vertico-map (kbd "C-j") #'vertico-next)
       (define-key vertico-map (kbd "C-k") #'vertico-previous)
