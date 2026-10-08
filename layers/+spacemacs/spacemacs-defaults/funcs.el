@@ -836,8 +836,7 @@ Returns:
 (defun spacemacs/copy-file-path ()
   "Copy and show the file path of the current buffer.
 
-In Dired, the result will be the file path under cursor if any,
-otherwise the listed directory's path."
+In Dired, the result will be the path of the file under cursor."
   (interactive)
   (if-let* ((file-path (or (spacemacs--file-path)
                            (and (derived-mode-p 'dired-mode)

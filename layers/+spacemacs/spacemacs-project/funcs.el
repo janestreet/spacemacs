@@ -83,9 +83,16 @@ ones created by `magit' and `dired'."
     (message "WARNING: Current buffer does not have a directory!")))
 
 (defun spacemacs/projectile-copy-file-path ()
-  "Copy and show the file path relative to project root."
+  "Copy and show the file path relative to project root.
+
+In Dired, the result will be the path of the file under cursor."
   (interactive)
-  (if-let* ((file-path (spacemacs--projectile-file-path)))
+  (if-let* ((file-path
+             (or (spacemacs--projectile-file-path)
+                 (and-let* (((derived-mode-p 'dired-mode))
+                            (file-name (dired-get-filename nil t)))
+                   (file-relative-name (file-truename file-name)
+                                       (projectile-project-root))))))
       (progn
         (kill-new file-path)
         (message "%s" file-path))
