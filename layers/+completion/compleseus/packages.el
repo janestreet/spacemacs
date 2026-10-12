@@ -393,6 +393,10 @@
     ;; Enable recursive minibuffers
     (setq enable-recursive-minibuffers t)
 
+    ;; Extra key bindings for file-name prompts, e.g. ` to find a file in any
+    ;; subdirectory.
+    (add-hook 'minibuffer-setup-hook #'compleseus//setup-file-prompt)
+
     ;; when vertico is used set this so tab when doing M-: will show suggestions
     ;; https://github.com/minad/vertico/issues/24
     (setq-default completion-in-region-function
