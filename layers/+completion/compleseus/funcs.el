@@ -150,6 +150,79 @@ This solves the problem: Binding a key to: `find-file' calls: `ido-find-file'"
   (interactive)
   (call-interactively 'find-file))
 
+(defun spacemacs/compleseus-find-file-below ()
+  "Find a file anywhere below the directory in the current file-name prompt.
+
+Like ivy's `counsel-file-jump', list all files below the directory
+typed so far with fd (or find, if fd is not installed), and filter
+them with `completing-read' using the rest of the input as the initial
+query.
+
+In the search prompt, \\``' returns to the original prompt with the
+search query in place of the file name."
+  (interactive)
+  (let* ((typed-dir (or (file-name-directory (minibuffer-contents)) ""))
+         (input (substitute-in-file-name (minibuffer-contents)))
+         (default-directory
+          (expand-file-name (or (file-name-directory input) default-directory)))
+         (fd (or (executable-find "fdfind" t) (executable-find "fd" t)))
+         (files (with-delayed-message
+                    (0.5 (format "Listing files below %s..."
+                                 (abbreviate-file-name default-directory)))
+                  (with-temp-buffer
+                    ;; `process-file' runs on the remote host over TRAMP.
+                    ;; Discard stderr, so errors don't become candidates.
+                    (if fd
+                        (process-file fd nil '(t nil) nil "--color=never")
+                      (process-file "find" nil '(t nil) nil "." "-mindepth" "1"))
+                    (mapcar (lambda (file) (string-remove-prefix "./" file))
+                            (split-string (buffer-string) "\n" t)))))
+         (completion-category-overrides
+          ;; These are files, but unlike `find-file' which completes
+          ;; per-component, fall back to `completion-styles'.  (See
+          ;; `completion-category-overrides' in packages.el).
+          (cons '(file (styles)) completion-category-overrides))
+         (table (lambda (string pred action)
+                  (if (eq action 'metadata)
+                      '(metadata (category . file))
+                    (complete-with-action action files string pred))))
+         (resume-outer-prompt nil)
+         (result
+          (minibuffer-with-setup-hook
+              (:append (lambda ()
+                         (use-local-map
+                          (make-composed-keymap
+                           (define-keymap
+                             ;; `exit-minibuffer' returns the query, skipping
+                             ;; the require-match check.
+                             "`" (lambda ()
+                                   (interactive)
+                                   (setq resume-outer-prompt t)
+                                   (exit-minibuffer)))
+                           (current-local-map)))))
+            (completing-read (format "Find below %s: "
+                                     (abbreviate-file-name default-directory))
+                             table nil t (file-name-nondirectory input)))))
+    (delete-minibuffer-contents)
+    (insert typed-dir result)
+    (unless resume-outer-prompt (exit-minibuffer))))
+
+(defvar-keymap compleseus-file-prompt-map
+  :doc "Keymap active in file-name prompts, in addition to `vertico-map'."
+  "`" #'spacemacs/compleseus-find-file-below)
+
+(defun compleseus//setup-file-prompt ()
+  "Activate `compleseus-file-prompt-map' in file-name prompts."
+  ;; `minibuffer-completing-file-name' is non-nil when completing a file name.
+  ;;
+  ;; A comment in minibuffer.el calls it internal-ish, but keeps it non-obsolete
+  ;; for the sake of `rfn-eshadow-setup-minibuffer', and mentions that checking
+  ;; `minibuffer-completion-table' against `read-file-name-internal' is
+  ;; "probably even worse".  For now, it's the least-bad API to rely on.
+  (when minibuffer-completing-file-name
+    (use-local-map (make-composed-keymap compleseus-file-prompt-map
+                                         (current-local-map)))))
+
 ;; persp-mode stuff
 (defun spacemacs/compleseus-spacemacs-layout-layouts ()
   (interactive)

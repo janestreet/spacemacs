@@ -104,3 +104,4 @@ disk.
 | ~C-SPC~     | Preview candidate                                                             |
 | ~M-P~       | Toggle previewing on for compleseus functions (requires rerunning the search) |
 | ~M-DEL~     | Delete last path component (in file prompts)                                  |
+| ~`~         | Find a file in any subdirectory of the current directory (in file prompts)    |
