@@ -601,7 +601,6 @@ respond to this toggle."
 (spacemacs/set-leader-keys
   "qs" 'spacemacs/prompt-kill-emacs
   "qq" 'spacemacs/prompt-kill-emacs
-  "qQ" 'spacemacs/kill-emacs
   "qf" 'spacemacs/frame-killer)
 ;; timeclock ------------------------------------------------------------------
 (spacemacs/set-leader-keys
