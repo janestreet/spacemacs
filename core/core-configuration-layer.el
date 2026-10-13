@@ -636,6 +636,7 @@ To prevent package from being installed or uninstalled set the variable
   (configuration-layer/load-auto-layer-file)
   ;; install and/or uninstall packages
   (when spacemacs-sync-packages
+    (configuration-layer//delete-packages-shadowing-built-ins)
     (let ((packages
            (append
             ;; install used packages
@@ -1933,8 +1934,17 @@ RNAME is the name symbol of another existing layer."
                  (or (and pkg
                           (package-built-in-p x)
                           (not (eq 'built-in (oref pkg location)))
-                          (not (assq x package-alist)))
+                          (not (assq x package-alist))
+                          (not (configuration-layer//prefer-built-in-p pkg x)))
                      (not (package-installed-p x min-version)))))))
+
+(defun configuration-layer//prefer-built-in-p (pkg pkg-name)
+  "Return non-nil if the built-in PKG-NAME should be used instead of
+installing PKG from ELPA, because no archive offers a newer version."
+  (and (eq 'elpa (oref pkg location))
+       (let ((pkg-arch (cadr (assq pkg-name package-archive-contents))))
+         (or (null pkg-arch)
+             (package-built-in-p pkg-name (package-desc-version pkg-arch))))))
 
 (defun configuration-layer//get-package-recipe (pkg-name)
   "Return the recipe for PKG-NAME if it has one."
@@ -2531,6 +2541,26 @@ Return nil when the package is built-in, and no other version is installed."
       (message "Would have removed package %s but this is a system package so it has not been changed."
                (package-desc-name pkg-desc))
     (package-delete pkg-desc t t)))
+
+(defun configuration-layer//delete-packages-shadowing-built-ins ()
+  "Delete installed packages that are not newer than the built-in version
+and would not be reinstalled, so that the built-in version is used instead."
+  (let (pkg-descs)
+    (dolist (pkg package-alist)
+      (let* ((pkg-name (car pkg))
+             (cfgl-pkg (configuration-layer/get-package pkg-name)))
+        (when (and cfgl-pkg
+                   (not (memq pkg-name dotspacemacs-frozen-packages))
+                   (configuration-layer//prefer-built-in-p cfgl-pkg pkg-name))
+          (dolist (pkg-desc (cdr pkg))
+            (when (and (not (configuration-layer//system-package-p pkg-desc))
+                       (package-built-in-p pkg-name (package-desc-version pkg-desc)))
+              (push pkg-desc pkg-descs))))))
+    (when pkg-descs
+      (configuration-layer//delete-packages
+       pkg-descs
+       "Deleting packages shadowing built-in packages..."
+       "Found %s package(s) shadowing built-in package(s) to delete...\n"))))
 
 (defun configuration-layer/delete-orphan-packages (packages &optional include-system)
   "Delete PACKAGES if they are orphan.
