@@ -2554,27 +2554,35 @@ have no need or power to remove)."
                       (configuration-layer//get-orphan-packages
                        packages
                        implicit-packages
-                       dependencies)))
-         (orphans-count (length orphans))
-         deleted-count)
+                       dependencies))))
     (if orphans
-        (progn
-          (spacemacs-buffer/set-mode-line "Uninstalling unused packages..." t)
-          (spacemacs-buffer/append
-           (format "Found %s orphan package(s) to delete...\n"
-                   orphans-count))
-          (setq deleted-count 0)
-          (dolist (orphan orphans)
-            (setq deleted-count (1+ deleted-count))
-            (spacemacs-buffer/replace-last-line
-             (format "--> deleting %s... [%s/%s]"
-                     (package-desc-name orphan)
-                     deleted-count
-                     orphans-count) t)
-            (configuration-layer//package-delete orphan)
-            (spacemacs//redisplay))
-          (spacemacs-buffer/append "\n"))
+        (configuration-layer//delete-packages
+         orphans
+         "Uninstalling unused packages..."
+         "Found %s orphan package(s) to delete...\n")
       (spacemacs-buffer/message "No orphan package to delete."))))
+
+(defun configuration-layer//delete-packages (pkg-descs mode-line-message found-message)
+  "Delete PKG-DESCS, reporting progress in the Spacemacs buffer.
+
+MODE-LINE-MESSAGE is shown in the mode line while deleting.
+FOUND-MESSAGE is a format string taking the number of packages to
+delete, appended to the Spacemacs buffer before deleting."
+  (let ((count (length pkg-descs))
+        (deleted-count 0))
+    (spacemacs-buffer/set-mode-line mode-line-message t)
+    (spacemacs-buffer/append (format found-message count))
+    (dolist (pkg-desc pkg-descs)
+      (cl-incf deleted-count)
+      (spacemacs-buffer/replace-last-line
+       (format "--> deleting %s... [%s/%s]"
+               (package-desc-name pkg-desc)
+               deleted-count
+               count)
+       t)
+      (configuration-layer//package-delete pkg-desc)
+      (spacemacs//redisplay))
+    (spacemacs-buffer/append "\n")))
 
 (defun configuration-layer//gather-auto-mode-extensions (mode)
   "Return a regular expression matching all the extensions associated to MODE.
