@@ -213,10 +213,7 @@ defer call using `spacemacs-post-user-config-hook'."
            gc-cons-percentage (cadr dotspacemacs-gc-cons))))
 
   ;; Byte-compile or clean up core libs as needed.
-  (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory)
-
-  ;; Check if Spacemacs revision has changed.
-  (spacemacs//revision-check))
+  (spacemacs//remove-byte-compiled-files-in-dir spacemacs-core-directory))
 
 ;; Provide the core-spacemacs feature for require.
 (provide 'core-spacemacs)
