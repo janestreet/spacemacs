@@ -505,7 +505,8 @@
 (defun compleseus/pre-init-savehist ()
   (spacemacs|use-package-add-hook savehist
     :post-config
-    (add-to-list 'savehist-additional-variables '(vertico-repeat-history . 50))))
+    (add-to-list 'savehist-additional-variables '(vertico-repeat-history . 50))
+    (add-to-list 'savehist-additional-variables 'compleseus--last-search-directory)))
 
 (defun compleseus/init-nerd-icons-completion ()
   (use-package nerd-icons-completion

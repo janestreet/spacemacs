@@ -50,12 +50,24 @@ return the empty string."
     (or (and force-input (thing-at-point 'symbol t))
         "")))
 
+(defvar compleseus--last-search-directory nil
+  "The directory chosen in the last `spacemacs/compleseus-search' prompt.")
+
 (defun spacemacs/compleseus-search (force-initial-input initial-directory)
   (let* ((initial-input (regexp-quote
                          (spacemacs/initial-search-input force-initial-input)))
          (default-directory
-          (or initial-directory (read-directory-name "Start from directory: "))))
+          (or initial-directory
+              (prog1 (setq compleseus--last-search-directory
+                           (read-directory-name "Start from directory: "))
+                ;; Otherwise `vertico-repeat' records the search as `vertico-exit'.
+                (setq this-command #'spacemacs/compleseus-search-last-directory)))))
     (consult-ripgrep default-directory initial-input)))
+
+(defun spacemacs/compleseus-search-last-directory ()
+  "Search `compleseus--last-search-directory' without prompting."
+  (interactive)
+  (spacemacs/compleseus-search nil compleseus--last-search-directory))
 
 (defun spacemacs/consult-line ()
   (interactive)
