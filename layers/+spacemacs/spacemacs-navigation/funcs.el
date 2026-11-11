@@ -309,9 +309,9 @@ in the window where the Symbol Highlight Transient State was closed."
          (color (cddr keyword))
          (x/y (format "[%s/%s]" (+ count 1) (+ count (length after)))))
     (concat
-     (propertize (format " %s " scope) 'face color))
-    (propertize (format " %s " x/y) 'face
-                `(:foreground "#ffffff" :background "#000000"))))
+     (propertize (format " %s " scope) 'face color)
+     (propertize (format " %s " x/y) 'face
+                 `(:foreground "#ffffff" :background "#000000"))))
 
 (defun spacemacs//symbol-overlay-ts-doc ()
   (spacemacs//transient-state-make-doc

@@ -134,3 +134,27 @@
   (let* ((input '(dummy :prop1 sym1 sym2 sym3 :prop2 sym4 sym5 :prop1 sym6))
          (result (spacemacs/mplist-remove input :prop1)))
     (should (equal '(dummy :prop2 sym4 sym5 :prop1 sym6) result))))
+
+;; ---------------------------------------------------------------------------
+;; spacemacs/alternate-buffer
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-spacemacs-alternate-buffer--layout-restriction-disabled ()
+  (let ((spacemacs-layouts-restrict-spc-tab nil)
+        (spacemacs-useful-buffers-restrict-spc-tab nil)
+        result)
+    (cl-letf (((symbol-function 'window-buffer)
+               (lambda (&optional _window) 'bar))
+              ((symbol-function 'window-prev-buffers)
+               (lambda (&optional _window) '((foo 17 3))))
+              ((symbol-function 'set-window-buffer-start-and-point)
+               (lambda (_window buffer start point)
+                 (setq result (list buffer start point))))
+              ((symbol-function 'previous-buffer)
+               (lambda (&rest _)
+                 (ert-fail "Should not use previous-buffer")))
+              ((symbol-function 'persp-buffer-list)
+               (lambda (&rest _)
+                 (ert-fail "Should not restrict the buffer list"))))
+      (spacemacs/alternate-buffer)
+      (should (equal result '(foo 17 3)))))
