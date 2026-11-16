@@ -33,11 +33,11 @@
 ;; Variables
 (defvar shell-default-shell (if (spacemacs/system-is-mswindows)
                                 'eshell
-                              'ansi-term)
+                              'eat)
   "Default shell to use in Spacemacs.
 
-Possible values are `ansi-term' (default for Linux/macOS),
-`eshell' (default for windows), `ghostel', `shell', `term', `eat',
+Possible values are `eat' (default for Linux/macOS),
+`eshell' (default for windows), `ansi-term', `ghostel', `shell', `term',
 `vterm', `multi-term' and `multi-vterm'.")
 
 (spacemacs|defc shell-default-position 'bottom
