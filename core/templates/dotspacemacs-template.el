@@ -42,17 +42,27 @@ This function should only modify configuration layer settings."
      auto-completion
      ;; better-defaults
      compleseus
+     csv
      emacs-lisp
      ;; git
-     ;; markdown
+     html
+     javascript
+     json
+     lua
+     markdown
      multiple-cursors
      ;; org
+     protobuf
      python
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
+     shell-scripts
      ;; spell-checking
+     sql
      syntax-checking
+     toml
+     typescript
      version-control
      treemacs)
 
