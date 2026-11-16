@@ -25,10 +25,11 @@
 
 (spacemacs|define-jump-handlers js2-mode)
 
-(defvar javascript-backend (if (configuration-layer/layer-used-p 'lsp) 'lsp 'tern)
+(defvar javascript-backend (and (configuration-layer/layer-used-p 'lsp) 'lsp)
   "The backend to use for IDE features.
 Possible values are `tern', `tide' and `lsp'.
-If `nil' then `tern' is the default backend unless `lsp' layer is used.")
+The default is `lsp' if the `lsp' layer is used, and `nil' (no backend)
+otherwise.")
 
 (defvar javascript-fmt-tool 'web-beautify
   "The formatter to format a JavaScript file. Possible values are `web-beautify' and `prettier'.")
