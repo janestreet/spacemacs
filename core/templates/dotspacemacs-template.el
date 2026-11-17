@@ -41,6 +41,7 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      auto-completion
      ;; better-defaults
+     c-c++
      compleseus
      csv
      emacs-lisp
