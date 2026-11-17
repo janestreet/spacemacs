@@ -52,7 +52,7 @@ This function should only modify configuration layer settings."
      lua
      markdown
      multiple-cursors
-     ;; org
+     org
      protobuf
      python
      rust
