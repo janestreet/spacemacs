@@ -56,7 +56,8 @@
     (gendoxy :location (recipe
                         :fetcher github
                         :repo "cormacc/gendoxy"
-                        :branch "provides"))
+                        :branch "provides")
+             :excluded t)
     (ycmd :toggle (eq c-c++-backend 'ycmd))))
 
 (defun c-c++/init-gendoxy ()
