@@ -387,9 +387,6 @@
     ;; cleans ~/foo/bar/// to /, and ~/foo/bar/~/ to ~/.
     (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
 
-    ;; Enable recursive minibuffers
-    (setq enable-recursive-minibuffers t)
-
     ;; Extra key bindings for file-name prompts, e.g. ` to find a file in any
     ;; subdirectory.
     (add-hook 'minibuffer-setup-hook #'compleseus//setup-file-prompt)
