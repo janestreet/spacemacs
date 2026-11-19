@@ -212,9 +212,10 @@ search query in place of the file name."
                                    (setq resume-outer-prompt t)
                                    (exit-minibuffer)))
                            (current-local-map)))))
-            (completing-read (format "Find below %s: "
-                                     (abbreviate-file-name default-directory))
-                             table nil t (file-name-nondirectory input)))))
+            (let ((enable-recursive-minibuffers t))
+              (completing-read (format "Find below %s: "
+                                       (abbreviate-file-name default-directory))
+                               table nil t (file-name-nondirectory input))))))
     (delete-minibuffer-contents)
     (insert typed-dir result)
     (unless resume-outer-prompt (exit-minibuffer))))
